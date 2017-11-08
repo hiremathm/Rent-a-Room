@@ -1,0 +1,2 @@
+module AmenityRoomsHelper
+end

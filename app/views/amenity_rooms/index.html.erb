@@ -1,0 +1,35 @@
+
+<!-- <p id="notice"><%= notice %></p>
+ -->
+ <h1>Listing Amenity Rooms</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Room</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @amenity_rooms.each do |amenity_room| %>
+      <tr>
+        <td><%= amenity_room.room_id %></td>
+        <td><%= link_to 'Show', amenity_room %></td>
+        <% if user_signed_in?  %>
+          <% if can? :update, amenity %>
+            <td><%= link_to 'Edit', edit_amenity_room_path(amenity_room) %></td>
+          <% end %>
+          <% if can? :destroy, amenity %>
+            <td><%= link_to 'Destroy', amenity_room, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <% end %>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+<% if user_signed_in? %>
+<%= link_to 'New Amenity room', new_amenity_room_path %>
+<% end %>

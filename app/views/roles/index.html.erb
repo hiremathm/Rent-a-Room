@@ -1,0 +1,34 @@
+<!-- <p id="notice"><%= notice %></p>
+ -->
+<h1>Listing Roles</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @roles.each do |role| %>
+      <tr>
+        <td><%= role.name %></td>
+        <td><%= link_to 'Show', role %></td>
+      <% if user_signed_in? %>
+        <% if can? :update, role %>
+          <td><%= link_to 'Edit', edit_role_path(role) %></td>
+        <% end %>
+        <% if can? :destroy, role %>
+          <td><%= link_to 'Destroy', role, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
+      <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+<% if user_signed_in? && (can? :create, Role.new)%>
+  <%= link_to 'New Role', new_role_path %>
+<% end %>

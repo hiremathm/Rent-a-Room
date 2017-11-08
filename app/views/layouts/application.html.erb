@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>RentRoom</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+<style>
+.btn {
+    border: none;
+    color: white;
+    padding: 14px 28px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.success {background-color: #4CAF50;} /* Green */
+.success:hover {background-color: hsla(0, 100%, 30%, 0.3);}
+
+.info {background-color: rgb(0,0,255);opacity:0.6;} /* Blue */
+.info:hover {background: rgb(255, 99, 71)}
+
+.warning {background-color: #ff9800;} /* Orange */
+.warning:hover {background: hsla(120, 60%, 70%, 0.3);}
+
+/*.danger {background-color: #f44336;}  Red  
+.danger:hover {background: #da190b;}
+*/
+.default {background-color: #555555;float: right} /* Gray */ 
+.default:hover {background: #ddd;}
+
+.welcome {background-color: hsla(0, 100%, 50%, 0.3); float: right}
+.wecome:hover {background: rgba(0, 255, 0, 0.3);}
+
+.old {background-color: #f55447; float: right}
+.old:hover {background: #ccc;}
+
+.new {background-color: #e4433f;float: right}
+.new:hover {background: #aaa;}
+
+.middle {background-color: #e7e7e7; float: right}
+.middle:hover {background: #008CBA;}
+
+
+</style>
+</head>
+<body>
+<button class="btn success"><%= link_to "Rooms", rooms_path%></button>
+<button class="btn info"><%= link_to "Cities", cities_path %></button>
+<button class="btn warning"><%= link_to "Amenities", amenities_path %></button>
+<%#= link_to "Amenities_Rooms", amenity_rooms_path %>  <%#= link_to "Roles", roles_path %>
+
+
+<% if user_signed_in? %> 
+	<button class="btn welcome">Welcome : <%= current_user.username %>(<%= current_user.role.name %>)</button>
+	<button class="btn default"><%= link_to "Account Setting", edit_user_registration_path %></button>
+	 <button class="btn old"><%= link_to "Logout", destroy_user_session_path, method: :delete %></button>
+<% else %>
+  <button class="btn new"><%= link_to "Login", new_user_session_path %></button>
+  <button class="btn middle", ><%= link_to "Register", new_user_registration_path %></button>
+<% end %>
+<p class="notice"><%= notice %></p>
+       <p class="alert"><%= alert %></p>
+
+<%= yield %>
+
+</body>
+</html>

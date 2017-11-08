@@ -1,0 +1,10 @@
+<!-- <p id="notice"><%= notice %></p>
+ -->
+<p>
+  <strong>Room:</strong>
+  <%= @amenity_room.room_id %>
+</p>
+<% if user_signed_in? && (can? :update, amenity)%>
+	<%= link_to 'Edit', edit_amenity_room_path(@amenity_room) %> 
+<% end %>
+|<%= link_to 'Back', amenity_rooms_path %>
