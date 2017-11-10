@@ -33,22 +33,25 @@
   </div>
   <div class="field">
     <%= f.label :images %><br>
-    <%= f.text_field :images %>
+    <%= f.file_field :images %>
   </div>
-  <div class="field">
+  <!-- <div class="field">
     <%= f.label :latitude %><br>
     <%= f.text_field :latitude %>
   </div>
   <div class="field">
     <%= f.label :longitude %><br>
     <%= f.text_field :longitude %>
-  </div>
+  </div> -->
   <div class="field">
-    <%= f.label :city_id %><br>
-    <%= f.text_field :city_id %>
+    <%= f.collection_select :city_id, City.all , :id , :name, prompt: "Select City" %><br>
   </div>
   
-  <div class="actions">
+  <div class="field">
+        <%= f.label :Amenities %><br>
+        <%#= f.collection_check_boxes :course_ids, Course.all, :id, :name %>
+        <%= f.collection_check_boxes :amenity_ids, Amenity.all, :id, :name %>
+  </div>
     <%= f.submit %>
   </div>
 <% end %>

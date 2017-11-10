@@ -1,6 +1,6 @@
 class City < ActiveRecord::Base
 
-	has_many :cities
+	has_many :rooms
 
 	validates_presence_of :name
 	
