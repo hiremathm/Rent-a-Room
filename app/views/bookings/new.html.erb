@@ -1,0 +1,9 @@
+<% if @book.errors.any? %>
+      <p>These are the validations failed</p>
+      <ul>
+        <% @book.errors.full_messages.each do |msg| %>
+          <li><%= msg%></li>
+        <% end %>
+      </ul>
+  <% end %>
+  

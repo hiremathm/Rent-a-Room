@@ -1,0 +1,7 @@
+	<% if @r.empty? %>
+		<h1>no room</h1>
+	<% else %>
+		<% @r.each do |room| %>
+			<%= link_to room.name, room_path(room.id) %>
+		<% end %>
+	<% end %>

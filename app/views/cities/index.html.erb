@@ -5,7 +5,7 @@
 <% if user_signed_in? && (can? :create, City.new)%>
 <%= link_to 'New City', new_city_path %>
 <% end %>
-
+<%= will_paginate @cities %>
 <table>
   <thead>
     <tr>
@@ -31,4 +31,4 @@
     <% end %>
   </tbody>
 </table>
-<%= will_paginate @cities %>
+

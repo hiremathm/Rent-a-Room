@@ -1,7 +1,7 @@
 <!-- <p id="notice"><%= notice %></p>
  -->
 <h1>Listing Rooms</h1>
-
+<%= will_paginate @rooms %>
 <table>
   <thead>
     <tr>
@@ -13,8 +13,9 @@
   </thead>
 
   <tbody>
-    <% @rooms.each do |room| %>
+    <% @roomarray.each do |room| %>
       <tr>
+      <%# if room.is_authorized == "false" %>
         <td><%= link_to room.name, room %></td>
         <td><%= room.city.name %></td>
         <td><%= room.user.username %></td>
@@ -28,6 +29,7 @@
                   <td><%= link_to 'Destroy', room, method: :delete, data: { confirm: 'Are you sure?' } %></td>
               <% #end %>
         <%# end %> -->
+        <%# end %>
       </tr>
     <% end %>
   </tbody>

@@ -1,11 +1,22 @@
 Rails.application.routes.draw do
   resources :pets
-  resources :rooms
+
+  get 'rooms/authorize'
+  get 'rooms/my_rooms'
+  resources :rooms do 
+    post 'authorize'
+    post 'my_rooms'
+  end
   resources :amenity_rooms
   resources :amenities
   resources :cities
   resources :roles
   devise_for :users
+
+  get 'bookings/confirmation'
+  resources :bookings do
+   post 'confirmation'
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

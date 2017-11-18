@@ -1,19 +1,19 @@
 class RoomsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   load_and_authorize_resource
-
   before_action :set_room, only: [:show, :edit, :update, :destroy]
 
   # GET /rooms
   # GET /rooms.json
   def index
-    @rooms = Room.all
-    #@rooms = Room.paginate(:page => params[:page])
+    @roomarray = Room.where(is_authorized: true)
+    @rooms = Room.paginate(:page => params[:page], :per_page => 20)
   end
 
   # GET /rooms/1
   # GET /rooms/1.json
   def show
+    @booking = Booking.new
   end
 
   # GET /rooms/new
@@ -64,7 +64,15 @@ class RoomsController < ApplicationController
       format.json { head :no_content }
     end
   end
+  def authorize
+    @room = Room.where('is_authorized = ?', false)
+  end
 
+  def my_rooms
+
+    @r = current_user.rooms
+  
+  end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_room
@@ -74,6 +82,6 @@ class RoomsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def room_params
       params.require(:room).permit(:name, :description, :price, :rules, 
-        :address, :images, :latitude, :longitude, :city_id, :user_id, amenity_ids:[])
+        :address, :images, :latitude, :longitude, :city_id, :user_id, :is_authorized, amenity_ids:[])
     end
 end

@@ -56,7 +56,39 @@
   </ol>
 <p>
 
+
 <% if user_signed_in? && (can? :update, @room) %>
 <%= link_to 'Edit', edit_room_path(@room) %>
 <% end %>
-|<%= link_to 'Back', rooms_path %>
+
+<%= link_to 'Back', rooms_path %>
+
+<h2> You can book room here</h2>
+<%= form_for @booking do |f| %>
+  <% if @booking.errors.any? %>
+      <p>These are the validations failed</p>
+      <ul>
+        <% @booking.errors.full_messages.each do |msg| %>
+          <li><%= msg%></li>
+        <% end %>
+      </ul>
+  <% end %>
+  
+
+  <div>
+    <%= f.label :Start_date %>
+    <%= f.date_select :start_date %>
+  </div>
+  <div>
+    <%= f.label :End_date %>
+    <%= f.date_select :end_date %>
+  </div>
+   
+    <%= f.hidden_field :room_id, value: @room.id %>
+
+    <%#= f.hidden_field :price, value: @room.price %> 
+    
+    <%= f.submit "BOOK ROOM" %>
+    
+<% end %>
+

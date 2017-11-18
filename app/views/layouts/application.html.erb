@@ -67,6 +67,16 @@ float: right} /* Gray */
     border: 2px solid #ddffaa;float: right}
 .middle:hover {background-color: #008CBA;}
 
+.authorize {background-color: white;
+    color: black;
+    border: 2px solid #ddffaa;float: right}
+.authorize:hover {background-color: #008CBA;}
+
+.my_rooms {background-color: white;
+    color: black;
+    border: 2px solid #ddffaa;}
+.my_rooms:hover {background-color: #008CBA;}
+
 
 </style>
 </head>
@@ -76,11 +86,18 @@ float: right} /* Gray */
 <button class="btn warning"><%= link_to "Amenities", amenities_path %></button>
 <%#= link_to "Amenities_Rooms", amenity_rooms_path %>  <%#= link_to "Roles", roles_path %>
 
+<% if user_signed_in? && current_user.role.name == "host"%>
+<button class="btn authorize"><%= link_to "Unconfirmed bookings", bookings_confirmation_path %></button>
+<% end %>
 
+<% if user_signed_in? && current_user.role.name == "admin" %>
+  <button class="btn authorize"><%= link_to "Unauthorized rooms", rooms_authorize_path %></button>
+<% end %>
 <% if user_signed_in? %> 
 	<button class="btn welcome">Welcome : <%= current_user.username %>(<%= current_user.role.name %>)</button>
 	<button class="btn default"><%= link_to "Account Setting", edit_user_registration_path %></button>
-	 <button class="btn old"><%= link_to "Logout", destroy_user_session_path, method: :delete %></button>
+	<button class="btn old"><%= link_to "Logout", destroy_user_session_path, method: :delete %></button>
+  <button class="btn my_rooms"><%= link_to "My Rooms", rooms_my_rooms_path %></button>
 <% else %>
   <button class="btn new"><%= link_to "Login", new_user_session_path %></button>
   <button class="btn middle", ><%= link_to "Register", new_user_registration_path %></button>
