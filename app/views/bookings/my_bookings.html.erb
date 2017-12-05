@@ -1,0 +1,26 @@
+<a href="/rooms" style="float:left;"><img src="/61972.png" width=30px;height=30px;></a>
+<br><br>
+
+<h2>Your Bookings</h2>
+	<% if @bookings.empty? %>
+		<p>You have not done any booking yet,,,,</p>
+	<% else %>
+		<table border="1">
+		<tr>
+			<th>Name</th>
+			<th>Start-Date</th>
+			<th>End-Date</th>
+			<th>Price</th>
+			<th>Approved</th>
+		</tr>
+		<% @bookings.each do |book| %>
+			<tr>
+				<td><%= link_to book.room.name, room_path(book.room.id) %></td>
+				<td> <%= book.start_date %></td>
+				<td><%= book.end_date %></td>
+				<td><%= book.price %></td>
+				<td><% if book.is_confirmed? %>Yes<% else %>No<% end %></td>
+			<tr>
+		<% end %>
+		</table>
+	<% end %>

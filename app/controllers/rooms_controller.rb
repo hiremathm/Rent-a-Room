@@ -6,15 +6,17 @@ class RoomsController < ApplicationController
   # GET /rooms
   # GET /rooms.json
   def index
-    @roomarray = Room.where(is_authorized: true)
-    @rooms = Room.paginate(:page => params[:page], :per_page => 20)
+    @roomarray = Room.all
+    @roomarray = Room.paginate(:page => params[:page], :per_page => 5)
   end
 
   # GET /rooms/1
   # GET /rooms/1.json
   def show
     @booking = Booking.new
-  end
+    @special_price = SpecialPrice.new
+    @review = Review.new
+    end
 
   # GET /rooms/new
   def new
@@ -32,7 +34,7 @@ class RoomsController < ApplicationController
     @room.user_id = current_user.id
     respond_to do |format|
       if @room.save
-        format.html { redirect_to @room, notice: 'Room was successfully created.' }
+        format.html { redirect_to rooms_path, notice: 'Room was successfully created.' }
         format.json { render :show, status: :created, location: @room }
       else
         format.html { render :new }
@@ -58,12 +60,15 @@ class RoomsController < ApplicationController
   # DELETE /rooms/1
   # DELETE /rooms/1.json
   def destroy
-    @room.destroy
-    respond_to do |format|
-      format.html { redirect_to rooms_url, notice: 'Room was successfully destroyed.' }
-      format.json { head :no_content }
+     if @room.destroy
+        respond_to do |format|
+            format.html { redirect_to rooms_url, notice: 'Room was successfully destroyed.' }
+            format.json { head :no_content }
+    else 
+        render action: "show"    
     end
   end
+
   def authorize
     @room = Room.where('is_authorized = ?', false)
   end

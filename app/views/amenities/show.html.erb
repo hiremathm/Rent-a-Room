@@ -1,5 +1,12 @@
-<!-- <p id="notice"><%= notice %></p>
- -->
+<%= link_to image_tag('/back.jpeg', :size => "30x30"), amenities_path %>
+<% if user_signed_in?%>
+	<% if (can? :update, @amenity)%>
+		<b style="float:right"><%= link_to image_tag('/edit2.png', :size => "30x30"), edit_amenity_path(@amenity) %></b>
+	<% end %>
+	<% if can? :destroy, @amenity %>
+        <b style="float:right;"><%= link_to image_tag('/destroy1.png', :size => "30x30"), method: :delete, data: { confirm: 'Are you sure?' } %></b>
+	<% end %>
+<% end %>
 <p>
   <strong>Name:</strong>
   <%= @amenity.name %>
@@ -9,7 +16,4 @@
   <strong>Description:</strong>
   <%= @amenity.description %>
 </p>
-<% if user_signed_in? && (can? :update, @amenity)%>
-	<%= link_to 'Edit', edit_amenity_path(@amenity) %> 
-<% end %>
-|<%= link_to 'Back', amenities_path %>
+

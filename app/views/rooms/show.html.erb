@@ -1,94 +1,306 @@
-<p>
-  <strong>Name:</strong>
-  <%= @room.name %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @room.description %>
-</p>
-
-<p>
-  <strong>Price:</strong>
-  <%= @room.price %>
-</p>
-
-<p>
-  <strong>Rules:</strong>
-  <%= @room.rules %>
-</p>
-
-<p>
-  <strong>Address:</strong>
-  <%= @room.address %>
-</p>
-
-<p>
-  <strong>Images:</strong>
-  <%=image_tag(@room.images) %>
-</p>
-
-  <strong>Latitude:</strong>
-  <%=@room.latitude %>
-</p>
-
-<p>
-  <strong>Longitude:</strong>
-  <%= @room.longitude %>
-</p>
-
-<p>
-  <strong>City:</strong>
-  <%= @room.city.name %>
-</p>
-
-<p>
-  <strong>User:</strong>
-  <%= @room.user.username %>
-</p>
-
-<p>
-  <strong>Amenities</strong>
-  <ol>
-    <% @room.amenities.each do |amenity| %>
-      <li><%= amenity.name %></li>
-    <% end %>
-  </ol>
-<p>
-
-
-<% if user_signed_in? && (can? :update, @room) %>
-<%= link_to 'Edit', edit_room_path(@room) %>
-<% end %>
-
-<%= link_to 'Back', rooms_path %>
-
-<h2> You can book room here</h2>
-<%= form_for @booking do |f| %>
-  <% if @booking.errors.any? %>
-      <p>These are the validations failed</p>
-      <ul>
-        <% @booking.errors.full_messages.each do |msg| %>
-          <li><%= msg%></li>
-        <% end %>
-      </ul>
-  <% end %>
   
-
-  <div>
-    <%= f.label :Start_date %>
-    <%= f.date_select :start_date %>
-  </div>
-  <div>
-    <%= f.label :End_date %>
-    <%= f.date_select :end_date %>
-  </div>
-   
-    <%= f.hidden_field :room_id, value: @room.id %>
-
-    <%#= f.hidden_field :price, value: @room.price %> 
-    
-    <%= f.submit "BOOK ROOM" %>
-    
+<%= link_to image_tag('/back.jpeg', :size => "30x30"), rooms_path %> 
+<%if user_signed_in? %>
+  <%if (can? :update, @room) %>
+    <b style="float:right;"><%= link_to image_tag('/edit2.png', :size => "30x30"), edit_room_path(@room) %></b> 
+  <%end %> 
+  <% if can? :destroy, @room %>
+   <b style="float:right;"><%= link_to image_tag('/destroy1.png', :size => "30x30"), @room, method: :delete, data: { confirm: 'Are you sure?'}%></b> 
+  <% end %>
 <% end %>
 
+<table >
+    <tr ><th></th></tr>
+    <tr >
+        <td><%= image_tag(@room.images, :size => "500x300")%></td>
+        <td>
+            <h2><center><u>Name : <i><%= @room.name %></u></i></center></h2>
+            <b>Description : </b><br><%= @room.description %><br/><br/>
+            <b>Rules : </b><br><%= @room.rules %><br/><br/>
+            <b>Price : </b><%= @room.price %><br/><br/>
+        </td>
+    </tr>
+    <tr><td><b>Address : </b> <%= @room.address%></br></br>
+             <b>City : </b><%= @room.city.name %><br/><br/>
+             <b>Latitude : </b><%= @room.latitude %><br/><br/>
+             <b>Longitude : </b><%= @room.longitude %><br><br>
+             <b>User : </b><%= @room.user.username.capitalize%><br/><br/>
+             <b>Contact : </b><%= @room.user.mobile %><br/></br>
+        </td>
+        <td><b>Amenities : </b>
+            <ol>
+              <% @room.amenities.each do |amenity| %>
+                <p><li><b><%= amenity.name %> : </b>   <%= amenity.description%></li><br>
+              <% end %>
+            </ol></p>
+    </tr>
+
+<tr>
+<td>
+  <% if user_signed_in? %>
+  <%# if current_user.id == @room.user.id %>
+   <h2>Special prices</h2>
+    <% if @room.special_prices.empty? %>
+        <p>No Specal prices for this room</p>
+    <% else %>
+        <table border = 1>
+            <tr>
+                <th>Start-Date</th>
+                <th>End-Date</th>
+                <th>New Price</th>
+                <th>Old price</th>
+            </tr>
+            <% @room.special_prices.each do |f| %>
+                <tr>
+                    <td><%= f.start_date %></td>
+                    <td><%= f.end_date%></td>
+                    <td><%= f.price %></td>
+                    <td><%= @room.price%></td>
+                </tr>
+            <% end %>
+        </table>
+    <% end %>
+  <%# end %>
+<% end %>
+
+</td>
+
+
+<td>
+<!-- Form for special price -->
+
+<% if user_signed_in?  %>
+  
+  <% if current_user.id == @room.user.id %>
+
+    <h2> Add Special Prices</h2>
+        <%= form_for @special_price do |f| %>
+            <%= f.hidden_field :room_id, value: @room.id %>
+            <p>
+              <strong>Start Date :</strong><%= f.text_field :start_date %>
+              <span id = "startError"></span>
+            </p>
+            <p>
+              <strong>End Date :</strong><%= f.text_field :end_date %>
+              <span id = "endError"></span>
+            </p>
+            <p>
+              <strong>Price :</strong> <%= f.number_field :price %>
+              <span id = "priceError"></span>
+            </p>
+            <%= f.submit "ADD SPECIAL PRICE"%>
+        <% end %>
+    <% end %>
+<% end %>
+<%# end %>
+
+</td>
+</tr>
+
+<tr><td><center>
+<% if user_signed_in? %>
+<h2>Book Room</h2>
+  <%= form_for @booking do |f| %>
+      <%# if @booking.errors.any? %>
+        <!-- <p>These are the validations failed</p> -->
+          <!-- <ul> -->
+              <%# @booking.errors.full_messages.each do |msg| %>
+                  <!-- <li><%#= msg%></li> -->
+              <%# end %>
+          <!-- </ul> -->
+      <%# end %>
+
+      <p>
+        <strong>Start Date:</strong> <%= f.text_field :start_date %>
+        <span id = "startdateError"></span>
+      </p>
+
+      <p>
+        <strong>End Date :</strong> <%= f.text_field :end_date %>
+        <span id = "enddateError"></span>
+      </p>
+       
+        <%= f.hidden_field :room_id, value: @room.id %>
+        
+        <% if user_signed_in? && current_user.role.name == "admin" %>
+          <%= f.collection_select :user_id, User.all, :id, :username %>
+        <% end %>
+
+        <%= f.submit "BOOK ROOM" %>
+      
+  <% end %>
+<% end %></center></td>
+
+</tr></table>
+
+<!-- Script for Booking -->
+<script>
+  var startdateHandle = document.getElementById('booking_start_date');
+  var enddateHandle = document.getElementById('booking_end_date');
+
+  var startdateErrorMsg = document.getElementById('startdateError');
+  var enddateErrorMsg = document.getElementById('enddateError');
+
+  startdateHandle.addEventListener('blur',function(){
+    if(startdateHandle.value == ""){
+      startdateErrorMsg.innerHTML = "Start Date Can't be blank";
+    }else{
+      startdateErrorMsg.innerHTML = "";
+    }
+  },false);
+
+  enddateHandle.addEventListener('blur',function(){
+    if(enddateHandle.value == ""){
+      enddateErrorMsg.innerHTML = "End Date Can't be blank";
+    }else if(enddateHandle.value < startdateHandle.value){
+      enddateErrorMsg.innerHTML = "End Date connot be less than Start Date";
+    }else{
+      enddateErrorMsg.innerHTML = "";
+    }
+  },false);
+</script>
+
+<!-- Script for Special Price -->
+<script>
+  var startdate = document.getElementById('special_price_start_date');
+  var enddate = document.getElementById('special_price_end_date');
+  var pricevalue = document.getElementById('special_price_price');
+
+  var startdateMsg = document.getElementById('startError');
+  var enddateMsg = document.getElementById('endError');
+  var priceErrorMsg = document.getElementById('priceError');
+
+  startdate.addEventListener('blur',function(){
+    if(startdate.value == ""){
+      startdateMsg.innerHTML = "Start Date Can't be blank";
+    }else{
+      startdateMsg.innerHTML = "";
+    }
+  },false);
+
+  enddate.addEventListener('blur',function(){
+    if(enddate.value == ""){
+      enddateMsg.innerHTML = "End Date Can't be blank";
+    }else if(enddate.value < startdate.value){
+      enddateMsg.innerHTML = "End Date connot be less than Start Date";
+    }else{
+      enddateMsg.innerHTML = "";
+    }
+  },false);
+
+  pricevalue.addEventListener('blur',function(){
+    if(pricevalue.value == ""){
+      priceErrorMsg.innerHTML = "Please Enter Price";
+    }else{
+      priceErrorMsg.innerHTML = "";
+    }
+  },false);
+</script>
+
+<% @room.reviews.each do |review| %>
+    <%# if review.user_id == current_user.id  || current_user.id == review.room.user_id%>
+  <h2>Reviews</h2>
+      Review : <%= review.review %> </br>
+      Food Rating : <%= review.food_rating%> </br>
+      Cleanliness Rating : <%= review.cleanliness_rating%> </br>
+      Safety Rating : <%= review.safety_rating %> </br>
+      Facility Rating : <%= review.facility_rating %> </br>
+      Locality Rating : <%= review.locality_rating %> </br>
+      Average Rating : <%= ((review.food_rating + review.cleanliness_rating + review.safety_rating + review.facility_rating + review.locality_rating)/5.0) %> </br>
+      <% if user_signed_in? %>
+          <% if can? :update, review %>
+              <%= link_to 'Edit', edit_review_path(review) %>
+          <% end %>
+          <% if can? :destroy, review %>
+              <%= link_to 'Destroy', review, method: :delete, data: { confirm: 'Are you sure?'}%>
+          <% end %>
+      <% end %>
+<% end %>
+
+<% if user_signed_in?&&current_user.bookings.any? %>
+    <%@room.bookings.each do |booking| %>
+        <% if booking.user_id == current_user.id && booking.end_date <= Date.today %>
+        <br>
+        
+            <h2>Add Your Review</h2>
+                <%= form_for(@review) do |f| %>
+                    <div class="field">
+                      <%= f.label :review %><br>
+                      <%= f.text_area :review %>
+                      <span id="reviewError"></span>
+                    </div>
+                    <div class="field">
+                    <h5> 5 – Excellent, 4 – Good, 3 – Average, 2 – Fair, 1- Poor</h5>
+                      <%= f.label :food_rating %><br>
+                      <%= f.radio_button :food_rating, 1 %> 1
+                      <%= f.radio_button :food_rating, 2 %> 2
+                      <%= f.radio_button :food_rating, 3 %> 3
+                      <%= f.radio_button :food_rating, 4 %> 4
+                      <%= f.radio_button :food_rating, 5 %> 5
+                    </div>
+                    <div class="field">
+                      <%= f.label :cleanliness_rating %><br>
+                      <%= f.radio_button :cleanliness_rating, 1 %> 1
+                      <%= f.radio_button :cleanliness_rating, 2 %> 2
+                      <%= f.radio_button :cleanliness_rating, 3 %> 3
+                      <%= f.radio_button :cleanliness_rating, 4 %> 4
+                      <%= f.radio_button :cleanliness_rating, 5 %> 5
+                    </div>
+                    <div class="field">
+                      <%= f.label :safety_rating %><br>
+                      <%= f.radio_button :safety_rating, 1 %> 1
+                      <%= f.radio_button :safety_rating, 2 %> 2
+                      <%= f.radio_button :safety_rating, 3 %> 3
+                      <%= f.radio_button :safety_rating, 4 %> 4
+                      <%= f.radio_button :safety_rating, 5 %> 5
+
+                    </div>
+                    <div class="field">
+                      <%= f.label :facility_rating %><br>
+                      <%= f.radio_button :facility_rating, 1 %> 1
+                      <%= f.radio_button :facility_rating, 2 %> 2
+                      <%= f.radio_button :facility_rating, 3 %> 3
+                      <%= f.radio_button :facility_rating, 4 %> 4
+                      <%= f.radio_button :facility_rating, 5 %> 5
+                    </div>
+                    <div class="field">
+                      <%= f.label :locality_rating %><br>
+                      <%= f.radio_button :locality_rating, 1 %> 1 
+                      <%= f.radio_button :locality_rating, 2 %> 2
+                      <%= f.radio_button :locality_rating, 3 %> 3
+                      <%= f.radio_button :locality_rating, 4 %> 4
+                      <%= f.radio_button :locality_rating, 5 %> 5
+                    </div>
+
+                      <%= f.hidden_field :room_id, value: @room.id %>
+                      <%= f.hidden_field :user_id, value: current_user.id %>
+                    <div class="actions">
+                      <%= f.submit %>
+                   </div>
+                  <% end %>
+            <% end %>
+        <% end %>
+<% end %>
+
+<!-- Script for Review -->
+<script>
+  var reviewHandle = document.getElementById('review_review');
+ // var submitHandle = document.getElementById('submit');
+  var reviewMsgHandle = document.getElementById('reviewError');
+  // var submintMsgHandle = document.getElementById('submitError');
+
+  //var reviewFormattor = /^[a-zA-Z0-9]{150}$/;
+
+  reviewHandle.addEventListener('blur',function(){
+      if(reviewHandle.value == ""){
+        reviewMsgHandle.innerHTML = "Can't Be Empty";
+        
+      }else if(reviewHandle.value.length < 150) {
+        reviewMsgHandle.innerHTML = "Review should contain minimum 150 Characters";
+        
+      }else{
+        reviewMsgHandle.innerHTML = "";
+        
+      }
+  },false);
+</script>

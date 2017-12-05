@@ -1,13 +1,18 @@
 class Room < ActiveRecord::Base
 	after_create :change_role
 	before_save :determine_lat_and_long
-	after_update :authorize_confirmation
+	#after_update :authorize_confirmation
+	before_destroy :destroy_room
 
 	mount_uploader :images, ImageUploader
 
 	has_many :amenity_rooms
 	has_many :amenities, through: :amenity_rooms
 	has_many :bookings
+
+	has_many :special_prices, dependent: :destroy
+
+	has_many :reviews, dependent: :destroy
 
 	belongs_to :user
 	belongs_to :city
@@ -29,15 +34,28 @@ class Room < ActiveRecord::Base
 	def determine_lat_and_long
 		response = HTTParty.get("https://maps.googleapis.com/maps/api/geocode/json?address=#{self.address}&key=AIzaSyA6RqNAKM2gUdLcMmV4F0Fn_jz_e93xRBk")
 
-		#result = JSON.parse(response.body)
+		result = JSON.parse(response.body)
 		
-		self.latitude = response["results"][0]["geometry"]["location"]["lat"]
-		self.longitude = response["results"][0]["geometry"]["location"]["lng"]
+		self.latitude = result["results"][0]["geometry"]["location"]["lat"]
+		self.longitude = result["results"][0]["geometry"]["location"]["lng"]
 	end
 
 	def authorize_confirmation
 		if self.is_authorized == true
 			Notification.authorize_confirmation(self).deliver_now!
+		end
+	end
+
+	def destroy_room
+		if self.bookings.any?
+			binding.pry
+			self.bookings.each do |booking|
+				binding.pry
+				if booking.end_date < Date.today 
+					binding.pry
+					self.add.errors(:base,"this room has bookings")
+				end 
+			end
 		end
 	end
 

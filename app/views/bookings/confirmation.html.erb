@@ -1,21 +1,25 @@
+<a href="/rooms"><img src="/61972.png" width=30px;height=30px;></a>
 
-<h2>Your unconfirmed room details</h2>
-<% if @booking.empty? %>
+<% if @b.empty? %>
+	<%# binding.pry%>
 	<p>No room to confirm</p>
+
 <% else %>
 	<table border=1>
-		<tr><th>Name</th><th>Start_Date</th><th>End_date</th></tr>
+		<tr><th>Room Name</th><th>User Name</th><th>Start_Date</th><th>End_date</th><th>Action</th></tr>
 		
-		<% @booking.each do |book| %>
-		<% if book.room.user_id == current_user.id %>
-		<tr colspan = '4'>
-			<td><%= book.room.name%> </td><td><%= book.start_date %></td> <td> <%= book.end_date %></td>
-			<%= form_for book do |f| %>
-				<%= f.hidden_field :is_confirmed, value: true %>
-				<%= f.submit "CONFIRM" %>
+		<% @b.each do |book| %>
+			
+			<%if book.room.user_id == current_user.id %>
+				<tr colspan = '2'>
+					<td><%= book.room.name%></td><td><%= book.user.username%> <td><%= book.start_date %></td> 
+					<td> <%= book.end_date %></td>
+					<%= form_for book do |f| %>
+						<%= f.hidden_field :is_confirmed, value: true %>
+						<td><%= f.submit "CONFIRM" %>
+					<% end %>
+				</td></tr>
 			<% end %>
-		</td></tr>
-		<% end %>
 		<% end %>
 	</table>
 <% end %>

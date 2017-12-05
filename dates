@@ -1,0 +1,32 @@
+
+[1mFrom:[0m /home/hiremath/wd-aug/rails/Rent_A_Room/app/models/booking.rb @ line 65 Booking#calculate_room_price:
+
+    [1;34m57[0m: [32mdef[0m [1;34mcalculate_room_price[0m
+    [1;34m58[0m: total = [1;34m0[0m
+    [1;34m59[0m: count = [1;34m0[0m
+    [1;34m60[0m: current_booking = ([1;36mself[0m.start_date..[1;36mself[0m.end_date).to_a
+    [1;34m61[0m: len = current_booking.length
+    [1;34m62[0m: [1;36mself[0m.room.special_prices.each [32mdo[0m |special_price|
+    [1;34m63[0m: 	[32mif[0m special_price.room_id == [1;36mself[0m.room_id
+    [1;34m64[0m: 		dates = ((special_price.start_date..special_price.end_date)).to_a
+ => [1;34m65[0m: 		binding.pry
+    [1;34m66[0m: 		total = dates.length * special_price.price
+    [1;34m67[0m: 		binding.pry
+    [1;34m68[0m: 		count = dates.length
+    [1;34m69[0m: 		binding.pry
+    [1;34m70[0m: 
+    [1;34m71[0m: 		[1;34m# dates.each do |date|[0m
+    [1;34m72[0m: 		[1;34m# 	if current_booking.include?date[0m
+    [1;34m73[0m: 		[1;34m# 		total += special_price.price[0m
+    [1;34m74[0m: 		[1;34m# 		count +=1 [0m
+    [1;34m75[0m: 		[1;34m# 	end[0m
+    [1;34m76[0m: 		[1;34m# end[0m
+    [1;34m77[0m: 	[32mend[0m
+    [1;34m78[0m: [32mend[0m
+    [1;34m79[0m: 	len -= count
+    [1;34m80[0m: 	binding.pry
+    [1;34m81[0m: 	total = total + [1;36mself[0m.room.price * len
+    [1;34m82[0m: 	binding.pry
+    [1;34m83[0m: 	[1;36mself[0m.price = total 
+    [1;34m84[0m:  [32mend[0m
+

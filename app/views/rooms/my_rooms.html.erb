@@ -1,7 +1,16 @@
+	<a href="/rooms" style="float:left;"><img src="/61972.png" width=30px;height=30px;></a>
+<br><br>
+	<h2>Your Rooms</h2>
 	<% if @r.empty? %>
-		<h1>no room</h1>
+		<p>You dont have any rooms</p>
 	<% else %>
-		<% @r.each do |room| %>
-			<%= link_to room.name, room_path(room.id) %>
-		<% end %>
+	<table>
+		<tr><th>Name</th><th>Approved</th></tr>
+		<tr>
+			<% @r.each do |room| %>
+				<td><%= link_to room.name, room_path(room.id) %></td>
+				<td><% if  room.is_authorized?%>Yes<% else %> No<% end %></td></tr>
+			<% end %>
+	</table>
 	<% end %>
+

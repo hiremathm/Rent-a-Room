@@ -1,14 +1,14 @@
 class AmenitiesController < ApplicationController
   before_action :authenticate_user!, except: [:show, :index]
-  #load_and_authorize_resource
+  load_and_authorize_resource
 
   before_action :set_amenity, only: [:show, :edit, :update, :destroy]
 
   # GET /amenities
-  # GET /amenities.json
+  # GET /amenities.json 8884721326
   def index
     @amenities = Amenity.all
-    @amenities = Amenity.paginate(:page => params[:page])
+    @amenities = Amenity.paginate(:page => params[:page], per_page: 5)
   end
 
   # GET /amenities/1
@@ -32,7 +32,7 @@ class AmenitiesController < ApplicationController
 
     respond_to do |format|
       if @amenity.save
-        format.html { redirect_to @amenity, notice: 'Amenity was successfully created.' }
+        format.html { redirect_to amenities_path, notice: 'Amenity was successfully created.' }
         format.json { render :show, status: :created, location: @amenity }
       else
         format.html { render :new }

@@ -1,0 +1,33 @@
+
+  <%= form_for @booking do |f| %>
+    <% if @booking.errors.any? %>
+      <p>These are the validations failed</p>
+      <ul>
+        <% @booking.errors.full_messages.each do |msg| %>
+          <li><%= msg%></li>
+        <% end %>
+      </ul>
+  <% end %>
+
+  <div>
+    <%= f.label :Start_date %>
+    <%= f.date_select :start_date %>
+  </div>
+
+  <div>
+    <%= f.label :End_date %>
+    <%= f.date_select :end_date %>
+  </div>
+   
+    <%= f.hidden_field :room_id, value: @booking.room.id %>
+    
+    <% if user_signed_in? && current_user.role.name == "admin" %>
+      <%= f.collection_select :user_id, User.all, :id, :username %>
+    <% end %>
+
+
+    <%#= f.hidden_field :user_id, value: @current_user.id %>  
+    <%= f.submit "BOOK ROOM" %>
+  
+  <% end %>
+

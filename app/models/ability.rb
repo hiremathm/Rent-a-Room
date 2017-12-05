@@ -12,21 +12,42 @@ class Ability
      if user.nil?
          can :read, [Room, City]
      elsif user.role? "admin"
-        can :manage, [City, Amenity, Role, Room]
-          
+        can [:manage, :authorize], [City, Amenity, Role, Room]
+        can [:create, :my_bookings, :update, :confirmation], [Booking]
+        can [:create, :my_rooms], Room
+        can [:create], [SpecialPrice], :room => { :user_id => user.id }
+       
      elsif user.role? "host"
-        can [:read, :my_rooms], [Room]
-
-        can [:read, :confrimation], [Booking] do |book|
-          book.room.user_id == user_id
+        can [:read, :update, :destroy, :my_bookings], Booking do |booking|
+           booking.user_id == user.id
         end
-        can [:update, :destroy, :read], [Room] do |room|
+        
+        can [:update, :destroy], Review do |review|
+            review.user_id == user.id
+        end
+
+        can [:update, :destroy], [Room] do |room|
           room.user_id == user.id
         end
-        can :create, Room
+        can [:create,:read, :my_rooms, :confirmation], [Room, Booking]
+
+        can [:update,:confirmation], Booking
+        can :create, SpecialPrice#, :room => { :user_id => user.id }
+        can :create, Review
+        can :read, [ City, Amenity]
+        
      elsif user.role? "guest"
-         can [:create, :read], Room
-     end 
+        can [:create, :read, :my_rooms, :my_bookings], [Room,Booking]
+        can :create, Review        
+        can [:read], [City,Room,Booking, Review]
+        can [:update, :destroy], Review do |review|
+             review.user_id == user.id
+        end
+        
+        can [:update, :destroy, :my_bookings], Booking do |booking|
+            booking.user_id == user.id
+        end
+      end 
     # # Define abilities for the passed in user here. For example:
     #
     #   user ||= User.new # guest user (not logged in)

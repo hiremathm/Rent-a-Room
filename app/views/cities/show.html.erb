@@ -1,10 +1,46 @@
-<!-- <p id="notice"><%= notice %></p>
- -->
-<p>
-  <strong>Name:</strong>
-  <%= @city.name %>
-</p>
-<% if user_signed_in? && (can? :update, @city)%>
-	<%= link_to 'Edit', edit_city_path(@city) %> 
-<% end %> |
-<%= link_to 'Back', cities_path %>
+<%= link_to image_tag('/back.jpeg', :size => "30x30"), cities_path %>  
+<% if user_signed_in? %>
+	<%if (can? :update, @city)%>
+		<b style="float:right;"><%= link_to image_tag('/edit2.png', :size => "30x30"), edit_city_path(@city) %></b>
+	<% end %>
+	<% if can? :destroy, @city %>
+		<b style="float:right;"><%= link_to image_tag('/destroy1.png', :size => "30x30"), @city, method: :delete, data: { confirm: 'Are you sure?' } %></b>
+	<% end %>
+<% end %>
+<br><br>
+
+<%= @city.name %>
+<% if @city.rooms.empty? %>
+	<p>This city has no rooms</p>
+<% else %>
+	<% @city.rooms.each do |room|%>
+	<% if room.is_authorized == true %>
+		<table >
+		    <tr ><th></th></tr>
+		    <tr >
+		        <td><%= image_tag(room.images, :size => "500x300")%></td>
+		        <td>
+		            <h2><center><u>Name : <i><%= room.name %></u></i></center></h2>
+		            <b>Description : </b><br><%= room.description %><br/><br/>
+		            <b>Rules : </b><br><%= room.rules %><br/><br/>
+		            <b>Price : </b><%= room.price %><br/><br/>
+		        </td>
+		    </tr>
+		    <tr><td><b>Address : </b> <%= room.address%></br></br>
+		             <b>City : </b><%= room.city.name %><br/><br/>
+		             <b>Latitude : </b><%= room.latitude %><br/><br/>
+		             <b>Longitude : </b><%= room.longitude %><br><br>
+		             <b>Owner : </b><%= room.user.username.capitalize%><br/><br/>
+		             <b>Contact : </b><%= room.user.mobile %><br/></br>
+		        </td>
+		        <td><b>Amenities : </b>
+		            <ol>
+		              <% room.amenities.each do |amenity| %>
+		                <p><li><b><%= amenity.name %> : </b>   <%= amenity.description%></li><br>
+		              <% end %>
+		            </ol></p>
+		    </tr>
+		</table>
+	<% end %>
+	<% end %>
+<% end %>

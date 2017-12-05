@@ -1,0 +1,6 @@
+
+<% if @specialprice.errors.any? %>
+	<% @specialprice.errors.full_messages.each do |msg| %>
+		<%= msg %>
+	<% end %>
+<% end %>

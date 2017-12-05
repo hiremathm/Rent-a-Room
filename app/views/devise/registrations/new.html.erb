@@ -1,32 +1,58 @@
-<h2>Sign up</h2>
 
+<a href="/rooms" style="float: left;";><img src="/61972.png" width=30px;height=30px;></a>
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+
+  <style>
+  body {
+    background-image: url('/rent2.jpg');
+    //background-repeat: repeat;
+    background-position: right center;
+    background-size: 1100px 500px;
+
+}
+</style>
+</head>
+<body>
+<br>
+<h2>Sign up</h2>
+<table border=1>
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
 
   <div class="field">
     <label>First Name</label><br/>
-    <%= f.text_field :first_name %>
+    <%= f.text_field :first_name, autofocus: false %>
+    <span id="firstNameMsg"></span>
   </div>
 
   <div class="field">
     <label>Last Name</label><br/>
     <%= f.text_field :last_name%>
+    <span id="lastnameMsg"></span>
   </div>
 
   </div>
   <div class="field">
     <label>Username </label> <br/>
     <%= f.text_field :username %> 
+    <span id="usernameMsg"></span>
+  </div>
+
+  
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.email_field :email %>
+    <span id="emailMsg"></span>
   </div>
 
   <div class="field">
     <%= f.label :mobile %><br/>
     <%= f.text_field :mobile %> 
-  </div>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
+    <span id="mobileMsg"></span>
   </div>
 
   <div class="field">
@@ -35,16 +61,123 @@
     <em>(<%= @minimum_password_length %> characters minimum)</em>
     <% end %><br />
     <%= f.password_field :password, autocomplete: "off" %>
+    <span id="passwordMsg"></span>
   </div>
 
   <div class="field">
     <%= f.label :password_confirmation %><br />
     <%= f.password_field :password_confirmation, autocomplete: "off" %>
+    <span id="confirmMsg"></span>
   </div>
 
   <div class="actions">
     <%= f.submit "Sign up" %>
+    <span id="confirmSubmit"></span>
   </div>
 <% end %>
+</table>
+<script>
+  var firstnameHandle = document.getElementById('user_first_name');
+  var lastnameHandle = document.getElementById('user_last_name');
+  var usernameHandle = document.getElementById('user_username');
+  var emailHandle = document.getElementById('user_email');
+  var mobileHandle = document.getElementById('user_mobile');
+  var passwordHandle = document.getElementById('user_password');
+  var passwordconfirmHandle = document.getElementById('user_password_confirmation');
 
+  var firstnameMsgHandle = document.getElementById('firstNameMsg');
+  var lastnameMsgHandle = document.getElementById('lastnameMsg');
+  var usernameMsgHandle = document.getElementById('usernameMsg');
+  var emailMsgHandle = document.getElementById('emailMsg');
+  var mobileMsgHandle = document.getElementById('mobileMsg');
+  var passwordMsgHandle = document.getElementById('passwordMsg');
+  var passwordconfirmationMsgHandle = document.getElementById('confirmMsg');
+
+  var firstnameFormatter = /^[a-zA-Z]*$/;
+  var lastnameFormatter = /^[a-zA-Z]*$/;
+  var usernameFormatter = /^[a-zA-Z]*$/;
+  var emailFormatter = /^[a-z0-9]+[@]+[a-z]+[.]+[a-z]+$/;
+  var mobileFormatter = /^[987]\d{9}$/;
+  var passwordFormatter = /^[a-zA-Z0-9]{6,15}$/;
+
+  var submitHandle = document.getElementById('confirmSubmit');
+
+
+  firstnameHandle.addEventListener('blur',function(){
+    if(firstnameHandle.value == ""){
+      firstnameMsgHandle.innerHTML = "First Name Can't be blank";
+    }else if(!firstnameFormatter.test(firstnameHandle.value)){
+      firstnameMsgHandle.innerHTML = "Should contain only alphabets";
+    }else{
+      firstnameMsgHandle.innerHTML = "";
+    }
+  },false); 
+
+  lastnameHandle.addEventListener('blur',function(){
+    if(lastnameHandle.value == ""){
+      lastnameMsgHandle.innerHTML = "Last Name Can't be blank";
+    }else if (!lastnameFormatter.test(lastnameHandle.value)){
+      lastnameMsgHandle.innerHTML = "Should contain only alphabets";
+    }else{
+      lastnameMsgHandle.innerHTML = "";
+    }
+  },false); 
+
+  usernameHandle.addEventListener('blur',function(){
+    if(usernameHandle.value == ""){
+      usernameMsgHandle.innerHTML = "User Name Can't be blank";
+    }else if (!usernameFormatter.test(usernameHandle.value)){
+      usernameMsgHandle.innerHTML = "Should contain only alphabets";
+    }else if (usernameHandle.value.length < 3){
+        usernameMsgHandle.innerHTML = "Should contain min 3 characters"
+        
+    } else{
+      usrenameMsgHandle.innerHTML = "";
+    }
+  },false); 
+
+  emailHandle.addEventListener('blur',function(){
+    if(emailHandle.value == ""){
+      emailMsgHandle.innerHTML = "Email Can't be blank";
+    }else if (!emailFormatter.test(emailHandle.value)){
+      emailMsgHandle.innerHTML = "Invalid Email";
+    }else{
+      emailMsgHandle.innerHTML = "";
+    }
+  },false); 
+
+mobileHandle.addEventListener('blur',function(){
+    if(mobileHandle.value == ""){
+      mobileMsgHandle.innerHTML = "Mobile Can't be blank";
+    }else if (!mobileFormatter.test(mobileHandle.value)){
+      mobileMsgHandle.innerHTML = "Should start with 9/8/7 and length should be 10";
+    }else if($('#user_mobile').value().length < 10){
+      mobileMsgHandle.innerHTML = "Length should be 10";
+    }else{
+      mobileMsgHandle.innerHTML = "";
+    }
+  },false); 
+
+  passwordHandle.addEventListener('blur',function(){
+    if(passwordHandle.value == ""){
+      passwordMsgHandle.innerHTML = "Password Can't be blank";
+     }else if (!passwordFormatter.test(passwordHandle.value)){
+       passwordMsgHandle.innerHTML = " Ensure you have one uppercase, lowercase, special(@#$) characters and one number ";
+     }else{
+       passwordMsgHandle.innerHTML = "";
+     }
+  },false); 
+  passwordconfirmHandle.addEventListener('blur',function(){
+    if(passwordconfirmHandle.value == ""){
+      passwordconfirmationMsgHandle.innerHTML = "Confirmation password Can't be blank";
+     }else if (passwordHandle.value != passwordconfirmHandle.value){
+       passwordconfirmationMsgHandle.innerHTML = " password is not matching ";
+     }else{
+       passwordconfirmationMsgHandle.innerHTML = "";
+     }
+  },false); 
+</script>
+
+</body>
+</html>
 <%= render "devise/shared/links" %>

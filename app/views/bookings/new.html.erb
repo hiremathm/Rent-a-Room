@@ -1,9 +1,21 @@
-<% if @book.errors.any? %>
-      <p>These are the validations failed</p>
-      <ul>
-        <% @book.errors.full_messages.each do |msg| %>
-          <li><%= msg%></li>
-        <% end %>
-      </ul>
-  <% end %>
-  
+<%# if @book.errors.any? %>
+    <!-- <p>These are the validations failed</p> -->
+	<%# @book.errors.full_messages.each do |msg| %>
+	    <%#= msg%>
+	<%# end %>     
+<%# end %>
+<%= link_to image_tag('/back.jpeg', :size => "30x30"), room_path(@book.room_id) %>
+<p>This room is already booked for the below dates</p>
+<table>
+	<tr>
+		<th>Start Date</th>
+		<th>End Date</th>
+	</tr>
+		<% @book.room.bookings.each do |date| %>
+			<tr>
+				<td><%= date.start_date %></td>
+				<td><%= date.end_date%></td>
+			</tr>
+
+		<% end %>
+</table>

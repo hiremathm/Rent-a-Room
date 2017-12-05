@@ -1,41 +1,15 @@
-<!-- <p id="notice"><%= notice %></p>
- -->
-<h1>Listing Rooms</h1>
-<%= will_paginate @rooms %>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>City</th>
-      <th>Owner</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @roomarray.each do |room| %>
-      <tr>
-      <%# if room.is_authorized == "false" %>
-        <td><%= link_to room.name, room %></td>
-        <td><%= room.city.name %></td>
-        <td><%= room.user.username %></td>
-        
-        <!-- <td><%= link_to 'show', room %></td>
-        <% #if user_signed_in? %>
-              <%# if can? :update, room %>
-                   <td><%= link_to 'Edit', edit_room_path(room) %></td>
-              <% #end %>
-              <%# if can? :destroy, room %>
-                  <td><%= link_to 'Destroy', room, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-              <% #end %>
-        <%# end %> -->
-        <%# end %>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-<% if user_signed_in? && (can? :create, Room.new)%>
-  <%= link_to 'New Room', new_room_path %>
+ <% if user_signed_in? && (can? :create, Room.new)%>
+  <a href="/rooms/new" style="float:right;"><img src="/add.png" width=30px;height=30px;></a>
 <% end %>
+
+<% @roomarray.each do |room| %>
+	<% if room.is_authorized == true %>
+		<table><tr><th></th><th></th></tr>
+			<tr><td><%=  image_tag(room.images, :size => "460x280", :crop => :fill, :alt => "no image") %></td>
+			<td><h2><b>Name : </b><i><%= link_to room.name, room%></i></h2><br><b>Address : </b><%= room.address %>
+			<br><br/><b>City : </b><%= room.city.name%><br/><br/><b>Description :</b> <%= room.description %><br><br>
+			<b>Owner : </b> <%= room.user.username.capitalize %><br/></br><b>Contact : </b><%= room.user.mobile%></td></tr>
+		</table>
+	<% end %>
+<% end %>
+<%= will_paginate @roomarray %>

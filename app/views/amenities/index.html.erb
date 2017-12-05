@@ -1,15 +1,14 @@
 
-
-<h1>Listing Amenities</h1>
-<br>
+<a href="/rooms" style="float:left;"><img src="/61972.png" width=30px;height=30px;></a>
 <% if user_signed_in? && (can? :create, Amenity.new) %>
-  <%= link_to 'New Amenity', new_amenity_path %>
+<a href="/amenities/new" style="float:right;"><img src="/add1.png" width=30px;height=30px;></a>
 <% end %>
+</br></br></br>
 <table>
   <thead>
     <tr>
       <th>Name</th>
-      <th>Description</th>
+      
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -17,17 +16,7 @@
   <tbody>
     <% @amenities.each do |amenity| %>
       <tr>
-        <td><%= amenity.name %></td>
-        <td><%= amenity.description %></td>
-        <td><%= link_to 'Show', amenity %></td>
-        <% if user_signed_in? %>
-          <% if can? :update, amenity %>
-            <td><%= link_to 'Edit', edit_amenity_path(amenity) %></td>
-          <% end %>
-          <% if can? :destroy, amenity %>
-            <td><%= link_to 'Destroy', amenity, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-          <% end %>
-        <% end %>
+        <td><%= link_to amenity.name, amenity_path(amenity.id) %></td>
       </tr>
     <% end %>
   </tbody>

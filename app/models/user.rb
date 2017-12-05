@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   belongs_to :role
   has_many :rooms
   has_many :bookings
+  has_many :reviews
   
   validates_presence_of :first_name, :last_name, :username, :mobile
   validates_numericality_of :mobile

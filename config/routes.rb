@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :reviews
   resources :pets
 
   get 'rooms/authorize'
@@ -12,11 +13,17 @@ Rails.application.routes.draw do
   resources :cities
   resources :roles
   devise_for :users
-
+  resources :special_prices
+  resources :reviews
+  
   get 'bookings/confirmation'
+  get 'bookings/my_bookings'
   resources :bookings do
    post 'confirmation'
+   post 'my_bookings'
   end
+
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

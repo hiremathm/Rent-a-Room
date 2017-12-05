@@ -1,7 +1,7 @@
 class CitiesController < ApplicationController
   
   before_action :authenticate_user!, except: [:show, :index]
-  #load_and_authorize_resource
+  load_and_authorize_resource
 
   before_action :set_city, only: [:show, :edit, :update, :destroy]
 
@@ -9,7 +9,7 @@ class CitiesController < ApplicationController
   # GET /cities.json
   def index
     @cities = City.all
-    @cities = City.paginate(:page => params[:page], :per_page => 2)
+    @cities = City.paginate(:page => params[:page], :per_page => 20)
   end
 
   # GET /cities/1
@@ -33,7 +33,7 @@ class CitiesController < ApplicationController
 
     respond_to do |format|
       if @city.save
-        format.html { redirect_to @city, notice: 'City was successfully created.' }
+        format.html { redirect_to cities_path, notice: 'City was successfully created.' }
         format.json { render :show, status: :created, location: @city }
       else
         format.html { render :new }

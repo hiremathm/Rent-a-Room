@@ -1,0 +1,88 @@
+<%= form_for(@review) do |f| %>
+  <% if @review.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@review.errors.count, "error") %> prohibited this review from being saved:</h2>
+
+      <ul>
+      <% @review.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :review %><br>
+    <%= f.text_area :review %>
+    <span id="reviewError">
+  </div>
+  <div class="field">
+    <%= f.label :food_rating %><br>
+    <%= f.radio_button :food_rating, 1 %> 1
+    <%= f.radio_button :food_rating, 2 %> 2
+    <%= f.radio_button :food_rating, 3 %> 3
+    <%= f.radio_button :food_rating, 4 %> 4
+    <%= f.radio_button :food_rating, 5 %> 5
+  </div>
+  <div class="field">
+    <%= f.label :cleanliness_rating %><br>
+    <%= f.radio_button :cleanliness_rating, 1 %> 1
+    <%= f.radio_button :cleanliness_rating, 2 %> 2
+    <%= f.radio_button :cleanliness_rating, 3 %> 3
+    <%= f.radio_button :cleanliness_rating, 4 %> 4
+    <%= f.radio_button :cleanliness_rating, 5 %> 5
+  </div>
+  <div class="field">
+    <%= f.label :safety_rating %><br>
+    <%= f.radio_button :safety_rating, 1 %> 1
+    <%= f.radio_button :safety_rating, 2 %> 2
+    <%= f.radio_button :safety_rating, 3 %> 3
+    <%= f.radio_button :safety_rating, 4 %> 4
+    <%= f.radio_button :safety_rating, 5 %> 5
+
+  </div>
+  <div class="field">
+    <%= f.label :facility_rating %><br>
+    <%= f.radio_button :facility_rating, 1 %> 1
+    <%= f.radio_button :facility_rating, 2 %> 2
+    <%= f.radio_button :facility_rating, 3 %> 3
+    <%= f.radio_button :facility_rating, 4 %> 4
+    <%= f.radio_button :facility_rating, 5 %> 5
+  </div>
+  <div class="field">
+    <%= f.label :locality_rating %><br>
+    <%= f.radio_button :locality_rating, 1 %> 1
+    <%= f.radio_button :locality_rating, 2 %> 2
+    <%= f.radio_button :locality_rating, 3 %> 3
+    <%= f.radio_button :locality_rating, 4 %> 4
+    <%= f.radio_button :locality_rating, 5 %> 5
+  </div>
+    <%= f.number_field :room_id %>
+    <%= f.number_field :user_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+<script>
+  var reviewHandle = document.getElementById('review_review');
+ // var submitHandle = document.getElementById('submit');
+  var reviewMsgHandle = document.getElementById('reviewError');
+  // var submintMsgHandle = document.getElementById('submitError');
+
+  //var reviewFormattor = /^[a-zA-Z0-9]{150}$/;
+
+  reviewHandle.addEventListener('blur',function(){
+      if(reviewHandle.value == ""){
+        reviewMsgHandle.innerHTML = "Can't Be Empty";
+        
+      }else if(reviewHandle.value.length < 150) {
+        reviewMsgHandle.innerHTML = "Review should contain minimum 150 Characters";
+        
+      }else{
+        reviewMsgHandle.innerHTML = "";
+        
+      }
+  },false);
+</script>
