@@ -16,7 +16,7 @@
   <tbody>
     <% @amenities.each do |amenity| %>
       <tr>
-        <td><%= link_to amenity.name, amenity_path(amenity.id) %></td>
+        <td><%= link_to amenity.name, amenity_path(amenity.slug) %></td>
       </tr>
     <% end %>
   </tbody>

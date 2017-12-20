@@ -5,110 +5,132 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
-
-  <style>
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: DodgerBlue;
-    font-family: "Times New Roman";
-    font-size: 15px;
-     font-color:red;
-}
-
-li {
-    float: left;
-
-}
-
-li a, .dropbtn {
-    display: inline-block;
-    color: ;
-    text-align: center;
-    padding: 6px 8px;
-    text-decoration: none;
-
-}
-
-li a:hover, .dropdown:hover .dropbtn {
-    background-color: Orange;
-
-}
-
-li.dropdown {
-    display: inline-block;
-    font-color:red;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 100px;
-    box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.8);
-    z-index: 1;
-}
-
-.dropdown-content a {
-    color: black;
-    padding: 2px 5px;
-    text-decoration: none;
-    display: block;
-    text-align: left;
-}
-
-.dropdown-content a:hover {background-color: Gray;}
-
-.dropdown:hover .dropdown-content {
-    display: block;
-}
-body {
-    background-image: url('/myhomemainpage.jpeg');
-    background-repeat: no-repeat;
-    background-position: right top;
-
-}
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style>
+    /* Remove the navbar's default rounded borders and increase the bottom margin */ 
+    .navbar {
+      margin-bottom: 30px;
+      border-radius: 0;
+    }
+    
+    /* Remove the jumbotron's default bottom margin */ 
+     .jumbotron {
+      margin-bottom: 0;
+    }
+   
+    /* Add a gray background color and some padding to the footer */
+    footer {
+      background-color: #f2f2f2;
+      padding: 25px;
+    }
 </style>
 </head> 
 <body>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <%= image_tag('/myhomemainpage.jpg', :size => "80x50") %>
+    </div>
 
-<ul>
-  <li><%= image_tag('/myhomemainpage.jpg', :size => "80x40") %></li>
-  <li><%= link_to "CITIES", cities_path %></li>
+    <ul class="nav navbar-nav">
+      
+      <li class="dropdown"><%= link_to "CITIES", cities_path %><span class="caret"></span></li>
+      <% if user_signed_in? && current_user.role.name == "host"%> 
+      <li><%= link_to "CONFIRM", bookings_confirmation_path %></li>
+      <% end %>
+      <% if user_signed_in? && current_user.role.name == "admin" %>
+          <li><%= link_to "AUTHORIZE", rooms_authorize_path %></li>
+          <li><%= link_to "CONFIRM", bookings_confirmation_path %></li>
+          <li><%= link_to "AMENITIES", amenities_path %></li>
+      <% end %>
+      <% if user_signed_in? %> 
+          <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown">Hi <%=(current_user.username).capitalize%>!<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+              <li><%= link_to "Bookings", bookings_my_bookings_path %></li>
+              <li><%= link_to "Rooms", rooms_my_rooms_path %></li>
+              <li><%= link_to "Profile", edit_user_registration_path %></li>
+              <li><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
+          </ul>
+      </li>
+      <% else %>
+      <ul class="nav navbar-nav navbar-right">
+          <li ><a href="/users/sign_in">Sign In<span class="glyphicon glyphicon-user"></span></a></li>
+          <li><a href="/users/sign_up">Sign Up<span class="glyphicon glyphicon-log-in"></span></a></li>
+      </ul>
+      <% end %>
+    </ul>
+  </div>
+  <!-- <ul class="nav navbar-nav">
+  <div id="categories">
+  <%#City.all.each do |city|%>
+    <a><label for="<%#= city.name %>"><%#=city.name %><%#= check_box_tag city.name, city.id %></a>
+  <%#end%><br/>
+</div>
+</ul> -->
+</nav>
 
-  <% if user_signed_in? && current_user.role.name == "host"%> 
-  <li><%= link_to "AUTHORIZE", bookings_confirmation_path %></li>
-  <% end %>
+<marquee direction = "right" width="50%" style="color:red">Every Day Room Booking is Available</marquee ><marquee style="color:green" direction = "left"  width="50%">Register to Book the Room</marquee >
 
-  <% if user_signed_in? && current_user.role.name == "admin" %>
-  <li class="dropdown">
 
-  <li><%= link_to "AUTHORIZE ROOMS", rooms_authorize_path %></li>
-  <li><%= link_to "AUTHORIZE BOOKINGS", bookings_confirmation_path %></li>
-  <li><%= link_to "AMENITIES", amenities_path %></li>
-  <% end %>
-
-<% if user_signed_in? %> 
-  <li class="dropdown", style = "float:right">
-      <a href="javascript:void(0)" class="dropbtn">Hi <%=(current_user.username).capitalize%>!</a>
-           <div class="dropdown-content">
-              <a><%= link_to "Rooms", rooms_my_rooms_path %></a>
-              <a><%= link_to "Bookings", bookings_my_bookings_path %></a>
-              <a><%= link_to "Profile", edit_user_registration_path %></a>        
-              <a><%= link_to "Logout", destroy_user_session_path, method: :delete %></a>
-          </div>
-  </li>
-  <% else %>
-  <li style = "float:right;"><%= link_to image_tag('/login1.jpeg', :size => "80x30"), new_user_session_path %></li>
-  <li style = "float:right;"><%= link_to image_tag('/register.jpeg', :size => "80x30"), new_user_registration_path %></li>
-<% end %>
-</ul>
 <p class="notice"><%= notice %></p>
-       <p class="alert"><%= alert %></p>
-
+<p class="alert"><%= alert %></p>
 <%= yield %>
-
 </body>
 </html>
+
+
+<!-- 
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+    /* Remove the navbar's default rounded borders and increase the bottom margin */ 
+    .navbar {
+      margin-bottom: 50px;
+      border-radius: 0;
+    }
+    
+    /* Remove the jumbotron's default bottom margin */ 
+     .jumbotron {
+      margin-bottom: 0;
+    }
+   
+    /* Add a gray background color and some padding to the footer */
+    footer {
+      background-color: #f2f2f2;
+      padding: 25px;
+    }
+  </style>
+</head>
+<body>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <%= image_tag('/myhomemainpage.jpg', :size => "80x50") %>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <%= link_to "CITIES", cities_path %>
+        <li><a href="#">Products</a></li>
+        <li><a href="#">Deals</a></li>
+        <li><a href="#">Stores</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Your Account</a></li>
+        <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+ -->
+
+<!-- </body> -->
+<!-- </html> -->

@@ -1,9 +1,14 @@
 Rails.application.routes.draw do
   resources :reviews
   resources :pets
-
+  get 'rooms/search_room'
+  get 'rooms/find_by_cities'
   get 'rooms/authorize'
   get 'rooms/my_rooms'
+  get 'rooms/find_by_cities'
+  get 'rooms/by_price_asc'
+  get 'rooms/by_price_desc'
+
   resources :rooms do 
     post 'authorize'
     post 'my_rooms'

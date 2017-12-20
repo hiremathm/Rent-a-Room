@@ -4,15 +4,6 @@
 <html>
 <head>
   <title></title>
-
-<style>
-  body {
-    background-image: url('/rent2.jpg');
-    //background-repeat: repeat;
-    background-position: right center;
-    background-size: 1100px 300px;
-}
-</style>
 </head>
 <body>
 <br>
@@ -27,14 +18,15 @@
   </div>
 
 <!-- <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
+    <%#= f.label :email %><br />
+    <%#= f.email_field :email, autofocus: true %>
   </div>
- -->  
+   -->
 
   <div class="field">
-    <%= f.label :password %><br />
+    <%= f.label :password %>(<a href='#' id="show">Show</a>)<br />
     <%= f.password_field :password, autocomplete: "off" %>
+    <span id = "passwordError"></span>
   </div>
 
   <% if devise_mapping.rememberable? -%>
@@ -52,8 +44,27 @@
 </body>
 </html>
 
+<script>
+  var passwordHandle = document.getElementById('user_password');
+  
+  var passwordErrorHandle = document.querySelector('#passwordEror')
+  
+  var showHandle = document.querySelector('#show');
+  var showToggle = true;
+  showHandle.addEventListener('click', function(e){
+    if(showToggle){
+      passwordHandle.setAttribute('type','text');
+      showHandle.innerHTML = 'Hide';
+      showToggle = false;
+    }else{
+      passwordHandle.setAttribute('type','password');
+      showHandle.innerHTML = 'show';
+      showToggle = true;
+    }
+    e.preventDefault();
+  },false);
+</script>
 
-
-<%= render "devise/shared/links" %>
+<= render "devise/shared/links" %>
 
 

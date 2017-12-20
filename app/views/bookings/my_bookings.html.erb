@@ -15,7 +15,7 @@
 		</tr>
 		<% @bookings.each do |book| %>
 			<tr>
-				<td><%= link_to book.room.name, room_path(book.room.id) %></td>
+				<td><%= link_to book.room.name, room_path(book.room.slug) %></td>
 				<td> <%= book.start_date %></td>
 				<td><%= book.end_date %></td>
 				<td><%= book.price %></td>

@@ -1,18 +1,26 @@
 class RoomsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!, except: [:index, :show,:find_by_cities,:by_price_asc,:by_price_desc]
   load_and_authorize_resource
   before_action :set_room, only: [:show, :edit, :update, :destroy]
+  
+   def by_price_asc
+    @rooms = Room.order(:price)
+    render json: @rooms
+   end
 
-  # GET /rooms
-  # GET /rooms.json
+   def by_price_desc
+    @rooms = Room.order(price: :desc)
+    render json: @rooms
+   end
   def index
-    @roomarray = Room.all
+    @r = Room.all
     @roomarray = Room.paginate(:page => params[:page], :per_page => 5)
   end
 
   # GET /rooms/1
   # GET /rooms/1.json
   def show
+    @room = Room.friendly.find(params[:id])
     @booking = Booking.new
     @special_price = SpecialPrice.new
     @review = Review.new
@@ -25,6 +33,16 @@ class RoomsController < ApplicationController
 
   # GET /rooms/1/edit
   def edit
+  end
+  def find_by_cities
+      if params[:city_id] != ""
+      #  binding.pry
+        @rooms = Room.where(city_id: params[:city_id])
+    #binding.pry
+      else 
+        @rooms = Room.all
+      end 
+        render json: @rooms
   end
 
   # POST /rooms
@@ -64,6 +82,7 @@ class RoomsController < ApplicationController
         respond_to do |format|
             format.html { redirect_to rooms_url, notice: 'Room was successfully destroyed.' }
             format.json { head :no_content }
+        end
     else 
         render action: "show"    
     end

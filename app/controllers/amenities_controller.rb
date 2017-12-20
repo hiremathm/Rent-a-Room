@@ -14,6 +14,7 @@ class AmenitiesController < ApplicationController
   # GET /amenities/1
   # GET /amenities/1.json
   def show
+    @amenities = Amenity.friendly.find(params[:id])
   end
 
   # GET /amenities/new

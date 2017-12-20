@@ -8,7 +8,7 @@
 		<tr><th>Name</th><th>Approved</th></tr>
 		<tr>
 			<% @r.each do |room| %>
-				<td><%= link_to room.name, room_path(room.id) %></td>
+				<td><%= link_to room.name, room_path(room.slug) %></td>
 				<td><% if  room.is_authorized?%>Yes<% else %> No<% end %></td></tr>
 			<% end %>
 	</table>

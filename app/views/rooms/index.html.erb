@@ -2,14 +2,141 @@
   <a href="/rooms/new" style="float:right;"><img src="/add.png" width=30px;height=30px;></a>
 <% end %>
 
-<% @roomarray.each do |room| %>
+
+
+<h4>Select By</h4>
+				<%= select_tag(:price,'<option value="1" id="Low">Low to High</option><option value="2" id="High">high to low</option>'.html_safe,prompt: "select option")%>
+			
+<!-- 
+<h4>Select By</h4>
+				<div id="Low">Low to High</div>
+				<div id="High">High to Low</div>
+ -->
+
+<div id="rooms">
+	<%City.all.each do |city|%>
+		<label for="<%= city.name %>"><%=city.name %><%= radio_button_tag "city", city.id %> 
+
+		<!-- <label for="<%#= city.name %>"><%#=city.name %><%#= check_box_tag city.name, city.id %> -->
+	<%end%><br/>
+</div>
+<ul id="roomlist">
+<% @r.each do |room| %>
 	<% if room.is_authorized == true %>
-		<table><tr><th></th><th></th></tr>
-			<tr><td><%=  image_tag(room.images, :size => "460x280", :crop => :fill, :alt => "no image") %></td>
-			<td><h2><b>Name : </b><i><%= link_to room.name, room%></i></h2><br><b>Address : </b><%= room.address %>
-			<br><br/><b>City : </b><%= room.city.name%><br/><br/><b>Description :</b> <%= room.description %><br><br>
-			<b>Owner : </b> <%= room.user.username.capitalize %><br/></br><b>Contact : </b><%= room.user.mobile%></td></tr>
+		<table>
+			<tr>
+				<th></th><th></th>
+			</tr>
+			
+		<tr>
+			<td><%= link_to image_tag(room.images, :size => "280x180", :crop => :fill, :alt => "no image"),room %></td>
+			<td>
+			</td>
+		</tr>
+		<tr>
+			<td><b>Price : </b> <%= room.price %><b style="float:right">Contact : <%= room.user.mobile%></b>
+			</td>
+		</tr>
 		</table>
 	<% end %>
 <% end %>
+</ul>
+ <script>
+	var roomsHandle = document.getElementById('rooms');
+	var roominputs = roomsHandle.getElementsByTagName('input');
+	var roomListHandle = document.getElementById('roomlist');
+	
+	function buildProductHtml(rooms){
+		roomlist.innerHTML = "";
+		rooms.forEach(function(room){
+			var li = document.createElement('li');
+			var a = document.createElement('a');
+			var href = document.createAttribute('href');
+			href.value = `/rooms${room.id}`;
+			a.setAttributeNode(href);
+			var text = document.createTextNode(room.name);
+			a.appendChild(text);
+			li.appendChild(a);
+			roomListHandle.appendChild(li);
+		});
+	}
+	
+	roomsHandle.addEventListener('click', function(){
+		var roomselected = 0;
+		for(var i = 0; i < roominputs.length; i++){
+			if(roominputs[i].checked){
+				roomselected = roominputs[i].value;
+			}
+		}
+		var xhr = new XMLHttpRequest();
+		xhr.open('GET', '../rooms/find_by_cities?city_id=' + roomselected);
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState == 4 && xhr.status == 200){
+				buildProductHtml(JSON.parse(xhr.responseText));
+			}
+		}
+		xhr.send();
+	}, false);
+
+var LowHandle = document.getElementById('Low');
+var HighHandle = document.getElementById('High');
+
+LowHandle.addEventListener('load',function(){
+		var xhr = new XMLHttpRequest();
+		xhr.open('GET','../rooms/by_price_asc?low=');
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState == 4 && xhr.status == 200 ){
+				buildProductHtml(JSON.parse(xhr.responseText));
+			}
+		}
+		xhr.send();
+	},false);
+
+	HighHandle.addEventListener('load',function(){
+		var xhr = new XMLHttpRequest();
+		xhr.open('GET','../rooms/by_price_desc?high=');
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState == 4 && xhr.status == 200 ){
+				buildProductHtml(JSON.parse(xhr.responseText));
+			}
+		}
+		xhr.send();
+	},false);
+</script>
+    <title>Google Maps Multiple Markers</title>
+  <script src="http://maps.google.com/maps/api/js?key=AIzaSyCzbuY_r3-Uj_RIBsxfKP0WqluXS8dTo5o"></script>
+  <div id="map" style="height: 200px; width: 200px;">
+</div>
+<script type="text/javascript">
+    var locations = [];
+   
+  <% @rooms.each do |room|%>
+  	locations.push([<%= room.latitude %>,<%= room.longitude %>])
+  <%end%>
+  console.log(locations);
+
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 4,
+      center: new google.maps.LatLng(21.146633, 79.088860),
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
+
+    var infowindow = new google.maps.InfoWindow();
+
+    var marker, i;
+
+    for (i = 0; i < locations.length; i++) { 
+      marker = new google.maps.Marker({
+        position: new google.maps.LatLng(locations[i][0], locations[i][1]),
+        map: map
+      });
+
+      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        return function() {
+          // infowindow.setContent(locations[i][0]);
+          infowindow.open(map, marker);
+        }
+      })(marker, i));
+    }
+  </script>
 <%= will_paginate @roomarray %>

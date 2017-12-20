@@ -9,6 +9,7 @@
   <% end %>
 <% end %>
 
+
 <table >
     <tr ><th></th></tr>
     <tr >
@@ -34,7 +35,21 @@
               <% end %>
             </ol></p>
     </tr>
+<tr>
+    <td>
+          <div class="col-md-5">
+                  <div class="page-header">
+                      <h2>Location</h2>
+                  </div>
+                  <iframe width="200"
+                      height="200"
+                      frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBipgxMczyujD8knh17CWPulk7h2shwOF8&q=<%= @room.name %>,<%= @room.address %>">
+                 </iframe>
 
+              </div>
+  
+    </td>
+</tr>
 <tr>
 <td>
   <% if user_signed_in? %>
@@ -197,9 +212,15 @@
   },false);
 </script>
 
+<% room = 0 %>
 <% @room.reviews.each do |review| %>
-    <%# if review.user_id == current_user.id  || current_user.id == review.room.user_id%>
-  <h2>Reviews</h2>
+  <%room = room + (((review.food_rating + review.cleanliness_rating + review.safety_rating + review.facility_rating + review.locality_rating)/5.0).to_f)/(@room.reviews.length) %>
+<% end %>
+<h2>Rating of Review : <%= room.round(1)%></h2>
+ 
+
+<% @room.reviews.each do |review| %>
+   <h2>Reviews</h2>
       Review : <%= review.review %> </br>
       Food Rating : <%= review.food_rating%> </br>
       Cleanliness Rating : <%= review.cleanliness_rating%> </br>

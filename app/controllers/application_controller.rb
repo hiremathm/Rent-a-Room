@@ -8,6 +8,10 @@ rescue_from CanCan::AccessDenied  do
   redirect_to root_path, notice: "You are not authorized to access this page."
 end
 
+  rescue_from SocketError  do
+  	redirect_to root_path, notice: "Make sure You are not connected to internet"
+  end
+
   before_action :configure_permitted_parameters, if: :devise_controller?
   protected
 
