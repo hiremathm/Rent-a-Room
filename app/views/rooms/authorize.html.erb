@@ -1,48 +1,34 @@
-<a href="/rooms"><img src="/61972.png" width=30px;height=30px;></a>
-<% if can? :authorize, Room %>
-<% if @room.empty? %>
-	<p>No room to authorize</p>
-<% else %>
-	<!-- <table>
-		<tr><th>Room Name</th><th>User Name</th><th>Address</th><th>City</th><th>Authorize</th></tr>
-		
-		<%# @room.each do |room| %>
-		<tr colspan = '2'>
-			<td><%#= link_to room.name, room_path(room.id)%></td>
-			<td><%#= room.user.username.capitalize %></td>
-			<td><%#= room.address %></td>
-			<td><%#= room.city.name %></td>
-			<td><%#= form_for room do |f| %>
-					<%#= f.hidden_field :is_authorized, value: true %>
-					<%#= f.submit "Authorize" %>
-				<%# end %>
-			</td>
-		</tr>
-		<%# end %>
-	</table>
-<%# end %>
-<%# end %> -->
 
+<div class="container">
+	<div class="page-header">
+        <h2><i class="glyphicon glyphicon-th-list"></i> Authorize Rooms</h2>
+    </div>
+    
+	<% if can? :authorize, Room %>
+		<% if @room.empty? %>
+			<p>No room to authorize</p>
+		<% else %>
 
-	<% @room.each do |room| %>
-			<table><tr><th></th><th></th></tr>
-			<tr><td><%=  image_tag(room.images, :size => "460x280", :crop => :fill, :alt => "no image") %></td>
-			<td><h2><b>Name : </b><i><%= room.name%></i></h2>
-				
-			<b>Address : </b><%= room.address %>
-			<br><br/><b>City : </b><%= room.city.name%><br/><br/><b>Description :</b> <%= room.description %>
-			<br><br><b>Owner : </b> <%= room.user.username.capitalize %>
-			<br><br><b>Contact : </b><%= room.user.mobile%>
-			<br><br><b>price : </b> <%= room.price %></td>
-			</tr>
-			<tr>
-				<td style = "float:right"><%= form_for room do |f| %>
+			<% @room.each do |room| %>
+				<div class = "col-md-8">
+					<%=  image_tag(room.images, :size => "460x280", :crop => :fill, :alt => "no image") %><br/>
+				</div>	
+				<div class = "col-md-4">
+					<b>Name : </b><i><%= room.name%></i><br>
+					<b >price : </b> <%= room.price %></td><br/>
+					<b>Address :</b><%= room.address %><br/>
+					<b>City : </b><%= room.city.name %><br>
+					<b>Owner : </b><%= room.user.username.capitalize %><br/>
+					<b>Contact :</b> <%= room.user.mobile%><br/>
+					<%= form_for room do |f| %>
 						<%= f.hidden_field :is_authorized, value: true %>
 						<%= f.submit "Authorize" %>
 					<% end %>
-				</td>
-			</tr>
-		</table>
+				</div>	
+			<% end %>			
+		<% end %>
 	<% end %>
-<% end %>
-<% end %>
+
+		
+</div>
+

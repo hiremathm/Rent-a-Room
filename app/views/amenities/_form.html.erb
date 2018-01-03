@@ -14,12 +14,64 @@
   <div class="field">
     <%= f.label :name %><br>
     <%= f.text_field :name %>
+    <span id = "nameError"></span>
   </div>
   <div class="field">
     <%= f.label :description %><br>
     <%= f.text_field :description %>
+    <span id = "desError"></span>
   </div>
   <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>
+
+<script >
+  var nameHanle = document.getElementById('amenity_name');
+  var nameMsg = document.getElementById('nameError');
+  var desHandle = document.getElementById('amenity_description');
+  var desMsg = document.getElementById('desError');
+
+  var errors = {
+    name: false,
+    description: false
+  }
+  
+  nameFormat = /^[a-zA-z]*$/;
+
+  var formHandle =document.getElementById('new_amenity');
+
+  function validatename(){
+    if(nameHanle.value == ""){
+      nameMsg.innerHTML = "Name con't be blank";
+      errors.name = false;
+    }else if(!nameFormat.test(nameHanle.value)){
+      nameMsg.innerHTML = "Should contain only Characters";
+      errors.name = false;
+    }else{
+      nameMsg.innerHTML = "";
+      errors.name = true;
+    }
+  }
+
+  function validatedes(){
+    if(desHandle.value == ""){
+      desMsg.innerHTML = "Description con't be blank";
+      errors.description = false;
+    }else if(desHandle.value.length < 20){
+      desMsg.innerHTML = "Atleast it Should contain 20 Characters";
+      errors.description = false;
+    }else{
+      desMsg.innerHTML = "";
+      errors.description = true;
+    }
+  }
+  formHandle.addEventListener('submit',function(e){
+    
+    validatename();   
+    validatedes();
+    if(Object.values(errors).includes(false)){
+      e.preventDefault();
+    }
+  },false);
+</script>

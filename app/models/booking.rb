@@ -1,7 +1,7 @@
 class Booking < ActiveRecord::Base
 
-	#after_update :booking_confirmed
-	#after_create :booking_confirmation
+	after_update :booking_confirmed
+	after_create :booking_confirmation
 	
 	before_validation :calculate_room_price
 	
@@ -25,10 +25,6 @@ class Booking < ActiveRecord::Base
 
 
 	def validate_dates
-		# if self.start_date < Date.today || self.end_date < self.start_date
-		# 	self.errors.add(:date," you are trying is not in the currect")
-		#  end	
-
 		if (self.start_date < Date.today)
 			self.errors.add(:base, "Date can not be less than today")
 		end

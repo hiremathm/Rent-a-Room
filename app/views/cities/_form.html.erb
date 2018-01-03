@@ -11,11 +11,43 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="field" >
     <%= f.label :name %><br>
     <%= f.text_field :name %>
+    <span id = "name_error"></span>
   </div>
   <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>
+<script>
+  var nameHandle = document.getElementById('city_name');
+  var nameMsg = document.getElementById('name_error');
+  var formHandle = document.getElementById('new_city');
+  var nameFormatter = /^[a-zA-Z]*$/;
+ 
+ var errors = {
+  name: false
+ }
+function validate(){
+    if(nameHandle.value == ""){
+      nameMsg.innerHTML = "City con't be blank";
+      errors.name = false;
+    }else if(!nameFormatter.test(nameHandle.value)){
+      nameMsg.innerHTML = "Name can contain only characters"
+      errors.name = false;
+    }
+    else{
+      nameMsg.innerHTML = "";
+      errors.name = true;
+    }
+  }
+
+  formHandle.addEventListener('submit',function(e){
+    validate();   
+    if(Object.values(errors).includes(false))
+    {
+    e.preventDefault();
+     } 
+  },false)
+</script>

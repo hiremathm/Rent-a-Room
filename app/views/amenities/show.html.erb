@@ -1,10 +1,11 @@
-<%= link_to image_tag('/back.jpeg', :size => "30x30"), amenities_path %>
+<div class =" container">
+
 <% if user_signed_in?%>
 	<% if (can? :update, @amenity)%>
-		<b style="float:right"><%= link_to image_tag('/edit2.png', :size => "30x30"), edit_amenity_path(@amenity) %></b>
+		<b style="float:right"><%= link_to "Edit", edit_amenity_path(@amenity) %></b>
 	<% end %>
 	<% if can? :destroy, @amenity %>
-        <b style="float:right;"><%= link_to image_tag('/destroy1.png', :size => "30x30"), method: :delete, data: { confirm: 'Are you sure?' } %></b>
+        <b style="float:right;"><%= link_to "Delete", method: :delete, data: { confirm: 'Are you sure?' } %></b>
 	<% end %>
 <% end %>
 <p>
@@ -17,3 +18,4 @@
   <%= @amenity.description %>
 </p>
 
+</div>

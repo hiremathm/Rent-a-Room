@@ -5,132 +5,66 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<style>
-    /* Remove the navbar's default rounded borders and increase the bottom margin */ 
-    .navbar {
-      margin-bottom: 30px;
-      border-radius: 0;
-    }
-    
-    /* Remove the jumbotron's default bottom margin */ 
-     .jumbotron {
-      margin-bottom: 0;
-    }
-   
-    /* Add a gray background color and some padding to the footer */
-    footer {
-      background-color: #f2f2f2;
-      padding: 25px;
-    }
-</style>
+   <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </head> 
 <body>
-<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <%= image_tag('/myhomemainpage.jpg', :size => "80x50") %>
-    </div>
-
-    <ul class="nav navbar-nav">
-      
-      <li class="dropdown"><%= link_to "CITIES", cities_path %><span class="caret"></span></li>
-      <% if user_signed_in? && current_user.role.name == "host"%> 
-      <li><%= link_to "CONFIRM", bookings_confirmation_path %></li>
-      <% end %>
-      <% if user_signed_in? && current_user.role.name == "admin" %>
+<div class = "container">
+  <nav class="navbar navbar-default" style="background-color:#41f48c">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a href= "/rooms"> <%= image_tag('/myhomemainpage.jpg', :size => "80x50") %></a>
+      </div>
+      <ul class="nav navbar-nav">
+        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown">Cities<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <% City.all.each do |city| %>
+              <li><%= link_to city.name,city%></li>
+            <%end%>
+          </ul>
+        </li>
+        <% if user_signed_in? && current_user.role.name == "host"%> 
+          <li><%= link_to "CONFIRM", bookings_confirmation_path %></li>
+        <% end %>
+        <% if user_signed_in? && current_user.role.name == "admin" %>
           <li><%= link_to "AUTHORIZE", rooms_authorize_path %></li>
           <li><%= link_to "CONFIRM", bookings_confirmation_path %></li>
           <li><%= link_to "AMENITIES", amenities_path %></li>
-      <% end %>
-      <% if user_signed_in? %> 
+        <% end %>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <% if user_signed_in? %> 
           <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown">Hi <%=(current_user.username).capitalize%>!<span class="caret"></span></a>
-          <ul class="dropdown-menu">
+            <ul class="dropdown-menu">
               <li><%= link_to "Bookings", bookings_my_bookings_path %></li>
               <li><%= link_to "Rooms", rooms_my_rooms_path %></li>
               <li><%= link_to "Profile", edit_user_registration_path %></li>
               <li><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
-          </ul>
-      </li>
-      <% else %>
-      <ul class="nav navbar-nav navbar-right">
+            </ul>
+          </li>
+        <% else %>
           <li ><a href="/users/sign_in">Sign In<span class="glyphicon glyphicon-user"></span></a></li>
           <li><a href="/users/sign_up">Sign Up<span class="glyphicon glyphicon-log-in"></span></a></li>
+        <% end %>
       </ul>
-      <% end %>
-    </ul>
   </div>
-  <!-- <ul class="nav navbar-nav">
-  <div id="categories">
-  <%#City.all.each do |city|%>
-    <a><label for="<%#= city.name %>"><%#=city.name %><%#= check_box_tag city.name, city.id %></a>
-  <%#end%><br/>
-</div>
-</ul> -->
 </nav>
+<% if notice %>
+  <div class = "alert alert-success">
+    <%= notice%>
+  </div>
+<%end%>
+<% if alert %>
+  <div class = "alert alert-success">
+<% end %>
+</div>
 
-<marquee direction = "right" width="50%" style="color:red">Every Day Room Booking is Available</marquee ><marquee style="color:green" direction = "left"  width="50%">Register to Book the Room</marquee >
+<!-- <marquee direction = "right" width="50%" style="color:red">Every Day Room Booking is Available</marquee ><marquee style="color:green" direction = "left"  width="50%">PleaseRegister to Book the Room</marquee > -->
 
 
-<p class="notice"><%= notice %></p>
-<p class="alert"><%= alert %></p>
 <%= yield %>
 </body>
 </html>
-
-
-<!-- 
- <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <style>
-    /* Remove the navbar's default rounded borders and increase the bottom margin */ 
-    .navbar {
-      margin-bottom: 50px;
-      border-radius: 0;
-    }
-    
-    /* Remove the jumbotron's default bottom margin */ 
-     .jumbotron {
-      margin-bottom: 0;
-    }
-   
-    /* Add a gray background color and some padding to the footer */
-    footer {
-      background-color: #f2f2f2;
-      padding: 25px;
-    }
-  </style>
-</head>
-<body>
-<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <%= image_tag('/myhomemainpage.jpg', :size => "80x50") %>
-    </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav">
-        <%= link_to "CITIES", cities_path %>
-        <li><a href="#">Products</a></li>
-        <li><a href="#">Deals</a></li>
-        <li><a href="#">Stores</a></li>
-        <li><a href="#">Contact</a></li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Your Account</a></li>
-        <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>
- -->
-
-<!-- </body> -->
-<!-- </html> -->

@@ -14,7 +14,7 @@ class RoomsController < ApplicationController
    end
   def index
     @r = Room.all
-    @roomarray = Room.paginate(:page => params[:page], :per_page => 5)
+    @r = Room.paginate(:page => params[:page], :per_page => 10)
   end
 
   # GET /rooms/1
@@ -35,12 +35,12 @@ class RoomsController < ApplicationController
   def edit
   end
   def find_by_cities
-      if params[:city_id] != ""
+      if params[:city_ids] != ""
       #  binding.pry
-        @rooms = Room.where(city_id: params[:city_id])
+        @rooms = Room.where(city_id: params[:city_ids].split(","))
     #binding.pry
       else 
-        @rooms = Room.all
+         @rooms = Room.all
       end 
         render json: @rooms
   end

@@ -1,47 +1,86 @@
- <% if user_signed_in? && (can? :create, Room.new)%>
-  <a href="/rooms/new" style="float:right;"><img src="/add.png" width=30px;height=30px;></a>
-<% end %>
 
-
-
-<h4>Select By</h4>
-				<%= select_tag(:price,'<option value="1" id="Low">Low to High</option><option value="2" id="High">high to low</option>'.html_safe,prompt: "select option")%>
-			
-<!-- 
-<h4>Select By</h4>
-				<div id="Low">Low to High</div>
-				<div id="High">High to Low</div>
- -->
-
-<div id="rooms">
-	<%City.all.each do |city|%>
-		<label for="<%= city.name %>"><%=city.name %><%= radio_button_tag "city", city.id %> 
-
-		<!-- <label for="<%#= city.name %>"><%#=city.name %><%#= check_box_tag city.name, city.id %> -->
-	<%end%><br/>
-</div>
-<ul id="roomlist">
-<% @r.each do |room| %>
-	<% if room.is_authorized == true %>
-		<table>
-			<tr>
-				<th></th><th></th>
-			</tr>
-			
-		<tr>
-			<td><%= link_to image_tag(room.images, :size => "280x180", :crop => :fill, :alt => "no image"),room %></td>
-			<td>
-			</td>
-		</tr>
-		<tr>
-			<td><b>Price : </b> <%= room.price %><b style="float:right">Contact : <%= room.user.mobile%></b>
-			</td>
-		</tr>
-		</table>
+<div class="container">
+	<% if user_signed_in? && (can? :create, Room.new)%>
+  		<%= link_to new_room_path do %>
+  		<i class = "glyphicon glyphicon-plus" style="float:right">Add Room</i>
+  		<% end %>
 	<% end %>
-<% end %>
-</ul>
+	<div class = "col-md-6">
+	<div id="rooms">
+		<center>
+			<%City.all.each do |city|%>
+				<strong><%= check_box_tag city.name, city.id %><label for="<%= city.name %>"><%=city.name %></strong>
+			<%end%>
+		</center>
+	</div>
+	<br/>
+	<ul>
+	<table>
+		<thead>		
+		</thead>
+		<tbody id="roomlist">
+			
+				<% @r.each do |room| %>
+					<% if room.is_authorized == true %>
+					<tr>	
+						<td><li></b> <%= link_to room.name, room_path(room.slug) %></li></td>
+					</tr>
+					<% end %>
+				<% end %>
+			
+		</tbody>
+	</table>
+	</ul>
+<%= will_paginate @r %>
+</div>
+<br/><br/>
+<div class ="col-md-6">
+
+<title>Google Maps Multiple Markers</title>
+  <script src="http://maps.google.com/maps/api/js?key=AIzaSyCzbuY_r3-Uj_RIBsxfKP0WqluXS8dTo5o"></script>
+  <div id="map" style="height: 400px; width: 500px;">
+	</div>
+	<script type="text/javascript">
+		// ******************************code for map*************************************
+     var locations = [];
+   
+  <% @rooms.each do |room|%>
+    locations.push([<%= room.latitude %>,<%= room.longitude %>])
+  <%end%>
+  // console.log(locations);
+
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 4,
+      center: new google.maps.LatLng(21.146633, 79.088860),
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
+
+    var infowindow = new google.maps.InfoWindow();
+
+    var marker, i;
+
+    for (i = 0; i < locations.length; i++) { 
+      marker = new google.maps.Marker({
+        position: new google.maps.LatLng(locations[i][0], locations[i][1]),
+        map: map
+      });
+
+      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        return function() {
+          infowindow.setContent(locations[i][0]);
+          infowindow.open(map, marker);
+        }
+      })(marker, i));
+    }
+
+	</script>
+
+</div>
+</div>
  <script>
+
+ 
+ // *******************************************************************************
 	var roomsHandle = document.getElementById('rooms');
 	var roominputs = roomsHandle.getElementsByTagName('input');
 	var roomListHandle = document.getElementById('roomlist');
@@ -62,14 +101,14 @@
 	}
 	
 	roomsHandle.addEventListener('click', function(){
-		var roomselected = 0;
+		var roomselected = [];
 		for(var i = 0; i < roominputs.length; i++){
 			if(roominputs[i].checked){
-				roomselected = roominputs[i].value;
+				roomselected.push(roominputs[i].value);
 			}
 		}
 		var xhr = new XMLHttpRequest();
-		xhr.open('GET', '../rooms/find_by_cities?city_id=' + roomselected);
+		xhr.open('GET', '../rooms/find_by_cities?city_ids=' + roomselected.join(","));
 		xhr.onreadystatechange = function(){
 			if(xhr.readyState == 4 && xhr.status == 200){
 				buildProductHtml(JSON.parse(xhr.responseText));
@@ -81,7 +120,7 @@
 var LowHandle = document.getElementById('Low');
 var HighHandle = document.getElementById('High');
 
-LowHandle.addEventListener('load',function(){
+LowHandle.addEventListener('change',function(){
 		var xhr = new XMLHttpRequest();
 		xhr.open('GET','../rooms/by_price_asc?low=');
 		xhr.onreadystatechange = function(){
@@ -92,7 +131,7 @@ LowHandle.addEventListener('load',function(){
 		xhr.send();
 	},false);
 
-	HighHandle.addEventListener('load',function(){
+	HighHandle.addEventListener('change',function(){
 		var xhr = new XMLHttpRequest();
 		xhr.open('GET','../rooms/by_price_desc?high=');
 		xhr.onreadystatechange = function(){
@@ -103,40 +142,8 @@ LowHandle.addEventListener('load',function(){
 		xhr.send();
 	},false);
 </script>
-    <title>Google Maps Multiple Markers</title>
-  <script src="http://maps.google.com/maps/api/js?key=AIzaSyCzbuY_r3-Uj_RIBsxfKP0WqluXS8dTo5o"></script>
-  <div id="map" style="height: 200px; width: 200px;">
-</div>
-<script type="text/javascript">
-    var locations = [];
-   
-  <% @rooms.each do |room|%>
-  	locations.push([<%= room.latitude %>,<%= room.longitude %>])
-  <%end%>
-  console.log(locations);
 
-    var map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 4,
-      center: new google.maps.LatLng(21.146633, 79.088860),
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    });
-
-    var infowindow = new google.maps.InfoWindow();
-
-    var marker, i;
-
-    for (i = 0; i < locations.length; i++) { 
-      marker = new google.maps.Marker({
-        position: new google.maps.LatLng(locations[i][0], locations[i][1]),
-        map: map
-      });
-
-      google.maps.event.addListener(marker, 'click', (function(marker, i) {
-        return function() {
-          // infowindow.setContent(locations[i][0]);
-          infowindow.open(map, marker);
-        }
-      })(marker, i));
-    }
-  </script>
-<%= will_paginate @roomarray %>
+<!-- <ul class="pager">
+  <li class="previous"><a href="/room">Previous</a></li>
+  <li class="next"><a href="/rooms">Next</a></li>
+</ul> -->

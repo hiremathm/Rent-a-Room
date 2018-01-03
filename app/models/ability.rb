@@ -11,7 +11,6 @@ class Ability
 
      if user.nil?
          can :read, [Room, City]
-         can [:read, :search_room], [Room]
         can [:read,:find_by_cities,:by_price_asc,:by_price_desc],[Room]
 
      elsif user.role? "admin"
@@ -19,14 +18,12 @@ class Ability
         can [:create, :my_bookings, :update, :confirmation], [Booking]
         can [:create, :my_rooms], Room
         can [:create], [SpecialPrice], :room => { :user_id => user.id }
-        can [:read, :search_room], [Room]
         can [:read,:find_by_cities,:by_price_asc,:by_price_desc],[Room]
 
      elsif user.role? "host"
         can [:read, :update, :destroy, :my_bookings], Booking do |booking|
            booking.user_id == user.id
         end
-        can [:read, :search_room], [Room]
         can [:update, :destroy], Review do |review|
             review.user_id == user.id
         end
@@ -54,7 +51,6 @@ class Ability
         can [:update, :destroy, :my_bookings], Booking do |booking|
             booking.user_id == user.id
         end
-        can [:read, :search_room], [Room]
        can [:read,:find_by_cities,:by_price_asc,:by_price_desc],[Room]
       end 
     # # Define abilities for the passed in user here. For example:

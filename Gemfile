@@ -12,7 +12,18 @@ gem 'friendly_id', '~> 5.1.0'
 gem 'rails', '4.2.6'
 # Use sqlite3 as the database for Active Record
 #gem 'sqlite3'
-#gem 'ruby', '2.3.4'
+#gem 'ruby', '2.3.1'
+# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+#gem 'rails', '~> 5.1.4'
+# Use sqlite3 as the database for Active Record
+#sqlite3 for development and test database
+gem 'sqlite3', group: [:development, :test]
+
+#postgress for production database
+gem 'pg', group: :production
+
+#Four factor for Heroku
+gem 'rails_12factor', group: :production
 
 gem 'sqlite3', group: [:development, :test]
  

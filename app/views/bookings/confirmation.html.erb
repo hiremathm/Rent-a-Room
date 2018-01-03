@@ -1,18 +1,27 @@
-<a href="/rooms"><img src="/61972.png" width=30px;height=30px;></a>
-
+<div class = "container">
 <% if @b.empty? %>
 	<%# binding.pry%>
 	<p>No room to confirm</p>
 
 <% else %>
 	<table border=1>
-		<tr><th>Room Name</th><th>User Name</th><th>Start_Date</th><th>End_date</th><th>Action</th></tr>
-		
+		<thead>
+			<tr>
+				<th>Room Name</th>
+				<th>User Name</th>
+				<th>Start_Date</th>
+				<th>End_date</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+		<tbody>
 		<% @b.each do |book| %>
-			
+					
 			<%if book.room.user_id == current_user.id %>
 				<tr colspan = '2'>
-					<td><%= book.room.name%></td><td><%= book.user.username%> <td><%= book.start_date %></td> 
+					<td><%= book.room.name%></td>
+					<td><%= book.user.username%></td>
+					<td><%= book.start_date %></td> 
 					<td> <%= book.end_date %></td>
 					<%= form_for book do |f| %>
 						<%= f.hidden_field :is_confirmed, value: true %>
@@ -21,5 +30,7 @@
 				</td></tr>
 			<% end %>
 		<% end %>
+		</tbody>
 	</table>
 <% end %>
+</div>

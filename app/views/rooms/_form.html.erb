@@ -1,64 +1,181 @@
+<div class="container">
+  <div class="col-md-6">
+    <%= form_for(@room) do |f| %>
+      <% if @room.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@room.errors.count, "error") %> prohibited this room from being saved:</h2>
 
-
-
-<%= form_for(@room) do |f| %>
-  <% if @room.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@room.errors.count, "error") %> prohibited this room from being saved:</h2>
-
-      <ul>
-      <% @room.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+          <ul>
+          <% @room.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
       <% end %>
-      </ul>
-    </div>
-  <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_field :description %>
-  </div>
-  <div class="field">
-    <%= f.label :price %><br>
-    <%= f.text_field :price %>
-  </div>
-  <div class="field">
-    <%= f.label :rules %><br>
-    <%= f.text_field :rules %>
-  </div>
-  <div class="field">
-    <%= f.label :address %><br>
-    <%= f.text_field :address %>
-  </div>
-  <div class="field">
-    <%= f.label :images %><br>
-    <%= f.file_field :images %><br/>
-    <%#= f.file_field :images %><br/>
-    <%#= f.file_field :images %><br/>
-    <%#= f.file_field :images %><br/>
-    <%#= f.file_field :images %><br/>
-  </div>
-  <!-- <div class="field">
-    <%= f.label :latitude %><br>
-    <%= f.text_field :latitude %>
-  </div>
-  <div class="field">
-    <%= f.label :longitude %><br>
-    <%= f.text_field :longitude %>
-  </div> -->
-  <div class="field">
-    <%= f.collection_select :city_id, City.all , :id , :name, prompt: "Select City" %><br>
-  </div>
-  
-  <div class="field">
-        <%= f.label :Amenities %><br>
-        <%#= f.collection_check_boxes :course_ids, Course.all, :id, :name %>
-        <%= f.collection_check_boxes :amenity_ids, Amenity.all, :id, :name %>
-  </div>
-    <%= f.submit %>
-  </div>
-<% end %>
+      <div class="form-group">
+        <%= f.label :name %><br>
+        <%= f.text_field :name, class: "form-control" %>
+        <span id="nameMsg"></span>
+      </div>
+      <div class="form-group">
+        <%= f.label :description %><br>
+        <%= f.text_area :description, class: "form-control" %>
+        <span id="descriptionMsg"></span>
+      </div>
+      <div class="form-group">
+        <%= f.label :price %><br>
+        <%= f.text_field :price, class: "form-control" %>
+        <span id="priceMsg"></span>
+      </div>
+      <div class="form-group">
+        <%= f.label :rules %><br>
+        <%= f.text_area :rules, class: "form-control" %>
+        <span id="rulesMsg"></span>
+      </div>
+      <div class="form-group">
+        <%= f.label :address %><br>
+        <%= f.text_area :address, class: "form-control" %>
+        <span id="addressMsg"></span>
+      </div>
+      <div class="form-group">
+        <%= f.label :images %><br>
+        <%= f.file_field :images %>
+        <%# if f.object.images? %>
+          <%#= image_tag f.object.images.thumb.url %>
+          <%#= f.label :remove_images %>
+          <%#= f.check_box :remove_images %> 
+        <%# end %>
+        <span id="imagesMsg"></span>
+      </div>
+      <div class="form-group">
+        <%= f.label :city %><br>
+        <%= f.collection_select :city_id, City.all, :id, :name, {prompt: "Select City"}, {class: "form-control"} %>
+      </div>
+      <h3>Select Amenities</h3>
+      <div class="checkbox">
+        <%= f.collection_check_boxes :amenity_ids, Amenity.all, :id, :name do |course|%>
+            <label>
+              <%= course.check_box %>
+              <%= course.text%>
+            </label>
+            <!-- <br/> -->
+        <%end%>
+      </div>
+      <div class="actions">
+        <%= f.submit "Add Room", class: "btn btn-primary" %>
+      </div>
+    <% end %>
+</div>
+</div>
+<script>
+  var nameHandle = document.getElementById('room_name');
+  var descriptionHandle = document.getElementById('room_description');
+  var priceHandle = document.getElementById('room_price');
+  var rulesHandle = document.getElementById('room_rules');
+  var addressHandle = document.getElementById('room_address');
+  var imagesHandle = document.getElementById('room_images');
+  var roomFormHandle = document.getElementById('new_room');
+
+  var nameMsgHandle = document.getElementById('nameMsg');
+  var descriptionMsgHandle = document.getElementById('descriptionMsg');
+  var priceMsgHandle = document.getElementById('priceMsg');
+  var rulesMsgHandle = document.getElementById('rulesMsg');
+  var addressMsgHandle = document.getElementById('addressMsg');
+  var imagesMsgHandle = document.getElementById('imagesMsg');
+
+  var priceFormatter = /^[0-9]*(?:\.\d{1,2})?$/;
+
+  var errors = {
+    name: false,
+    description: false,
+    price: false,
+    rules: false,
+    address: false,
+    images:false
+  }
+
+  function validateName(){
+    if(nameHandle.value == ""){
+      nameMsgHandle.innerHTML = "can't be blank";
+      errors.name = false;
+    }else if(nameHandle.value.length < 5){
+      nameMsgHandle.innerHTML = "Room name should  be more than 5 characters.";
+      errors.name = false;
+    }else{
+      nameMsgHandle.innerHTML = "";
+      errors.name = true;
+    }
+  }
+
+  function validateDescription(){
+    if(descriptionHandle.value == ""){
+      descriptionMsgHandle.innerHTML = "can't be blank";
+      errors.description = false;
+    }else if(descriptionHandle.value.length < 150){
+      descriptionMsgHandle.innerHTML = "Description should be more than 150 character";
+       errors.description = false;
+    }else{
+      descriptionMsgHandle.innerHTML = "";
+       errors.description = true;
+    }
+  }
+
+  function validatePrice(){
+    if(priceHandle.value == ""){
+      priceMsgHandle.innerHTML = "can't be blank";
+      errors.price = false;
+    }else if(!priceFormatter.test(priceHandle.value)){
+      priceMsgHandle.innerHTML = " price should contain only number";
+      errors.price = false;
+    }else{
+      priceMsgHandle.innerHTML = "";
+      errors.price = true;
+    }
+  }
+
+  function validateRules(){
+    if(rulesHandle.value == ""){
+      rulesMsgHandle.innerHTML = "can't be blank";
+      errors.rules = false;
+    }else{
+      rulesMsgHandle.innerHTML = "";
+      errors.rules = true;
+    }
+  }
+
+  function validateAddress(){
+    if(addressHandle.value == ""){
+      addressMsgHandle.innerHTML = "can't be blank";
+      errors.address = false;
+    }else{
+      addressMsgHandle.innerHTML = "";
+      errors.address = true;
+    }
+  }
+
+  function validateimages(){
+    if(imagesHandle.value == ""){
+      imagesMsgHandle.innerHTML = "can't be blank";
+      errors.images = false;
+    }else{
+      imagesMsgHandle.innerHTML ="";
+      errors.address = true;
+    }
+  }
+
+roomFormHandle.addEventListener('submit',function(e){
+  validateName();
+  validateDescription();
+  validatePrice();
+  validateRules();
+  validateAddress();
+  validateimages();
+
+  // if(Object.values(errors).includes(false)){
+      // e.preventDefault();
+
+  }
+
+},false);
+</script>

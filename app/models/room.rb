@@ -5,7 +5,7 @@ class Room < ActiveRecord::Base
 	after_create :change_role
 	before_save :determine_lat_and_long
 	after_update :authorize_confirmation
-	before_destroy :destroy_room
+	#before_destroy :destroy_room
 
 	mount_uploader :images, ImageUploader
 
@@ -23,7 +23,7 @@ class Room < ActiveRecord::Base
 	validates_presence_of :name, :description, :price, :rules, :address, :images, :city_id, :user_id
 	validates_uniqueness_of :name
 	validates_numericality_of :price, :city_id, :user_id
-	validates_length_of :description, minimum: 150
+	validates_length_of :description, minimum: 5
 
 	
 	private
@@ -35,7 +35,8 @@ class Room < ActiveRecord::Base
 	end
 
 	def determine_lat_and_long
-		response = HTTParty.get("https://maps.googleapis.com/maps/api/geocode/json?address=#{self.address}&key=AIzaSyA6RqNAKM2gUdLcMmV4F0Fn_jz_e93xRBk")
+		response = HTTParty.get("https://maps.googleapis.com/maps/api/geocode/json?address=#{self.address}
+			&key=AIzaSyA6RqNAKM2gUdLcMmV4F0Fn_jz_e93xRBk")
 
 		result = JSON.parse(response.body)
 		
@@ -49,17 +50,17 @@ class Room < ActiveRecord::Base
 		end
 	end
 
-	def destroy_room
-		if self.bookings.any?
-			binding.pry
-			self.bookings.each do |booking|
-				binding.pry
-				if booking.end_date < Date.today 
-					binding.pry
-					self.add.errors(:base,"this room has bookings")
-				end 
-			end
-		end
-	end
+	# def destroy_room
+	# 	if self.bookings.any?
+	# 		#binding.pry
+	# 		self.bookings.each do |booking|
+	# 			#binding.pry
+	# 			if booking.end_date < Date.today 
+	# 				#binding.pry
+	# 				self.add.errors(:base,"this room has bookings")
+	# 			end 
+	# 		end
+	# 	end
+	# end
 
 end

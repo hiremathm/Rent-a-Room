@@ -1,44 +1,33 @@
-<h2> You can book room here</h2>
-<%= form_for @book do |f| %>
-  <div>
-    <%= f.label :Start_date %>
-    <%= f.date_select :start_date %>
+<!-- <div class="field" id = "clean">
+    <%#= f.label :cleanliness_rating %><br>
+    <%#= f.radio_button :cleanliness_rating, 1 %> 1
+    <%#= f.radio_button :cleanliness_rating, 2 %> 2
+    <%#= f.radio_button :cleanliness_rating, 3 %> 3
+    <%#= f.radio_button :cleanliness_rating, 4 %> 4
+    <%#= f.radio_button :cleanliness_rating, 5 %> 5
   </div>
-  <div>
-    <%= f.label :End_date %>
-    <%= f.date_select :end_date %>
+  <div class="field" id = "safety">
+    <%#= f.label :safety_rating %><br>
+    <%#= f.radio_button :safety_rating, 1 %> 1
+    <%#= f.radio_button :safety_rating, 2 %> 2
+    <%#= f.radio_button :safety_rating, 3 %> 3
+    <%#= f.radio_button :safety_rating, 4 %> 4
+    <%#= f.radio_button :safety_rating, 5 %> 5
   </div>
-   
-    <%= f.hidden_field :room_id, value: @room.id %>
-   
-    <%= f.hidden_field :price, value: @room.price %>
-  
-    <%= f.label :is_confirmed %>
-      
-    <%= f.check_box :is_confirmed %>
+  <div class="field" id = "facility">
+    <%#= f.label :facility_rating %><br>
+    <%#= f.radio_button :facility_rating, 1 %> 1
+    <%#= f.radio_button :facility_rating, 2 %> 2
+    <%#= f.radio_button :facility_rating, 3 %> 3
+    <%#= f.radio_button :facility_rating, 4 %> 4
+    <%#= f.radio_button :facility_rating, 5 %> 5
+  </div>
+  <div class="field" id = "locality">
+    <%#= f.label :locality_rating %><br>
+    <%#= f.radio_button :locality_rating, 1 %> 1
+    <%#= f.radio_button :locality_rating, 2 %> 2
+    <%#= f.radio_button :locality_rating, 3 %> 3
+    <%#= f.radio_button :locality_rating, 4 %> 4
+    <%#= f.radio_button :locality_rating, 5 %> 5
+  </div> -->
     
-    
-    <%= f.submit "BOOK ROOM" %>
-    
-<% end %>
-
-
-  class BookingController < ApplicationController
-  
-  def index
-  end
-  def create
-    @book = Booking.new(booking_params)
-    @book.user_id = current_user.id
-    if @book.save
-      redirect_to room_path(@book.room), notice: "your has been booked"
-    end
-  end
-
-  private
-  def booking_params
-    params[:booking].permit(:start_date, :end_date, :price, :room_id, :user_id, :is_confirmed)
-  end
-
-end
-

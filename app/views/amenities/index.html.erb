@@ -1,7 +1,6 @@
-
-<a href="/rooms" style="float:left;"><img src="/61972.png" width=30px;height=30px;></a>
+<div class = "container">
 <% if user_signed_in? && (can? :create, Amenity.new) %>
-<a href="/amenities/new" style="float:right;"><img src="/add1.png" width=30px;height=30px;></a>
+<a href="/amenities/new">Add Amenity</a>
 <% end %>
 </br></br></br>
 <table>
@@ -22,3 +21,4 @@
   </tbody>
 </table>
 <%= will_paginate @amenities %>
+</div>
