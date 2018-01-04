@@ -1,40 +1,46 @@
 <div class = "container">
-  <div class = "col-md-12">
-  <h3><p><%= @room.name %></h3>
+  <div class = "row">
+    <div class = "col-md-12">
+    <h3><p><%= @room.name %></h3>
 
-  <%if user_signed_in? %>
-        <%if (can? :update, @room) %>
-          <b style="float:right;"><%= link_to "Edit", edit_room_path(@room) %></b> 
-        <%end %> 
-        <% if can? :destroy, @room %>
-          <b style="float:right;"><%= link_to "Delete", @room, method: :delete, data: { confirm: 'Are you sure?'}%></b> 
-        <% end %></br>    
-    <% end %>
-  <b>Owner : </b><%= @room.user.username.capitalize%> <b style = "float:right">Price :<%= @room.price %></b><br/><br/>
-  <b>Contact : </b><%= @room.user.mobile %><br/></br>
-  </div>
-  <div class="col-md-12">
-    <%= image_tag(@room.images, :size => "1120x300")%>
-  </div>
-  <div class = "col-md-12">  
-    <br/><b >Description : </b><br><%= @room.description %><br/><br/>
-    <b>Rules : </b><br><%= @room.rules%> <br/><br/>
-  </div>
-  <div class = "col-md-6">       
-    <b>Address : </b> <%= @room.address%></br></br>
-    <b>City : </b><%= @room.city.name %><br/><br/>
-    <b>Latitude : </b><%= @room.latitude %><br/><br/>
-    <b>Longitude : </b><%= @room.longitude %><br><br>
-  </div>         
-  <div class = "col-md-6">
-    <b>Amenities : </b>
-    <ol>
-      <% @room.amenities.each do |amenity| %>
-        <li><b><%= amenity.name %> : </b>   <%= amenity.description%></li><br>
+    <%if user_signed_in? %>
+          <%if (can? :update, @room) %>
+            <b style="float:right;"><%= link_to "Edit", edit_room_path(@room) %></b> 
+          <%end %> 
+          <% if can? :destroy, @room %>
+            <b style="float:right;"><%= link_to "Delete", @room, method: :delete, data: { confirm: 'Are you sure?'}%></b> 
+          <% end %></br>    
       <% end %>
-    
-    </ol>
+    <b>Owner : </b><%= @room.user.username.capitalize%> <b style = "float:right">Price :<%= @room.price %></b><br/><br/>
+    <b>Contact : </b><%= @room.user.mobile %><br/></br>
+    </div>
   </div>
+  <div class = "row">
+    <div class="col-md-12">
+      <%= image_tag(@room.images, :size => "1120x300")%>
+    </div>
+    <div class = "col-md-12">  
+      <br/><b >Description : </b><br><%= @room.description %><br/><br/>
+      <b>Rules : </b><br><%= @room.rules%> <br/><br/>
+    </div>
+   
+    <div class = "col-md-6">       
+      <b>Address : </b> <%= @room.address%></br></br>
+      <b>City : </b><%= @room.city.name %><br/><br/>
+      <b>Latitude : </b><%= @room.latitude %><br/><br/>
+      <b>Longitude : </b><%= @room.longitude %><br><br>
+    </div>         
+    <div class = "col-md-6">
+      <b>Amenities : </b>
+      <ol>
+        <% @room.amenities.each do |amenity| %>
+          <li><b><%= amenity.name %> : </b>   <%= amenity.description%></li><br>
+        <% end %>
+      
+      </ol>
+    </div>
+  </div>
+  <div class = "row">
   <div class = "col-md-4">
       <% if user_signed_in? %>
       <%# if current_user.id == @room.user.id %>
@@ -42,7 +48,7 @@
         <% if @room.special_prices.empty? %>
             <p>No Specal prices for this room</p>
         <% else %>
-            <table border = 1>
+            <table class = "table">
                 <tr>
                     <th>Start-Date</th>
                     <th>End-Date</th>
@@ -71,11 +77,11 @@
             <%= form_for @special_price do |f| %>
                 <%= f.hidden_field :room_id, value: @room.id %>
                 <p class = "form-group">
-                  <strong>Start Date :</strong><%= f.text_field :start_date ,class: "form-control"%>
+                  <strong>Start Date :</strong><%= f.date_select :start_date ,class: "form-control"%>
                   <span id = "startError"></span>
                 </p>
                 <p class = "form-group">
-                  <strong>End Date :</strong><%= f.text_field :end_date,class: "form-control" %>
+                  <strong>End Date :</strong><%= f.date_select :end_date,class: "form-control" %>
                   <span id = "endError"></span>
                 </p>
                 <p class = "form-group">
@@ -94,12 +100,12 @@
         <%= form_for @booking do |f| %>
             
             <p class = "form-group">
-              <strong>Start Date:</strong> <%= f.text_field :start_date, class: "form-control"%>
+              <strong>Start Date:</strong> <%= f.date_select :start_date, class: "form-control"%>
               <span id = "startdateError"></span>
             </p>
 
             <p class = "form-group">
-              <strong>End Date :</strong> <%= f.text_field :end_date,class: "form-control" %>
+              <strong>End Date :</strong> <%= f.date_select :end_date,class: "form-control" %>
               <span id = "enddateError"></span>
             </p>
              
@@ -114,6 +120,8 @@
         <% end %>
       <% end %>
   </div>
+  </div>
+  <div class = "row">
   <div class = "col-md-8">
   <!-- **************Review display********************* -->
     <% room = 0 %>
@@ -217,15 +225,17 @@
           <% end %>
   <% end %>
   </div>
-  <center>
-  <div class = "col-md-12">
-      <div class="page-header">
-          <h2>Location</h2>
-      </div>
-          <iframe width="700" height="500" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBipgxMczyujD8knh17CWPulk7h2shwOF8&q=<%= @room.name %>,<%= @room.address %>"></iframe>
-      </div>
   </div>
-
+  <div class = "row">
+    <center>
+      <div class = "col-md-12">
+        <div class="page-header">
+            <h2>Location</h2>
+        </div>
+          <iframe width="700" height="500" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBipgxMczyujD8knh17CWPulk7h2shwOF8&q=<%= @room.latitude %>,<%= @room.longitude %>"></iframe>
+      </div>
+    </center>
+  </div>
 </div>
 <!-- Script for Booking -->
 <script>
@@ -420,10 +430,10 @@ function validatesafety(){
     }
     if(selected == 0){
       safetyMsgHandle.innerHTML = "cont be blank";
-       errors.locality = false
+       errors.safety = false
     }else{
       safetyMsgHandle.innerHTML = "";
-       errors.locality = true;
+       errors.safety = true;
     }
 }
 

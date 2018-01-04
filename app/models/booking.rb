@@ -10,7 +10,7 @@ class Booking < ActiveRecord::Base
 	validates_presence_of :start_date, :end_date, :price, :room_id, :user_id
 	validate :validate_dates, on: :create
 	validate :check_date_availablity, on: :create	
-	validate :calculate_room_price, on: :create
+	#validate :calculate_room_price, on: :create
 	def booking_confirmed
 		if self.is_confirmed == true
 			Notification.client_confirmed(self).deliver_now!
@@ -28,7 +28,7 @@ class Booking < ActiveRecord::Base
 			previous_booking_date = (booking.start_date..booking.end_date).to_a
 			current_booking.each do |booking|
 				if previous_booking_date.include?(booking)	
-					self.errors.add(:base, "already booked ")
+					self.errors.add(:base, "This room is already booked for the below dates ")
 					
 					break
 				end

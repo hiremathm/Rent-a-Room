@@ -5,8 +5,7 @@ class Room < ActiveRecord::Base
 	after_create :change_role
 	before_save :determine_lat_and_long
 	after_update :authorize_confirmation
-	before_destroy :destroy_room
-
+	
 	mount_uploader :images, ImageUploader
 
 	has_many :amenity_rooms
@@ -50,17 +49,6 @@ class Room < ActiveRecord::Base
 		end
 	end
 
-	# def destroy_room
-	# 	if self.bookings.any?
-	# 		#binding.pry
-	# 		self.bookings.each do |booking|
-	# 			#binding.pry
-	# 			if booking.end_date < Date.today 
-	# 				#binding.pry
-	# 				self.add.errors(:base,"this room has bookings")
-	# 			end 
-	# 		end
-	# 	end
-	# end
+	
 
 end

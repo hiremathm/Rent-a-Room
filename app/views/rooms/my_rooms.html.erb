@@ -1,9 +1,10 @@
 <div class = "container">
+	<div class = "col-md-6">
 	<h2>Your Rooms</h2>
 	<% if @r.empty? %>
 		<p>You dont have any rooms</p>
 	<% else %>
-	<table>
+	<table class= "table">
 		<tr><th>Name</th><th>Approved</th></tr>
 		<tr>
 			<% @r.each do |room| %>
@@ -14,3 +15,4 @@
 	<% end %>
 </div>
 
+</div>

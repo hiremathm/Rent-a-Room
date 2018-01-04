@@ -5,7 +5,7 @@
 		<b style="float:right"><%= link_to "Edit", edit_amenity_path(@amenity) %></b>
 	<% end %>
 	<% if can? :destroy, @amenity %>
-        <b style="float:right;"><%= link_to "Delete", method: :delete, data: { confirm: 'Are you sure?' } %></b>
+        <b style="float:right;"><%= link_to "Delete", @amenity, method: :delete, data: { confirm: 'Are you sure?' } %></b>
 	<% end %>
 <% end %>
 <p>

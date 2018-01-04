@@ -1,4 +1,6 @@
-<%= form_for(@amenity) do |f| %>
+<div class = "container">
+<div class = "col-md-4">
+  <%= form_for(@amenity) do |f| %>
   <% if @amenity.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@amenity.errors.count, "error") %> prohibited this amenity from being saved:</h2>
@@ -11,21 +13,22 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="field" class = "form-group">
     <%= f.label :name %><br>
-    <%= f.text_field :name %>
+    <%= f.text_field :name , class: "form-control"%>
     <span id = "nameError"></span>
   </div>
-  <div class="field">
+  <div class="field" class= "form-group">
     <%= f.label :description %><br>
-    <%= f.text_field :description %>
+    <%= f.text_field :description ,class: "form-control"%>
     <span id = "desError"></span>
-  </div>
+  </div><br/>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Submit", class: "btn btn-primary"%>
   </div>
 <% end %>
-
+</div>
+</div>
 <script >
   var nameHanle = document.getElementById('amenity_name');
   var nameMsg = document.getElementById('nameError');
