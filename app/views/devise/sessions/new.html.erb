@@ -76,7 +76,7 @@
 
   function validateName(){
     if(userNameHandle.value ==""){
-        userNameMsgHandle.innerHTML = "email is required";
+        userNameMsgHandle.innerHTML = "Username is required";
         errors.name = false;
     }else if(!userNameFormatter.test(userNameHandle.value)){
         userNameMsgHandle.innerHTML = "Should contain only alphabets";

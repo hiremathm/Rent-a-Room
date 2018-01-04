@@ -1,23 +1,31 @@
-<%# if @book.errors.any? %>
-    <!-- <p>These are the validations failed</p> -->
-	<%# @book.errors.full_messages.each do |msg| %>
-	    <%#= msg%>
-	<%# end %>     
-<%# end %>
+ <div class="container">
+  <% if @book.errors.any? %>
+      <h3>These are validations failed: </h3>
+      <ul>
+        <% @book.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+  <% end %>
 
-<div class = "container">
-<p>This room is already booked for the below dates</p>
-<table>
-	<tr>
-		<th>Start Date</th>
-		<th>End Date</th>
-	</tr>
-		<% @book.room.bookings.each do |date| %>
-			<tr>
-				<td><%= date.start_date %></td>
-				<td><%= date.end_date%></td>
-			</tr>
+  <%= form_for @book do |f|%>
+    
+    <label>Start Date</label><br/>
+    <%= f.date_select :start_date, class: "form-control" %><br/>
 
-		<% end %>
-</table>
+    <label>End Date</label><br/>
+    <%= f.date_select :end_date%><br/>
+
+    <%= f.hidden_field :room_id, value: @booking.room.id %>
+
+    <%= f.submit "Book", class: "btn btn-primary" %>
+  <%end%>
+
+  <% @book.room.bookings.each do |sd|%>
+    <%if !(sd.end_date < Date.today) %>
+      <h2> This Room is not avilable at </h2>
+
+      <li><b><%= sd.start_date %></b>  to  <b><%= sd.end_date %></b></li>
+    <%end%>
+  <%end%> 
 </div>

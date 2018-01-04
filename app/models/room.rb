@@ -5,7 +5,7 @@ class Room < ActiveRecord::Base
 	after_create :change_role
 	before_save :determine_lat_and_long
 	after_update :authorize_confirmation
-	#before_destroy :destroy_room
+	before_destroy :destroy_room
 
 	mount_uploader :images, ImageUploader
 

@@ -1,5 +1,4 @@
 class Booking < ActiveRecord::Base
-
 	after_update :booking_confirmed
 	after_create :booking_confirmation
 	
@@ -17,21 +16,9 @@ class Booking < ActiveRecord::Base
 			Notification.client_confirmed(self).deliver_now!
 		end
 	end
-
 	def booking_confirmation
 		Notification.client_confirmation(self).deliver_now!
 		Notification.host_confirmation(self).deliver_now!
-	end
-
-
-	def validate_dates
-		if (self.start_date < Date.today)
-			self.errors.add(:base, "Date can not be less than today")
-		end
-		if (self.start_date > self.end_date)
-			self.errors.add(:base, "End date can not be less than start date")
-		end
-	
 	end
 
 	def check_date_availablity
@@ -41,13 +28,21 @@ class Booking < ActiveRecord::Base
 			previous_booking_date = (booking.start_date..booking.end_date).to_a
 			current_booking.each do |booking|
 				if previous_booking_date.include?(booking)	
-					self.errors.add(:base, "already booked")
+					self.errors.add(:base, "already booked ")
+					
 					break
 				end
 			end
 		end
 	end
-
+	
+	def validate_dates
+		if self.start_date < Date.today
+			self.errors.add(:base,"Start date cannot be less than Today Date........ ")
+		elsif(self.end_date < self.start_date)
+			self.errors.add(:base,"End date cannot be less than Start Date........")
+		end
+	end
 	def calculate_room_price
 	total = 0
 	count = 0

@@ -42,7 +42,7 @@
 	</div>
 	<script type="text/javascript">
 		// ******************************code for map*************************************
-     var locations = [];
+  var locations = [];
    
   <% @rooms.each do |room|%>
     locations.push([<%= room.latitude %>,<%= room.longitude %>])
@@ -143,7 +143,3 @@ LowHandle.addEventListener('change',function(){
 	},false);
 </script>
 
-<!-- <ul class="pager">
-  <li class="previous"><a href="/room">Previous</a></li>
-  <li class="next"><a href="/rooms">Next</a></li>
-</ul> -->

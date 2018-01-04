@@ -160,7 +160,7 @@
       errors.images = false;
     }else{
       imagesMsgHandle.innerHTML ="";
-      errors.address = true;
+      errors.images = true;
     }
   }
 
@@ -172,8 +172,8 @@ roomFormHandle.addEventListener('submit',function(e){
   validateAddress();
   validateimages();
 
-  // if(Object.values(errors).includes(false)){
-      // e.preventDefault();
+  if(Object.values(errors).includes(false)){
+      e.preventDefault();
 
   }
 

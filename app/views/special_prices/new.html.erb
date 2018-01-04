@@ -1,6 +1,8 @@
-
+<div class = "container">
 <% if @specialprice.errors.any? %>
-	<% @specialprice.errors.full_messages.each do |msg| %>
-		<%= msg %>
-	<% end %>
-<% end %>
+	<ul>
+		<% @specialprice.errors.full_messages.each do |msg| %>
+			<li><%= msg %></li>
+		<% end %>
+	</ul>
+<% end %></div>
