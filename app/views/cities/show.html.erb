@@ -1,44 +1,35 @@
-<!-- <p id="notice"><%= notice %></p> -->
-<div class="container">
-  <div class="col-md-6">
-  <p>
-    <strong>Name:</strong>
-    <%= @city.name %>
-  </p>
-
+<!-- <div class="container"> -->
+  <div class="col-md-4">
   <% if user_signed_in? && (can? :update, @city) %>
   	<%= link_to 'Edit City', edit_city_path(@city) %>
   <% end %>
 
-  <h2>Rooms in <%=@city.name%> city </h2>
-  <%# if @rooms.is_authorized == true%>
-  <table class="table">
-  	<thead>
-  		<tr>
-  			<th>Room Name</th>
-  			<th>Address</th>
-  			<th>Price</th>
-  			<th>Owner Name</th>
-  		</tr>
-  	</thead>
-  	<tbody>
-  		<% @city.rooms.each do |room|%>
-  			<% if !room.is_authorized == false%>
-  		<tr>
-  			<td><%=link_to room.name, room%></td>
-  			<td><%=room.address%></td>
-  			<td><%=room.price%></td>
-  			<td><%=room.user.username%></td>
-  		</tr>
-  			<%end%>
-  		<%end%>
-  	</tbody>
-  </table>
-  </div>
-  <div class="col-md-6"> 
+  <h3><%=@city.name%> </h3>
+  <%if @city.rooms.empty?%>
+    <h4>There is no rooms in <%= @city.name %></h4>
+  <%else%>
+  <table class = "table">
+  <thead>
+    
+  </thead>
+  <tbody>
+  <% @city.rooms.each do |room| %>
+    <% if room.is_authorized == true %>
+      
+      <tr>
+        <td><%= image_tag(room.images, :size => "150x100") %></td>
+        <td><%= room.name.capitalize%><br/><i class="fa fa-inr"></i><%= room.price %><br/><%= link_to "View Deal", room_path(room.slug), class: "btn btn-warning" %></td>
+      </tr>
+    <% end %>
+  <% end %>
+  </tbody>  
+</table>
+<%end%>
+</div>
+  <div class="col-md-8"> 
     <title>Google Maps Multiple Markers</title>
     <script src="http://maps.google.com/maps/api/js?key=AIzaSyCzbuY_r3-Uj_RIBsxfKP0WqluXS8dTo5o"></script>
-    <div id="map" style="height: 400px; width: 500px;">
+    <div id="map" style="height: 650px; width: 850px;">
   </div>
   <script type="text/javascript">
     var locations = [];   
@@ -46,21 +37,6 @@
     	locations.push([<%= room.latitude %>,<%= room.longitude %>])
     <%end%>
 
-    // var output = [];
-    // function find_lat_long(){
-
-    //   var url = "https://maps.googleapis.com/maps/api/geocode/json?address=#{@city.name}     &key=AIzaSyA6RqNAKM2gUdLcMmV4F0Fn_jz_e93xRBk"
-    //   var xhr = XMLHttpRequest();
-    //   xhr.open('GET',url)
-    //   xhr.onreadystatechange() = function(){
-    //     if(xhr.readyState == 4 && xhr.status == 200)
-    //       var result = JSON.parse(xhr.responseText);
-
-    //     output = result["results"][0]["geometry"]["location"]["lat"])
-    //      output = result["results"][0]["geometry"]["location"]["lng"])
-    //   }
-    //   xhr.send();
-    // }
     
     for (i = 0; i < locations.length; i++) { 
       var map = new google.maps.Map(document.getElementById('map'), {
@@ -88,4 +64,4 @@
       }
     </script>
   </div>
-</div>
+<!-- </div> -->

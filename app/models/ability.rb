@@ -37,7 +37,7 @@ class Ability
         can [:update,:confirmation], Booking
         can :create, SpecialPrice#, :room => { :user_id => user.id }
         can :create, Review
-        can :read, [ City, Amenity]
+        can :read, [ City, Amenity, Review]
         
      elsif user.role? "guest"
         can [:create, :read, :my_rooms, :my_bookings], [Room,Booking]

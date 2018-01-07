@@ -8,7 +8,10 @@
 <br>
 
 <div class="container">
-  <div class="col-md-3">
+<div class="col-md-8">
+<center><img src = "/rent3.jpg  " alt = "no image" width="450px"></center>
+</div>
+<div class="col-md-4">
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
       <div class="form-group">
         <%= f.label :username %><br />
@@ -30,15 +33,12 @@
       <% end -%>
 
       <div class="form-group">
-        <%= f.submit "Log in" %>
+        <%= f.submit "Log in", class: "btn btn-primary" %>
       </div>
     <% end %>
     <%= render "devise/shared/links" %>
 </div>
 </div>
-
-
-
 <script>
 
   errors = {

@@ -1,27 +1,12 @@
 <div class = "container">
-      <% if user_signed_in? && (can? :create, City.new)%>
-        <%= link_to new_city_path do %>
-          <i class = "glyphicon glyphicon-plus">Add City</i>
-      <% end %>
-      <% end %>
-      
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            
-          </tr>
-        </thead>
-
-        <tbody>
+      <%# if user_signed_in? && (can? :create, City.new)%>
+        <%#= link_to new_city_path do %>
+          <!-- <i class = "glyphicon glyphicon-plus">Add City</i> -->
+      <%# end %>
+      <%# end %>
           <% @cities.each do |city| %>
-            <tr>
-              <td><%= link_to city.name, city %></td>
-                 </tr>
+              <p><%= link_to city.name, city %></p>
           <% end %>
-        </tbody>
-      </table>
-
       <%= will_paginate @cities %>
 
 </div>

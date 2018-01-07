@@ -1,4 +1,7 @@
-<%= form_for(@city) do |f| %>
+
+<div class = "container">
+<div class = "col-md-4">
+  <%= form_for(@city) do |f| %>
   <% if @city.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@city.errors.count, "error") %> prohibited this city from being saved:</h2>
@@ -11,15 +14,17 @@
     </div>
   <% end %>
 
-  <div class="field" >
+  <div class="field" class = "form-group" >
     <%= f.label :name %><br>
-    <%= f.text_field :name %>
+    <%= f.text_field :name , class: "form-control"%>
     <span id = "name_error"></span>
-  </div>
+  </div><br/>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit class: "btn btn-primary" %>
   </div>
 <% end %>
+</div>
+</div>
 <script>
   var nameHandle = document.getElementById('city_name');
   var nameMsg = document.getElementById('name_error');
