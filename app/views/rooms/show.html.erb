@@ -146,7 +146,7 @@
 
 <!-- ************************************************************************************************** -->
 <div id="Overivew" class="container-fluid">
-  <h1>Overivew : </h1><%= @room.description %>
+  <h1>Overview : </h1><%= @room.description %>
 </div>
 <div id="Amenities" class="container-fluid">
   <h1>Amenities : </h1>
@@ -321,19 +321,19 @@ errors = {
   var foodMsgHandle = document.getElementById('foodError');
   var localityMsgHandle = document.getElementById('localityError');
 
-  reviewHandle.addEventListener('keyup',function(){
-    if(reviewHandle.value.length < 150 ){
-      console.log(reviewHandle.value.length);
-      submitHandle.disabled = true;    
-      }
- },false) 
+ //  reviewHandle.addEventListener('keyup',function(){
+ //    if(reviewHandle.value.length < 15 ){
+ //      console.log(reviewHandle.value.length);
+ //      submitHandle.disabled = true;    
+ //      }
+ // },false) 
 
 function validatereview(){
       if(reviewHandle.value == ""){
         reviewMsgHandle.innerHTML = "Can't Be blank";
         errors.review = false;     
-      }else if(reviewHandle.value.length < 150) {
-        reviewMsgHandle.innerHTML = "Review should contain minimum 5 Characters";
+      }else if(reviewHandle.value.length < 15) {
+        reviewMsgHandle.innerHTML = "Review should contain minimum 15 Characters";
         errors.review = false;
       }else{
         reviewMsgHandle.innerHTML = "";

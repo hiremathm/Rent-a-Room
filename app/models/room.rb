@@ -11,9 +11,7 @@ class Room < ActiveRecord::Base
 	has_many :amenity_rooms
 	has_many :amenities, through: :amenity_rooms
 	has_many :bookings
-
 	has_many :special_prices, dependent: :destroy
-
 	has_many :reviews, dependent: :destroy
 
 	belongs_to :user

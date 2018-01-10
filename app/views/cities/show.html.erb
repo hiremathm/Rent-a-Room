@@ -3,6 +3,9 @@
   <% if user_signed_in? && (can? :update, @city) %>
   	<%= link_to 'Edit City', edit_city_path(@city) %>
   <% end %>
+  <% if user_signed_in? && (can? :destroy, @city)%>
+    <%= link_to "Delete City", @city, method: :delete, data: {confirm: "Are you sure"} %>
+  <%end%>
 
   <h3><%=@city.name%> </h3>
   <%if @city.rooms.empty?%>
