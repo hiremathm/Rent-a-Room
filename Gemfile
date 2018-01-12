@@ -17,7 +17,7 @@ gem 'rails', '4.2.6'
 #gem 'rails', '~> 5.1.4'
 # Use sqlite3 as the database for Active Record
 #sqlite3 for development and test database
-gem 'sqlite3', group: [:development, :test]
+gem 'sqlite3', group: :development
 
 #postgress for production database
 gem 'pg', group: :production
@@ -25,12 +25,10 @@ gem 'pg', group: :production
 #Four factor for Heroku
 gem 'rails_12factor', group: :production
 
-gem 'sqlite3', group: [:development, :test]
- 
+
 #Then below it, add these two lines:
  
-gem 'rails_12factor', group: :production
-gem 'pg', group: :production
+
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'

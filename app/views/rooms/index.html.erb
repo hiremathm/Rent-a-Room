@@ -17,7 +17,7 @@
 	<% @r.each do |room| %>
 		<% if room.is_authorized == true %>
 			<tr>
-				<td><%= image_tag(room.images, :size => "150x100") %></td>
+				<td><%= link_to image_tag(room.images, :size => "150x100"), room %></td>
 				<td><%= room.name.capitalize%>, <%= room.city.name %><br/><i class="fa fa-inr"></i><%= room.price %><br/><%= link_to "View Deal", room_path(room.slug), class: "btn btn-warning" %></td>
 			</tr>
 			
@@ -85,9 +85,7 @@
 			var href = document.createAttribute('href');
 			var img = document.createElement('img')
 			var src = document.createAttribute('src')
-			//src.value = `./room.images`;
-			//src.value = `./${room.images}`;
-			//src.value = `/room.images`
+			
 			console.log(src.value)
 			img.setAttributeNode(src);
 			href.value = `/rooms${room.id}`;
