@@ -10,27 +10,11 @@ gem 'friendly_id', '~> 5.1.0'
 #gem 'mini_magick', '~> 4.3'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.6'
-# Use sqlite3 as the database for Active Record
-#gem 'sqlite3'
-#gem 'ruby', '2.3.1'
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-#gem 'rails', '~> 5.1.4'
-# Use sqlite3 as the database for Active Record
-#sqlite3 for development and test database
 gem 'sqlite3',group: :development
-
-#postgress for production database
-gem 'pg',group: :production
-#gem 'pg'
-#Four factor for Heroku
+#gem 'pg',group: :production
+gem 'pg'
 gem 'rails_12factor', group: :production
 
-
-#Then below it, add these two lines:
- 
-
-
-# Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
