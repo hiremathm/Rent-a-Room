@@ -16,7 +16,7 @@
 </head> 
 <body style="font-family: Times New Roman, Times, serif; font-size: 16px; font-color: red; ">
 <!-- <div class = "container"> -->
-  <nav class="navbar navbar-inverse"style="color: #9fb4ff">
+  <nav class="navbar navbar-inverse" style="background-color: #373a3f">
     <div class="container-fluid">
       <div class="navbar-header">
         <a href= "/rooms"> <%= image_tag('/myhomemainpage.jpg', :size => "80x50") %></a>
@@ -80,9 +80,24 @@
     <%= alert %>
   </div>
 <% end %>
+
+
+<!-- <script>
+var myVar;
+
+function myFunction() {
+    myVar = setTimeout(function(){ alert("Hello"); }, 3000);
+}
+
+function myStopFunction() {
+    clearTimeout(myVar);
+}
+</script>
+ -->
+
 <!-- </div> -->
 
-<!-- <marquee direction = "right" width="50%" style="color:red">Every Day Room Booking is Available</marquee ><marquee style="color:green" direction = "left"  width="50%">PleaseRegister to Book the Room</marquee > -->
+<marquee direction = "right" width="50%" style="color:red">Every Day Room Booking is Available</marquee ><marquee style="color:green" direction = "left"  width="50%">Please Register to Book the Room</marquee >
 
 
 <%= yield %>

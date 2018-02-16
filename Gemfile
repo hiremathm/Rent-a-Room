@@ -11,8 +11,10 @@ gem 'friendly_id', '~> 5.1.0'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.6'
 gem 'sqlite3',group: :development
-gem 'pg',group: :production
-#gem 'pg', '~> 0.20'
+group :production do
+  gem 'pg', '0.15.1'
+end
+#gem 'pg',group: :production
 gem 'rails_12factor', group: :production
 
 gem 'sass-rails', '~> 5.0'
