@@ -1,288 +1,141 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Bootstrap Example</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <style>
-  body {
-      position: relative; 
-  }
-  #Overivew {padding-top:5px;color: #fff; background-color: #1E88E5;}
-  #Amenities {padding-top:5px;color: #fff; background-color: #673ab7;}
-  #Rules {padding-top:5px;color: #fff; background-color: #ff9800;}
-  <% if user_signed_in?%>
-  #Leave {padding-top:5px;color: #fff; background-color: #00bcd4;}
-  <%else%>
-  #Leave {padding-top:5px;color: #fff; background-color: #00bcd4;}
-  <%end%>
-  #Location {padding-top:5px;color: #fff; background-color: #02dca9;}
-  #Address {padding-top:5px;color: #fff; background-color: #04eaf7;}
-
-  </style>
-</head>
-<body data-spy="scroll" data-target=".navbar" data-offset="50">
-<center><h3><%= @room.name %></h3></center>
-
-    <%if user_signed_in? %>
-          <%if (can? :update, @room) %>
-            <b ><%= link_to "Edit", edit_room_path(@room) %></b> 
-          <%end %>
-          <% if can? :destroy, @room %>
-            <b style="float:right"><%= link_to "Delete", @room, method: :delete, data: { confirm: 'Are you sure?'}%></b> 
-          <% end %></br>    
-      <% end %>
-<nav class="navbar navbar-default" style="background-color: #00bcd4;">
-  <div class="collapse navbar-collapse" id="myNavbar">
-    <ul class="nav navbar-nav">
-      <li><a href="#Overivew">Overivew</a></li>
-      <li><a href="#Amenities">Amenities</a></li>
-      <li><a href="#Rules">Rules</a></li>
-      <li><a href="#Leave">Leave Review</a></li>
-      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Location<span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li><a href="#Address">Address</a></li>
-          <li><a href="#Location">Location</a></li>
-        </ul>
-      </li>
-    </ul>
+<div class="container">
+  <%if user_signed_in? %>
+  <%if (can? :update, @room) %>
+    <b ><%= link_to "Edit", edit_room_path(@room) %></b> 
+  <%end %>
+  <% if can? :destroy, @room %>
+    <b style="float:right"><%= link_to "Delete", @room, method: :delete, data: { confirm: 'Are you sure?'}%></b> 
+  <% end %></br>    
+<% end %>
+<div class="row">
+  <div class = "col-md-5">
+    <%= image_tag(@room.images, :size => "450x300")%>
   </div>
-</nav>
-<ul>
-  
-  <div class = "row">
-    <div class = "col-md-8">
-      <%= image_tag(@room.images, :size => "800x500")%>
-    </div>
-    <div class = "col-md-4">  
-      <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#home">Book</a></li>
-        <li><a data-toggle="tab" href="#menu1">Special Prices</a></li>
-      </ul>
-      <div class="tab-content">
-        <div id="home" class="tab-pane fade in active">
-        <br/>
-          <%# if user_signed_in? %>
+  <div class = "col-md-7">  
+    <ul class="nav nav-tabs">
+      <li class="active"><a data-toggle="tab" href="#home">Book</a></li>
+      <li><a data-toggle="tab" href="#menu1">Special Prices</a></li>
+      <li><a data-toggle="tab" href="#menu2">Overview</a></li>
+      <li><a data-toggle="tab" href="#menu3">Amenities</a></li>
+      <li><a data-toggle="tab" href="#menu4">Rules</a></li>
+      <li><a data-toggle="tab" href="#menu5">Address</a></li>
+      <li><a data-toggle="tab" href="#menu6">Reviews</a></li>
+    </ul>
+    <div class="tab-content">  
+      <div id="home" class="tab-pane fade in active"><br/>
+        <div class="row">
+          <div class="col-md-6"> 
             <%= form_for @booking do |f| %>
-            
-            <p class = "form-group">
-              <strong>Start Date:</strong> <%= f.date_select :start_date, class: "form-control"%>
-              <span id = "startdateError"></span>
-            </p>
-            <br/>
-            <p class = "form-group">
-              <strong>End Date :</strong> <%= f.date_select :end_date,class: "form-control" %>
-              <span id = "enddateError"></span>
-            </p>
-             <br/>
-              <%= f.hidden_field :room_id, value: @room.id %>
-              
+              <p class = "form-group">
+                <strong>Start Date:</strong> <%= f.date_select :start_date, class: "form-control"%>
+                <span id = "startdateError"></span>
+              </p><br/>
+              <p class = "form-group">
+                <strong>End Date :</strong> <%= f.date_select :end_date,class: "form-control" %>
+                <span id = "enddateError"></span>
+              </p><br/>
+              <%= f.hidden_field :room_id, value: @room.id %>   
               <% if user_signed_in? && current_user.role.name == "admin" %>
                 <%= f.collection_select :user_id, User.all, :id, :username %>
-              <% end %>
-
+              <% end %>          
               <%= f.submit "BOOK ROOM" , class: "btn btn-primary" %>
-            
             <% end %>
-          <%# end %>
-        </div>
-        <div id="menu1" class="tab-pane fade">
-          <br/>
-          <!-- special prices -->
-            <%# if user_signed_in? %>
-          <%# if current_user.id == @room.user.id %>
-            <% if @room.special_prices.empty? %>
-                <p>No Specal prices for this room</p>
-            <% else %>
-                <table class = "table">
-                    <tr>
-                        <th>Start-Date</th>
-                        <th>End-Date</th>
-                        <th>New Price</th>
-                        <th>Old price</th>
-                    </tr>
-                    <% @room.special_prices.each do |f| %>
-                        <tr>
-                            <td><%= f.start_date %></td>
-                            <td><%= f.end_date%></td>
-                            <td><%= f.price %></td>
-                            <td><%= @room.price%></td>
-                        </tr>
-                    <% end %>
-                </table>
-            <% end %>
-          <%# end %>
-          <% if user_signed_in?  %>
-            <% if current_user.id == @room.user.id %>
-              <%= form_for @special_price do |f| %>
-                  <%= f.hidden_field :room_id, value: @room.id %>
-                  <br/>
-                  <p class = "form-group">
-                    <strong>Start Date :</strong><%= f.date_select :start_date ,class: "form-control"%>
-                    <span id = "startError"></span>
-                  </p>
-                  <br/>
-                  <p class = "form-group">
-                    <strong>End Date :</strong><%= f.date_select :end_date,class: "form-control" %>
-                    <span id = "endError"></span>
-                  </p>
-                  <br/>
-                  <p class = "form-group">
-                    <strong>Price :</strong> <%= f.number_field :price,class: "form-control" %>
-                    <span id = "priceError"></span>
-                  </p>
-                  <%= f.submit "ADD SPECIAL PRICE", class: "btn btn-primary"%>
+          </div>
+          <div class="col-md-6">
+            <% if user_signed_in?  %>
+              <% if current_user.id == @room.user.id %>
+                <%= form_for @special_price do |f| %>
+                    <%= f.hidden_field :room_id, value: @room.id %>
+                    <p class = "form-group">
+                      <strong>Start Date :</strong><%= f.date_select :start_date ,class: "form-control"%>
+                      <span id = "startError"></span>
+                    </p>
+                    <br/>
+                    <p class = "form-group">
+                      <strong>End Date :</strong><%= f.date_select :end_date,class: "form-control" %>
+                      <span id = "endError"></span>
+                    </p>
+                    <br/>
+                    <p class = "form-group">
+                      <strong>Price :</strong> <%= f.number_field :price%>
+                      <span id = "priceError"></span>
+                    </p>
+                    <%= f.submit "ADD SPECIAL PRICE", class: "btn btn-primary"%>
+                <% end %>
               <% end %>
             <% end %>
+          </div> 
+        </div>
+      </div>
+      <div id="menu1" class="tab-pane fade"><br/>
+        <% if @room.special_prices.empty? %>
+          <p>No Specal prices for this room</p>
+        <% else %>
+          <table class = "table">
+            <tr>
+              <th>Start-Date</th>
+              <th>End-Date</th>
+              <th>New Price</th>
+              <th>Old price</th>
+            </tr>
+            <% @room.special_prices.each do |f| %>
+              <tr>
+                <td><%= f.start_date %></td>
+                <td><%= f.end_date%></td>
+                <td><%= f.price %></td>
+                <td><%= @room.price%></td>
+              </tr>
+            <% end %>
+          </table>
+        <% end %>
+        
+      </div>
+      <div id="menu2" class="tab-pane fade"><br/>
+          <h1>Overview : </h1><%= @room.description %>      
+      </div>
+      <div id="menu3" class="tab-pane fade">
+        <h1>Amenities : </h1>
+        <ol>
+          <% @room.amenities.each do |amenity| %>
+            <li><b><%= amenity.name %> : </b>   <%= amenity.description%></li><br>
+          <% end %>
+        </ol>
+      </div>  
+      <div id="menu4" class="tab-pane fade">
+        <h1>Rules : </h1><%= @room.rules%>        
+      </div>
+      <div id="menu5" class="tab-pane fade">
+        <h1>Address : </h1>
+          <b>Owner : </b><%= @room.user.username.capitalize%><br/><br/>
+          <b>Contact : </b><%= @room.user.mobile %><br/></br>
+          <b>Area : </b> <%= @room.address%></br></br>
+          <b>City : </b><%= @room.city.name %><br/>
+      </div>
+      <div id="menu6" class="tab-pane fade">
+      <div class="col-md-10">
+        <% room = 0 %>
+          <% @room.reviews.each do |review| %>
+            <%room = room + (((review.food_rating + review.cleanliness_rating + review.safety_rating + review.facility_rating + review.locality_rating)/5.0).to_f)/(@room.reviews.length) %>
+          <% end %>      
+        <h4>Rating of Review : <%= room.round(1)%></h4>
+          <%if @room.reviews.empty? %>
+            <h4>No reviews</h4>
+          <% else %>
+              <% @room.reviews.each do |review| %>
+                    <%= review.user.username%> : <%= review.review %> </br>
+              <% end %>
           <% end %>
         </div>
-        
+        <br/>
+        <div class="col-md-2">
+          <%= render 'review'%>
+        </div>
       </div>
     </div>
   </div>
-  <br/>
-
-<!-- ************************************************************************************************** -->
-<div id="Overivew" class="container-fluid">
-  <h1>Overview : </h1><%= @room.description %>
 </div>
-<div id="Amenities" class="container-fluid">
-  <h1>Amenities : </h1>
-  <ol>
-      <% @room.amenities.each do |amenity| %>
-      <li><b><%= amenity.name %> : </b>   <%= amenity.description%></li><br>
-    <% end %>
-</ol>
-  
-</div>
-<div id="Rules" class="container-fluid">
-  <h1>Rules : </h1><%= @room.rules%>
-</div>
-<div id="Leave" class="container-fluid " >
-  <h1>Review : </h1>
-  <div class = "col-md-4">
-  <% if user_signed_in?&&current_user.bookings.any? %>
-      <%@room.bookings.each do |booking| %>
-          <% if booking.user_id == current_user.id && booking.end_date <= Date.today %>
-          
-                  <%= form_for(@review) do |f| %>
-                      <div class="field" class="form-group">
-                        <%#= f.label :review %><br>
-                        <%= f.text_area :review,class: "form-control" %>
-                        <span id="reviewError"></span>
-                      </div>
-                      <div class="field" id = "food">
-                      <h5> 5 – Excellent, 4 – Good, 3 – Average, 2 – Fair, 1- Poor</h5>
-                        <%= f.label :food_rating %><br>
-                        <%= f.radio_button :food_rating, 1 %> 1
-                        <%= f.radio_button :food_rating, 2 %> 2
-                        <%= f.radio_button :food_rating, 3 %> 3
-                        <%= f.radio_button :food_rating, 4 %> 4
-                        <%= f.radio_button :food_rating, 5 %> 5
-                        <span id = "foodError"></span>
-                      </div>
-                      <div class="field" id = "clean">
-                        <%= f.label :cleanliness_rating %><br>
-                        <%= f.radio_button :cleanliness_rating, 1 %> 1
-                        <%= f.radio_button :cleanliness_rating, 2 %> 2
-                        <%= f.radio_button :cleanliness_rating, 3 %> 3
-                        <%= f.radio_button :cleanliness_rating, 4 %> 4
-                        <%= f.radio_button :cleanliness_rating, 5 %> 5
-                        <span id = "cleanError"></span>
-                      </div>
-                      <div class="field" id = "safety">
-                        <%= f.label :safety_rating %><br>
-                        <%= f.radio_button :safety_rating, 1 %> 1
-                        <%= f.radio_button :safety_rating, 2 %> 2
-                        <%= f.radio_button :safety_rating, 3 %> 3
-                        <%= f.radio_button :safety_rating, 4 %> 4
-                        <%= f.radio_button :safety_rating, 5 %> 5
-                        <span id = "safetyError"></span>
-                      </div>
-                      <div class="field" id = "facility">
-                        <%= f.label :facility_rating %><br>
-                        <%= f.radio_button :facility_rating, 1 %> 1
-                        <%= f.radio_button :facility_rating, 2 %> 2
-                        <%= f.radio_button :facility_rating, 3 %> 3
-                        <%= f.radio_button :facility_rating, 4 %> 4
-                        <%= f.radio_button :facility_rating, 5 %> 5
-                        <span id = "facilityError"></span>
-                      </div>
-                      <div class="field" id= "locality">
-                        <%= f.label :locality_rating %><br>
-                        <%= f.radio_button :locality_rating, 1 %> 1 
-                        <%= f.radio_button :locality_rating, 2 %> 2
-                        <%= f.radio_button :locality_rating, 3 %> 3
-                        <%= f.radio_button :locality_rating, 4 %> 4
-                        <%= f.radio_button :locality_rating, 5 %> 5
-                        <span id = "localityError"></span>
-                      </div>
-
-                        <%= f.hidden_field :room_id, value: @room.id %>
-                        <%= f.hidden_field :user_id, value: current_user.id %>
-                        <br/>
-                      <div class="actions">
-                          <%= f.submit "submit", id: "value", class: "btn btn-primary" %>
-                      </div><br/>
-                    <% end %>
-              <% end %>
-          <% end %>
-  <% else %>
-    <p> Please register and do bookings to give review</p>
-  <% end %>
-</div>
-<div class = "col-md-8">
-  <% room = 0 %>
-    <% @room.reviews.each do |review| %>
-      <%room = room + (((review.food_rating + review.cleanliness_rating + review.safety_rating + review.facility_rating + review.locality_rating)/5.0).to_f)/(@room.reviews.length) %>
-    <% end %>
-    
-    <h4>Rating of Review : <%= room.round(1)%></h4>
-    <%if @room.reviews.empty? %>
-      <h4>No reviews</h4>
-    <% else %>
-        <% @room.reviews.each do |review| %>
-           
-              Review : <%= review.review %> </br>
-              Food Rating : <%= review.food_rating%> </br>
-              Cleanliness Rating : <%= review.cleanliness_rating%> </br>
-              Safety Rating : <%= review.safety_rating %> </br>
-              Facility Rating : <%= review.facility_rating %> </br>
-              Locality Rating : <%= review.locality_rating %> </br>
-              Average Rating : <%= ((review.food_rating + review.cleanliness_rating + review.safety_rating + review.facility_rating + review.locality_rating)/5.0) %> </br>
-              <br/><br/>
-              <% if user_signed_in? %>
-                  <% if can? :update, review %>
-                      <%#= link_to 'Edit', edit_review_path(review) %>
-                  <% end %>
-                  <% if can? :destroy, review %>
-                      <%#= link_to 'Destroy', review, method: :delete, data: { confirm: 'Are you sure?'}%>
-                  <% end %>
-              <% end %>
-        <% end %> 
-    <% end %>
-</div>
-</div>
- <div id="Address" class="container-fluid">
-    <h1>Address : </h1>
-      <b>Owner : </b><%= @room.user.username.capitalize%><br/><br/>
-          <b>Contact : </b><%= @room.user.mobile %><br/></br>
-          <b>Address : </b> <%= @room.address%></br></br>
-          <b>City : </b><%= @room.city.name %><br/>
- </div>
-  <div id="Location" class="container-fluid">
-    <h1>Location : </h1>
-
-    <center>
-          <iframe width="1200" height="500" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBipgxMczyujD8knh17CWPulk7h2shwOF8&q=<%= @room.latitude %>,<%= @room.longitude %>"></iframe>
-    </center>
-  </div>
-</ul>
-  </div>
-</body>
-</html>
+<br/>
+    <iframe width="1200" height="500" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBipgxMczyujD8knh17CWPulk7h2shwOF8&q=<%= @room.latitude %>,<%= @room.longitude %>"></iframe>
 
 <script>
 
