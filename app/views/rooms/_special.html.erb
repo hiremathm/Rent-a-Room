@@ -1,0 +1,44 @@
+<div class="container">
+  <button type="button" class="btn btn-info btn-lg" id="myBtn1">Add Special Price</button>
+    <div class="modal fade" id="myModal1" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Special Prices For Special Days</h4>
+          </div>
+          <div class="modal-body">
+          		<%= form_for @special_price do |f| %>
+                    <%= f.hidden_field :room_id, value: @room.id %>
+                    <p class = "form-group">
+                      <strong>Start Date :</strong><%= f.text_field :start_date ,class: "form-control"%>
+                      <span id = "startError"></span>
+                    </p>
+                    <p class = "form-group">
+                      <strong>End Date :</strong><%= f.text_field :end_date,class: "form-control" %>
+                      <span id = "endError"></span>
+                    </p>
+                    <p class = "form-group">
+                      <strong>Price :</strong> <%= f.number_field :price,class: "form-control"%>
+                      <span id = "priceError"></span>
+                    </p>
+                    <%= f.submit "ADD SPECIAL PRICE", class: "btn btn-primary"%>
+                <% end %>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<script>
+$(document).ready(function(){
+    $("#myBtn1").click(function(){
+        $("#myModal1").modal();
+    });
+});
+</script>
+
+

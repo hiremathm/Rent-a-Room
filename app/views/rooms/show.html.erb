@@ -13,55 +13,26 @@
   </div>
   <div class = "col-md-7">  
     <ul class="nav nav-tabs">
-      <li class="active"><a data-toggle="tab" href="#home">Book</a></li>
+      <li><a data-toggle="tab" href="#home">Book</a></li>
       <li><a data-toggle="tab" href="#menu1">Special Prices</a></li>
-      <li><a data-toggle="tab" href="#menu2">Overview</a></li>
+      <li class="active"><a data-toggle="tab" href="#menu2">Overview</a></li>
       <li><a data-toggle="tab" href="#menu3">Amenities</a></li>
       <li><a data-toggle="tab" href="#menu4">Rules</a></li>
       <li><a data-toggle="tab" href="#menu5">Address</a></li>
       <li><a data-toggle="tab" href="#menu6">Reviews</a></li>
     </ul>
     <div class="tab-content">  
-      <div id="home" class="tab-pane fade in active"><br/>
+      <!-- Book Room Code -->
+      <div id="home" class="tab-pane fade"><br/>
         <div class="row">
           <div class="col-md-6"> 
-            <%= form_for @booking do |f| %>
-              <p class = "form-group">
-                <strong>Start Date:</strong> <%= f.date_select :start_date, class: "form-control"%>
-                <span id = "startdateError"></span>
-              </p><br/>
-              <p class = "form-group">
-                <strong>End Date :</strong> <%= f.date_select :end_date,class: "form-control" %>
-                <span id = "enddateError"></span>
-              </p><br/>
-              <%= f.hidden_field :room_id, value: @room.id %>   
-              <% if user_signed_in? && current_user.role.name == "admin" %>
-                <%= f.collection_select :user_id, User.all, :id, :username %>
-              <% end %>          
-              <%= f.submit "BOOK ROOM" , class: "btn btn-primary" %>
-            <% end %>
+            <%= render 'book_room'%>
           </div>
-          <div class="col-md-6">
+          <div>
             <% if user_signed_in?  %>
               <% if current_user.id == @room.user.id %>
-                <%= form_for @special_price do |f| %>
-                    <%= f.hidden_field :room_id, value: @room.id %>
-                    <p class = "form-group">
-                      <strong>Start Date :</strong><%= f.date_select :start_date ,class: "form-control"%>
-                      <span id = "startError"></span>
-                    </p>
-                    <br/>
-                    <p class = "form-group">
-                      <strong>End Date :</strong><%= f.date_select :end_date,class: "form-control" %>
-                      <span id = "endError"></span>
-                    </p>
-                    <br/>
-                    <p class = "form-group">
-                      <strong>Price :</strong> <%= f.number_field :price%>
-                      <span id = "priceError"></span>
-                    </p>
-                    <%= f.submit "ADD SPECIAL PRICE", class: "btn btn-primary"%>
-                <% end %>
+              <!--  Add Special Price-->
+                <p class="float: left"><%= render 'special' %></p>
               <% end %>
             <% end %>
           </div> 
@@ -90,7 +61,7 @@
         <% end %>
         
       </div>
-      <div id="menu2" class="tab-pane fade"><br/>
+      <div id="menu2" class="tab-pane fade  in active"><br/>
           <h1>Overview : </h1><%= @room.description %>      
       </div>
       <div id="menu3" class="tab-pane fade">
@@ -127,6 +98,7 @@
           <% end %>
         </div>
         <br/>
+        <!-- Review Code -->
         <div class="col-md-2">
           <%= render 'review'%>
         </div>
@@ -289,4 +261,36 @@ formHandle.addEventListener('submit',function(e){
     e.preventDefault();
   }
 },false)
+
+$(document).ready(function(){
+  $('#sweetalert').click(function(){
+    swal({
+      position: 'top-end',
+      type: 'success',
+      title: 'Hi! You booked room successfully for the Below dates',
+      showConfirmButton: true,
+      // showCancelButton: true
+      // timer: 1500
+    })
+  })
+})
+
+</script>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#special_price_start_date').datepicker({
+      format: 'yyyy/mm/dd',  
+       autohide: true,
+      todayHightlight: true
+    });
+});
+
+  $(document).ready(function(){
+    $('#special_price_end_date').datepicker({
+      format: 'yyyy/mm/dd',  
+       autohide: true,
+      todayHightlight: true
+    });
+});
+
 </script>

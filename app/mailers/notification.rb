@@ -25,4 +25,10 @@ class Notification < ApplicationMailer
   	@client = client
   	mail to: "#{@client.user.email}", subject: "Room confirmed"
   end
+
+  def rent_bill(book, filename)
+    attachments["Rent_Invoice.pdf"] = open(filename).read
+    @book = book
+    mail to: "#{@book.user.email}", subject: "Invoice Bill For Room Rent"
+  end
 end

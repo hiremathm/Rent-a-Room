@@ -1,5 +1,5 @@
 <div class="container">
-  <button type="button" class="btn btn-info btn-lg" id="myBtn">Review</button>
+  <button type="button" class="btn btn-info btn-lg" id="myBtn">Leave Review</button>
     <div class="modal fade" id="myModal" role="dialog">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -9,74 +9,74 @@
           </div>
           <div class="modal-body">
             
-<% if user_signed_in?&&current_user.bookings.any? %>
-  <%@room.bookings.each do |booking| %>
-    <% if booking.user_id == current_user.id && booking.end_date <= Date.today %>          
-      <%= form_for(@review) do |f| %>
-        <div class="field" class="form-group">
-          <%#= f.label :review %><br>
-          <%= f.text_area :review,class: "form-control" %>
-          <span id="reviewError"></span>
-        </div>
-        <div class="field" id = "food">
-        <h5> 5 – Excellent, 4 – Good, 3 – Average, 2 – Fair, 1- Poor</h5>
-          <%= f.label :food_rating %><br>
-          <%= f.radio_button :food_rating, 1 %> 1
-          <%= f.radio_button :food_rating, 2 %> 2
-          <%= f.radio_button :food_rating, 3 %> 3
-          <%= f.radio_button :food_rating, 4 %> 4
-          <%= f.radio_button :food_rating, 5 %> 5
-          <span id = "foodError"></span>
-        </div>
-        <div class="field" id = "clean">
-          <%= f.label :cleanliness_rating %><br>
-          <%= f.radio_button :cleanliness_rating, 1 %> 1
-          <%= f.radio_button :cleanliness_rating, 2 %> 2
-          <%= f.radio_button :cleanliness_rating, 3 %> 3
-          <%= f.radio_button :cleanliness_rating, 4 %> 4
-          <%= f.radio_button :cleanliness_rating, 5 %> 5
-          <span id = "cleanError"></span>
-        </div>
-        <div class="field" id = "safety">
-          <%= f.label :safety_rating %><br>
-          <%= f.radio_button :safety_rating, 1 %> 1
-          <%= f.radio_button :safety_rating, 2 %> 2
-          <%= f.radio_button :safety_rating, 3 %> 3
-          <%= f.radio_button :safety_rating, 4 %> 4
-          <%= f.radio_button :safety_rating, 5 %> 5
-          <span id = "safetyError"></span>
-        </div>
-        <div class="field" id = "facility">
-          <%= f.label :facility_rating %><br>
-          <%= f.radio_button :facility_rating, 1 %> 1
-          <%= f.radio_button :facility_rating, 2 %> 2
-          <%= f.radio_button :facility_rating, 3 %> 3
-          <%= f.radio_button :facility_rating, 4 %> 4
-          <%= f.radio_button :facility_rating, 5 %> 5
-          <span id = "facilityError"></span>
-        </div>
-        <div class="field" id= "locality">
-          <%= f.label :locality_rating %><br>
-          <%= f.radio_button :locality_rating, 1 %> 1 
-          <%= f.radio_button :locality_rating, 2 %> 2
-          <%= f.radio_button :locality_rating, 3 %> 3
-          <%= f.radio_button :locality_rating, 4 %> 4
-          <%= f.radio_button :locality_rating, 5 %> 5
-          <span id = "localityError"></span>
-        </div>
+            <% if user_signed_in?&&current_user.bookings.any? %>
+              <%@room.bookings.each do |booking| %>
+                <% if booking.user_id == current_user.id && booking.end_date <= Date.today %>          
+                  <%= form_for(@review) do |f| %>
+                    <div class="field" class="form-group">
+                      <%#= f.label :review %><br>
+                      <%= f.text_area :review,class: "form-control" %>
+                      <span id="reviewError"></span>
+                    </div>
+                    <div class="field" id = "food">
+                    <h5> 5 – Excellent, 4 – Good, 3 – Average, 2 – Fair, 1- Poor</h5>
+                      <%= f.label :food_rating %><br>
+                      <%= f.radio_button :food_rating, 1 %> 1
+                      <%= f.radio_button :food_rating, 2 %> 2
+                      <%= f.radio_button :food_rating, 3 %> 3
+                      <%= f.radio_button :food_rating, 4 %> 4
+                      <%= f.radio_button :food_rating, 5 %> 5
+                      <span id = "foodError"></span>
+                    </div>
+                    <div class="field" id = "clean">
+                      <%= f.label :cleanliness_rating %><br>
+                      <%= f.radio_button :cleanliness_rating, 1 %> 1
+                      <%= f.radio_button :cleanliness_rating, 2 %> 2
+                      <%= f.radio_button :cleanliness_rating, 3 %> 3
+                      <%= f.radio_button :cleanliness_rating, 4 %> 4
+                      <%= f.radio_button :cleanliness_rating, 5 %> 5
+                      <span id = "cleanError"></span>
+                    </div>
+                    <div class="field" id = "safety">
+                      <%= f.label :safety_rating %><br>
+                      <%= f.radio_button :safety_rating, 1 %> 1
+                      <%= f.radio_button :safety_rating, 2 %> 2
+                      <%= f.radio_button :safety_rating, 3 %> 3
+                      <%= f.radio_button :safety_rating, 4 %> 4
+                      <%= f.radio_button :safety_rating, 5 %> 5
+                      <span id = "safetyError"></span>
+                    </div>
+                    <div class="field" id = "facility">
+                      <%= f.label :facility_rating %><br>
+                      <%= f.radio_button :facility_rating, 1 %> 1
+                      <%= f.radio_button :facility_rating, 2 %> 2
+                      <%= f.radio_button :facility_rating, 3 %> 3
+                      <%= f.radio_button :facility_rating, 4 %> 4
+                      <%= f.radio_button :facility_rating, 5 %> 5
+                      <span id = "facilityError"></span>
+                    </div>
+                    <div class="field" id= "locality">
+                      <%= f.label :locality_rating %><br>
+                      <%= f.radio_button :locality_rating, 1 %> 1 
+                      <%= f.radio_button :locality_rating, 2 %> 2
+                      <%= f.radio_button :locality_rating, 3 %> 3
+                      <%= f.radio_button :locality_rating, 4 %> 4
+                      <%= f.radio_button :locality_rating, 5 %> 5
+                      <span id = "localityError"></span>
+                    </div>
 
-          <%= f.hidden_field :room_id, value: @room.id %>
-          <%= f.hidden_field :user_id, value: current_user.id %>
-          <br/>
-        <div class="actions">
-            <%= f.submit "submit", id: "value", class: "btn btn-primary" %>
-        </div><br/>
-      <% end %>
-    <% end %>
-  <% end %>
-<% else %>
-  <p> Please register and do bookings to give review</p>
-<% end %>
+                      <%= f.hidden_field :room_id, value: @room.id %>
+                      <%= f.hidden_field :user_id, value: current_user.id %>
+                      <br/>
+                    <div class="actions">
+                        <%= f.submit "submit",  id: "value", class: "btn btn-primary" %>
+                    </div><br/>
+                  <% end %>
+                <% end %>
+              <% end %>
+            <% else %>
+              <p> Please do bookings to give review</p>
+            <% end %>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

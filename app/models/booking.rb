@@ -14,6 +14,9 @@ class Booking < ActiveRecord::Base
 			Notification.client_confirmed(self).deliver_now!
 		end
 	end
+	def self.bill(book, filename)
+			Notification.rent_bill(book, filename).deliver_now!
+	end
 	def booking_confirmation
 		Notification.client_confirmation(self).deliver_now!
 		Notification.host_confirmation(self).deliver_now!

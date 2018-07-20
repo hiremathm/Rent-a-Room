@@ -40,7 +40,7 @@
       </div>
       <div class="form-group">
         <%= f.label :images %><br>
-        <%= f.file_field :images %>
+        <%= f.file_field :images, :multiple => true %>
         <%# if f.object.images? %>
           <%#= image_tag f.object.images.thumb.url %>
           <%#= f.label :remove_images %>
