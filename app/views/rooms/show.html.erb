@@ -1,7 +1,16 @@
 <% room = 0 %>
 
 <div class="container">
-    <button class="btn btn-basic">Rating :</button><i style="color: #f4a142"> <%= room.round(1)%></i>
+      <% @room.reviews.each do |review| %>
+        <%room = room + (((review.food_rating + review.cleanliness_rating + review.safety_rating + review.facility_rating + review.locality_rating)/5.0).to_f)/(@room.reviews.length) %>
+      <% end %> 
+    <button class="btn btn-basic">Rating :</button><i style="color: #f4a142">
+    <% if room.round != 0%>
+      <%= room.round(1)%>
+    <%else%>
+      <%= "No Rating" %>
+    <% end %>
+      </i>
     <b style="float: right"><button class="btn btn-basic"> Price :</button> 
       <i class="fa fa-inr" style="color: #f44e42;">
         <% if @room.special_prices.present? %>
@@ -116,10 +125,7 @@
       </div>
       <div id="menu6" class="tab-pane fade">
       <div class="col-md-8">
-          <% @room.reviews.each do |review| %>
-            <%room = room + (((review.food_rating + review.cleanliness_rating + review.safety_rating + review.facility_rating + review.locality_rating)/5.0).to_f)/(@room.reviews.length) %>
-          <% end %>      
-        <h4>Rating of Review : <%= room.round(1)%></h4>
+          <br/>
           <%if @room.reviews.empty? %>
             <h4>No reviews</h4>
           <% else %>

@@ -20,7 +20,21 @@
 		<% if room.is_authorized == true %>
 			<tr class="well" style="background-color: 	#ADD8E6">
 				<td><%= link_to image_tag(room.images, :size => "150x100"), room, class: "img-thumbnail" %></td>
-				<td><%= room.name.capitalize%>, <%= room.city.name %><br/><i class="fa fa-inr"></i><%= room.price %><br/><%= link_to "View Deal", room_path(room.slug), class: "btn btn-warning" %></td>
+				<td>
+					<%= room.name.capitalize%>, <%= room.city.name %><br/>
+						Price : <i class="fa fa-inr"></i><%=room.price %><br/>
+						Rating : <%total_rating = 0%>
+						<% if !room.reviews.present?%>
+							<% total_rating = "No Rating"%>
+						<% end %>
+						<% room.reviews.each do |review| %>
+				        	<%rating =  (((review.food_rating + review.cleanliness_rating + review.safety_rating + review.facility_rating + review.locality_rating)/5.0).to_f)/(room.reviews.length) %>
+  							<% total_rating += rating %>
+  						<% end %>
+  						<%= total_rating %>
+  					<%# end %>
+					<br/><%= link_to "View Deal", room_path(room.slug), class: "btn btn-warning" %>
+				</td>
 			</tr>
 		<% end %>
 	<% end %>
@@ -32,7 +46,7 @@
 <div class ="col-md-8">
 <title>Google Maps Multiple Markers</title>
   <script src="http://maps.google.com/maps/api/js?key=AIzaSyCzbuY_r3-Uj_RIBsxfKP0WqluXS8dTo5o"></script>
-  <div id="map" style="height: 672px; width: 850px;" class="img-thumbnail">
+  <div id="map" style="height: 720px; width: 850px;" class="img-thumbnail">
 	</div>
 	<script type="text/javascript">
 		  var locations = [];
