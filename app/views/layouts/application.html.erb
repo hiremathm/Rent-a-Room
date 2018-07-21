@@ -11,14 +11,11 @@
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-
-
 </head> 
-<body style="font-family: Times New Roman, Times, serif; font-size: 16px; font-color: red; ">
+<body style="font-family: Times New Roman, Times, serif; font-size: 16px; background-color: #A9A9A9; height: 100%" >
 <!-- <div class = "container"> -->
-  <nav class="navbar navbar-inverse" style="background-color: #373a3f">
+  <nav class="navbar navbar-default" style="background-color: #f4a142; color: #000000">
     <div class="container-fluid">
       <div class="navbar-header">
         <a href= "/rooms"> <%= image_tag('/myhomemainpage.jpg', :size => "80x50") %></a>
@@ -35,7 +32,7 @@
       <ul class="nav navbar-nav navbar-right">
        <li><a><i class = "glyphicon glyphicon-earphone"></i> <%= User.find_by(username: "admin").mobile %></a></li>
         <% if user_signed_in? %> 
-          <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown">Hi <%=(current_user.username).capitalize%>! ( <%= current_user.role.name%> )<span class="caret"></span></a>
+          <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown">Hi <%=(current_user.username).capitalize%>! (<%=( current_user.role.name).upcase%>)<span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li>
                   <% if user_signed_in? && (can? :create, Room.new)%>
@@ -72,6 +69,40 @@
       </ul>
   </div>
 </nav>
+<div class="container">
+  <%= yield %>
+</div>
+
+</body>
+</html>
+<hr>
+<footer class="container-fluid text-center" style="background-color:#808080; color: #000000; ">
+<p style="font-size: 25px">CONTACT</p>
+<div class="container-fluid bg-grey">
+  <div class="row">
+    <div class="col-sm-5">
+      <p style="font-size: 20px">Contact us and we'll get back to you within 24 hours.</p><br/><br/>
+      <p><span class="glyphicon glyphicon-map-marker"></span> Jayanagar, Banglore, Karnataka</p>
+      <p><span class="glyphicon glyphicon-phone"></span>+91 9731937369</p>
+      <p><span class="glyphicon glyphicon-envelope"></span> shivasorab@gmail.com</p>
+    </div>
+    <div class="col-sm-7">
+        <p style="font-size: 20px">Leave Message</p>
+      <div class="row">
+        <div class="col-sm-6 form-group">
+          <input class="form-control" id="name" name="name" placeholder="Name" type="text" required>
+        </div>
+        <div class="col-sm-6 form-group">
+          <input class="form-control" id="email" name="email" placeholder="Email" type="email" required>
+        </div>
+      </div>
+      <textarea class="form-control" id="comments" name="comments" placeholder="Comment" rows="3"></textarea><br/>
+      <button class="btn btn-default" type="submit">Send</button>
+    </div>
+  </div>
+</div>
+<hr>
+</footer>
 <% if notice %>
   <div class = "alert alert-success">
     <%= notice%>
@@ -102,6 +133,5 @@ function myStopFunction() {
 <!-- <marquee direction = "right" width="50%" style="color:red">Every Day Room Booking is Available</marquee ><marquee style="color:green" direction = "left"  width="50%">Please Register to Book the Room</marquee > -->
 
 
-<%= yield %>
 </body>
 </html>

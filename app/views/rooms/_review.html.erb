@@ -1,6 +1,6 @@
 <div class="container">
-  <button type="button" class="btn btn-info btn-lg" id="myBtn">Leave Review</button>
-    <div class="modal fade" id="myModal" role="dialog">
+  <button type="button" class="btn btn-primary btn-lg" id="review">Leave Review</button>
+    <div class="modal fade" id="review-modal" role="dialog">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -88,8 +88,8 @@
 
 <script>
 $(document).ready(function(){
-    $("#myBtn").click(function(){
-        $("#myModal").modal();
+    $("#review").click(function(){
+        $("#review-modal").modal();
     });
 });
 </script>

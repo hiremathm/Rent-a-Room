@@ -13,8 +13,8 @@ class RoomsController < ApplicationController
     render json: @rooms
    end
   def index
-    @r = Room.all
-    @r = Room.paginate(:page => params[:page], :per_page => 5)
+    @rooms = Room.all
+    @rooms = Room.paginate(:page => params[:page], :per_page => 5)
   end
 
   # GET /rooms/1
