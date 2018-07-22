@@ -14,7 +14,7 @@ class RoomsController < ApplicationController
    end
   def index
     @rooms = Room.all
-    @rooms = Room.paginate(:page => params[:page], :per_page => 5)
+    #@rooms = Room.paginate(:page => params[:page], :per_page => 5)
   end
 
   # GET /rooms/1

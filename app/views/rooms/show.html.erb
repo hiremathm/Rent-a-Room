@@ -136,9 +136,13 @@
         </div>
         <br/>
         <!-- Review Code -->
-        <div class="col-md-4">
-          <%= render 'review'%>
-        </div>
+        <%current_user.bookings.each do |booking|%>
+          <% if booking.room_id == @room.id %>
+            <div class="col-md-4">
+              <%= render 'review'%>
+            </div>
+          <% end %>
+        <% end %>
       </div>
     </div>
   </div>
