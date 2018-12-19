@@ -1,0 +1,47 @@
+<div class="panel-group">
+  <div class="panel panel-primary">
+      <div class="panel-heading"><center>Invoice Details</center></div>
+      <div class="panel-body">
+        <div class="col-md-4 well" style="background-color: white;">
+        <div class="panel panel-info panel-heading"><center>Room Details </center></div>
+          <h4>Invoice has sent to your mail(<%= User.find(@booking["user_id"]).email %>)</h4><br/>
+          <strong>Room Address :</strong><br/><br/>
+          <%= Room.find(@booking["room_id"]).address%>
+          <br/><br/>
+          <strong>Room Owner Details : </strong><br/><br/>
+          Name : <%= User.find(Room.find(@booking["room_id"]).user_id).username %>  <br/>  
+          Phone : <%= User.find(Room.find(@booking["room_id"]).user_id).mobile %><br/>
+          Email : <%= User.find(Room.find(@booking["room_id"]).user_id).email %><br/>
+        </div>
+        <div class="col-md-4"></div>
+        <div class="col-md-4 well" style="background-color: white;">
+        <div class="panel panel-info panel-heading"><center>Billing Details </center></div><br/>
+          <strong>Name : <%= User.find(@booking["user_id"]).username %></strong>
+          <br/><br/>
+          <strong>Email : <%= User.find(@booking["user_id"]).email %></strong>
+          <br/><br/>
+          <strong>Booking Dates :</strong><br/><br/>
+          <p>Start Date : <%= @booking["start_date"] %></p>
+        
+          <p>End Date : <%= @booking["end_date"] %></p>
+          <br/>
+          <strong>Price : <%= @booking["price"]%></strong>
+          <br/><br/>
+
+          <strong>Estimated Price : </strong>
+          <% days =  (@booking["start_date"]..@booking["end_date"]).count %>
+          Number of Days * <%= days %> = <%= days * @booking["price"] %>
+          <br/>
+        </div>
+        <div class="col-md-12">
+          <form id="redirectForm" method="post" action="/request">
+            <%= hidden_field_tag :id, @booking["id"] %>
+            <%= hidden_field_tag :price, @booking["price"]%>
+            <%= hidden_field_tag :user_id, @booking["user_id"]%>      
+            <center><button type="submit" class="btn btn-primary" value="Pay">Proced to Pay</button></center>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -43,12 +43,19 @@ class BookingsController < ApplicationController
       filename = "invoice.pdf"
       pdf.render_file filename
 
-      Booking.bill(@book, filename)
-      
-      redirect_to rooms_path, notice: "Your room has been booked"
+      #Booking.bill(@book, filename)
+      #abort @book.inspect
+      session[:booking] = @book
+      # send_data(@book)
+      #redirect_to  bookings_my_bookings_path, notice: "Your room has been booked, Please do the payments"
+      redirect_to  cashfree_payment_path, notice: "Your room has been booked, Please do the payments"
      else
        render action: "new"
     end
+  end
+
+  def send_data
+    @booking = session[:booking]
   end
   
    def edit

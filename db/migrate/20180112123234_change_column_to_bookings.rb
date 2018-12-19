@@ -1,6 +1,9 @@
 class ChangeColumnToBookings < ActiveRecord::Migration
-  def change
-  	change_column :bookings, :start_date, :date
-  	change_column :bookings, :end_date, :date
-  end
+  	def change
+  		change_table :bookings do |t|
+  			# t.change :column_name, :column_type, {options}
+			t.column :start_date, :date
+  			t.column :end_date, :date
+		end
+	end
 end

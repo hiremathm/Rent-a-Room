@@ -36,9 +36,9 @@ class RoomsController < ApplicationController
   end
   def find_by_cities
       if params[:city_ids] != ""
-      #  binding.pry
+       # binding.pry
         @rooms = Room.where(city_id: params[:city_ids].split(","))
-    #binding.pry
+    # binding.pry
       else 
          @rooms = Room.all
       end 

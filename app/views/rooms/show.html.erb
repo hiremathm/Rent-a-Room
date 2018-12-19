@@ -1,6 +1,6 @@
 <% room = 0 %>
 
-<div class="container">
+<div style="background-color: white; border-radius: 40px;" class="well">
       <% @room.reviews.each do |review| %>
         <%room = room + (((review.food_rating + review.cleanliness_rating + review.safety_rating + review.facility_rating + review.locality_rating)/5.0).to_f)/(@room.reviews.length) %>
       <% end %> 
@@ -13,20 +13,20 @@
       </i>
     <b style="float: right"><button class="btn btn-basic"> Price :</button> 
       <i class="fa fa-inr" style="color: #f44e42;">
-        <% if @room.special_prices.present? %>
-          <strike><%= @room.price%></strike>
-        <% else %>
+        <%# if @room.special_prices.present? %>
+          <!-- <strike><%#= @room.price%></strike> -->
+        <%# else %>
           <%= @room.price %>
-        <% end %>
+        <%# end %>
       </i>
-      <% @room.special_prices.each do |special_price|%>
-              <% dates = (special_price.start_date..special_price.end_date).to_a%>
-          <%today_date = Date.today%>
-          <% if dates.include?today_date%>
-              - <i class="fa fa-inr"  style="color: #f44e42;"> <%= special_price.price%></i>
-          <% end %>
-        <% end %>
-     </i>
+      <%# @room.special_prices.each do |special_price|%>
+              <%# dates = (special_price.start_date..special_price.end_date).to_a%>
+          <%#today_date = Date.today%>
+          <%# if dates.include?today_date%>
+              <!-- - <i class="fa fa-inr"  style="color: #f44e42;"> <%#= special_price.price%></i> -->
+          <%# end %>
+        <%# end %>
+     <!-- </i> -->
    </b>
   <center><%if user_signed_in? %>
     <%if (can? :update, @room) %>
@@ -45,7 +45,7 @@
    
 
   <hr>
-  <img src="<%= @room.images%>", height="200", width="450", class="img-thumbnail">
+	  <img src="<%= @room.images%>", height="200", width="450", class="img-thumbnail">
       </div>
   <div class = "col-md-7">  
     <ul class="nav nav-tabs">
@@ -136,11 +136,13 @@
         </div>
         <br/>
         <!-- Review Code -->
-        <%current_user.bookings.each do |booking|%>
-          <% if booking.room_id == @room.id %>
-            <div class="col-md-4">
-              <%= render 'review'%>
-            </div>
+        <% if user_signed_in?%>
+          <%current_user.bookings.each do |booking|%>
+            <% if booking.room_id == @room.id %>
+              <div class="col-md-4">
+                <%= render 'review'%>
+              </div>
+            <% end %>
           <% end %>
         <% end %>
       </div>

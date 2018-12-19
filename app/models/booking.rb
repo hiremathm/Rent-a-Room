@@ -1,6 +1,6 @@
 class Booking < ActiveRecord::Base
-	after_update :booking_confirmed
-	after_create :booking_confirmation
+	#after_update :booking_confirmed
+	#after_create :booking_confirmation
 	before_validation :calculate_room_price
 	belongs_to :user
 	belongs_to :room

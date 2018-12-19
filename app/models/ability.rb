@@ -39,11 +39,14 @@ class Ability
         can :create, Review
         can :read, [ City, Amenity, Review]
         
+        can [:read, :send_data], Booking do |booking|
+            booking.user_id == user.id
+        end
      elsif user.role? "guest"
         can [:create, :read, :my_rooms, :my_bookings], [Room,Booking]
         can :create, Review        
         
-        can [:read], [City,Room,Booking, Review]
+        can [:read, :send_data], [City,Room,Booking, Review]
         can [:update, :destroy], Review do |review|
              review.user_id == user.id
         end
@@ -51,6 +54,11 @@ class Ability
         can [:update, :destroy, :my_bookings], Booking do |booking|
             booking.user_id == user.id
         end
+
+        can [:read, :send_data], Booking do |booking|
+            booking.user_id == user.id
+        end
+        
        can [:read,:find_by_cities,:by_price_asc,:by_price_desc],[Room]
       end 
     # # Define abilities for the passed in user here. For example:

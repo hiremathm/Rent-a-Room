@@ -31,4 +31,10 @@ class Notification < ApplicationMailer
     @book = book
     mail to: "#{@book.user.email}", subject: "Invoice Bill For Room Rent"
   end
+
+  def send_enquiry(enquiry)
+    @enquiry = enquiry
+    # default from: "#{@enquiry.email}"
+    mail to: "#{User.find_by(role_id: 1).email}", subject: "#{@enquiry.subject}"
+  end
 end
