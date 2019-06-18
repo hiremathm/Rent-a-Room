@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+ruby '2.2.3'
 gem 'geocoder', '~> 1.3', '>= 1.3.7'
 gem 'faker'
 gem 'devise'
