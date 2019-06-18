@@ -1,5 +1,4 @@
 <div class="container">
-  <div class="col-md-6">
     <%= form_for(@room) do |f| %>
       <% if @room.errors.any? %>
         <div id="error_explanation">
@@ -13,60 +12,102 @@
         </div>
       <% end %>
 
-      <div class="form-group">
-        <%= f.label :name %><br>
-        <%= f.text_field :name, class: "form-control" %>
-        <span id="nameMsg"></span>
+      <div class="row">
+        <div class="col-xs-2">
+          <%= link_to 'Back', rooms_path, class: "btn btn-primary btn-sm" %>
+        </div>
       </div>
-      <div class="form-group">
-        <%= f.label :description %><br>
-        <%= f.text_area :description, class: "form-control" %>
-        <span id="descriptionMsg"></span>
+      <br>
+      <div class="row">
+        <div class="col-xs-1">
+          <%= f.label :name %>
+        </div>
+        <div class="col-xs-3">
+          <div class="form-group">
+            <%= f.text_field :name, class: "form-control input-sm" %>
+            <span id="nameMsg"></span>
+          </div>
+        </div>
+        <div class="col-xs-offset-2 col-xs-1">
+          <%= f.label :description %><br>
+        </div>
+        <div class="col-xs-4">
+          <%= f.text_area :description, class: "form-control input-sm" %>
+          <span id="descriptionMsg"></span>          
+        </div>
       </div>
-      <div class="form-group">
-        <%= f.label :price %><br>
-        <%= f.text_field :price, class: "form-control" %>
-        <span id="priceMsg"></span>
+
+      <br/>
+
+      <div class="row">
+        <div class="col-xs-1">
+          <%= f.label :price %>
+        </div>
+        <div class="col-xs-3">
+          <%= f.text_field :price, class: "form-control input-sm" %>
+          <span id="priceMsg"></span>          
+        </div>
+        <div class="col-xs-offset-2 col-xs-1">
+          <%= f.label :rules %>
+        </div>
+        <div class="col-xs-4">
+          <%= f.text_area :rules, class: "form-control input-sm" %>
+          <span id="rulesMsg"></span>
+        </div>
       </div>
-      <div class="form-group">
-        <%= f.label :rules %><br>
-        <%= f.text_area :rules, class: "form-control" %>
-        <span id="rulesMsg"></span>
+
+      <br>
+      
+      <div class="row">
+        <div class="col-xs-1">
+          <%= f.label :images %><br>
+        </div>
+        <div class="col-xs-3">
+          <%= f.file_field :images , class: "form-control input-sm"%>
+        </div>
+        <div class="col-xs-offset-2 col-xs-1">
+          <%= f.label :address %><br>
+        </div>
+        <div class="col-xs-4">
+          <%= f.text_area :address, class: "form-control input-sm" %>
+          <span id="addressMsg"></span>          
+        </div>
       </div>
-      <div class="form-group">
-        <%= f.label :address %><br>
-        <%= f.text_area :address, class: "form-control" %>
-        <span id="addressMsg"></span>
-      </div>
-      <div class="form-group">
-        <%= f.label :images %><br>
-        <%= f.file_field :images, :multiple => true %>
-        <%# if f.object.images? %>
-          <%#= image_tag f.object.images.thumb.url %>
-          <%#= f.label :remove_images %>
-          <%#= f.check_box :remove_images %> 
-        <%# end %>
-        <span id="imagesMsg"></span>
-      </div>
-      <div class="form-group">
-        <%= f.label :city %><br>
-        <%= f.collection_select :city_id, City.all, :id, :name, {prompt: "Select City"}, {class: "form-control"} %>
-      </div>
-      <h3>Select Amenities</h3>
-      <div class="checkbox">
-        <%= f.collection_check_boxes :amenity_ids, Amenity.all, :id, :name do |course|%>
+      
+      <br>
+      
+      <div class="row">
+        <div class="col-xs-1">
+          <%= f.label :city %>
+        </div>
+        <div class="col-xs-3">
+          <div class="form-group">
+            <%= f.collection_select :city_id, City.all, :id, :name, {prompt: "Select City"}, {class: "form-control input-sm"} %>
+          </div>          
+        </div>
+        <div class="col-xs-offset-2 col-xs-1">
+          <%= f.label :amenities%>
+        </div>
+        <div class="col-xs-4">
+          <div class="checkbox">
+            <%= f.collection_check_boxes :amenity_ids, Amenity.all, :id, :name do |course|%>
             <label>
               <%= course.check_box %>
               <%= course.text%>
             </label>
-            <!-- <br/> -->
-        <%end%>
+            <%end%>
+          </div>          
+        </div>
       </div>
+
       <div class="actions">
-        <%= f.submit "Add Room", class: "btn btn-primary" %>
+        <div class="row">
+          <div class="col-xs-offset-5">
+            <%= f.submit "Add Room", class: "btn btn-primary btn-sm" %>
+          </div>
+        </div>
       </div>
     <% end %>
-</div>
 </div>
 <script>
   var nameHandle = document.getElementById('room_name');

@@ -36,7 +36,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li><a><i class = "glyphicon glyphicon-earphone"></i> <%= User.find_by(username: "admin").mobile %></a></li>
         <% if user_signed_in? %> 
-          <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown"><%= image_tag('/profile.png', :size => "50x35") %></a>
+          <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown"><%= current_user.email%></a>
             <ul class="dropdown-menu">
               <li>
                   <% if user_signed_in? && (can? :create, Room.new)%>
@@ -105,16 +105,15 @@
 <%# end %>
 
 <div class="container">
-<br/><br/><br/><br/><br/>
-  
+  <br/><br/><br/><br/>
 <%if notice%>
-  <div style="margin-top: -10px; margin-left: 900px;" class="col-md-4 alert alert-success alert-dismissible">
+  <div style="width: 100%; margin-top: -10px;" class="col-md-4 alert alert-success alert-dismissible">
     <button type="button" class="close" data-dismiss="alert">&times;</button>
     <strong><%= notice %></strong>
   </div>
 <%end%>
 <%if alert%>
-  <div style="margin-top: -10px; margin-left: 900px;" class="col-md-4 alert alert-warning alert-dismissible">
+  <div style="width: 100%; margin-top: -10px;" class="col-md-4 alert alert-warning alert-dismissible">
     <button type="button" class="close" data-dismiss="alert">&times;</button>
     <strong><%= alert %></strong>
   </div>
@@ -124,7 +123,7 @@
 
 <hr>
 <footer class="container-fluid text-center" style="background-color:#808080; face: Serif ; color: #000000; ">
-<br/><p style="font-size: 25px">CONTACT</p>
+<br/>
 <div class="container-fluid bg-grey">
   <div class="row">
     <div class="col-sm-5">

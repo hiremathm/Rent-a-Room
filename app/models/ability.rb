@@ -42,6 +42,10 @@ class Ability
         can [:read, :send_data], Booking do |booking|
             booking.user_id == user.id
         end
+
+        can [:read, :paytm_payment], Booking do |booking|
+            booking.user_id == user.id
+        end
      elsif user.role? "guest"
         can [:create, :read, :my_rooms, :my_bookings], [Room,Booking]
         can :create, Review        
@@ -56,6 +60,10 @@ class Ability
         end
 
         can [:read, :send_data], Booking do |booking|
+            booking.user_id == user.id
+        end
+
+        can [:read, :paytm_payment], Booking do |booking|
             booking.user_id == user.id
         end
         

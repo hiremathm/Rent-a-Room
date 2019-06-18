@@ -1,0 +1,30 @@
+<div class="row">
+	<div class="col-md-12">
+		<table class="table">
+			<thead>
+				<tr>
+					<th>ORDERID</th>
+					<th>TXNAMOUNT</th>
+					<th>CURRENCY</th>
+					<th>STATUS</th>
+					<th>RESPCODE</th>
+					<th>RESPMSG</th>
+					<th>MID</th>
+					<th>CHECKSUMHASH</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><%= @response["ORDERID"]%></td>
+					<td><%= @response["TXNAMOUNT"]%></td>
+					<td><%= @response["CURRENCY"]%></td>
+					<td><%= @response["STATUS"]%></td>
+					<td><%= @response["RESPCODE"]%></td>
+					<td><%= @response["RESPMSG"]%></td>
+					<td><%= @response["MID"]%></td>
+					<td><%= @response["CHECKSUMHASH"]%></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

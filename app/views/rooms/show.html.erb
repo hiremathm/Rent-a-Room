@@ -30,11 +30,11 @@
    </b>
   <center><%if user_signed_in? %>
     <%if (can? :update, @room) %>
-      <%= link_to "Edit", edit_room_path(@room), class: "btn btn-primary"%>
+      <%= link_to "Edit", edit_room_path(@room), class: "btn btn-primary btn-sm"%>
     <%end %>
     
     <% if can? :destroy, @room %>
-      <%= link_to "Delete", @room, method: :delete, data: { confirm: 'Are you sure?'}, class: "btn btn-danger"%>
+      <%= link_to "Delete", @room, method: :delete, data: { confirm: 'Are you sure?'}, class: "btn btn-danger  btn-sm"%>
     <% end %>   
   <% end %>
   </center>

@@ -48,13 +48,18 @@ class BookingsController < ApplicationController
       session[:booking] = @book
       # send_data(@book)
       #redirect_to  bookings_my_bookings_path, notice: "Your room has been booked, Please do the payments"
-      redirect_to  cashfree_payment_path, notice: "Your room has been booked, Please do the payments"
+      # redirect_to  cashfree_payment_path, notice: "Your room has been booked, Please do the payments"
+      redirect_to choose_payment_path, notice: "Your room has been booked , Please do the payments"
      else
        render action: "new"
     end
   end
 
   def send_data
+    @booking = session[:booking]
+  end
+
+  def paytm_payment
     @booking = session[:booking]
   end
   

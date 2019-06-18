@@ -32,13 +32,16 @@ class Room < ActiveRecord::Base
 	end
 
 	def determine_lat_and_long
-		response = HTTParty.get("https://maps.googleapis.com/maps/api/geocode/json?address=#{self.address}
-			&key=AIzaSyA6RqNAKM2gUdLcMmV4F0Fn_jz_e93xRBk")
-
-		result = JSON.parse(response.body)
+		# response = HTTParty.get("https://maps.googleapis.com/maps/api/geocode/json?address=#{self.address}
+		# 	&key=AIzaSyB0EPV5bnvPBOR-HhrX2ui_JQWjHc9jSeQ")
+		# result = JSON.parse(response.body)
+		# self.latitude = result["results"][0]["geometry"]["location"]["lat"]
+		# self.longitude = result["results"][0]["geometry"]["location"]["lng"]
 		
-		self.latitude = result["results"][0]["geometry"]["location"]["lat"]
-		self.longitude = result["results"][0]["geometry"]["location"]["lng"]
+		#Using geocoder Gem 
+		results = Geocoder.search('banglore')
+		self.latitude = results.first.coordinates[0]
+		self.longitude = results.first.coordinates[1]
 	end
 
 	def authorize_confirmation
