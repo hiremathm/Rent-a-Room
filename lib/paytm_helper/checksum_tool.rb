@@ -1,7 +1,5 @@
-class PaytmHelper::ChecksumTool
-  
+module PaytmHelper::ChecksumTool
   include PaytmHelper::EncryptionNewPG
-
   def self.is_valid_merchant_id?(mid)
     return mid.eql?(MID)
   end
