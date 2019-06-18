@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
-git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.5.1'
+ruby '2.4.1'
 
 gem 'geocoder', '~> 1.3', '>= 1.3.7'
 gem 'faker'
@@ -18,7 +17,7 @@ gem 'docx', '~> 0.2.07', :require => ["docx"]
 gem 'sweetalert2', '~> 4.0', '>= 4.0.11'
 gem 'bootstrap-datepicker-rails', '~> 1.8', '>= 1.8.0.1'
 gem 'twilio-ruby', '~> 5.24.0'
-gem 'rails', '4.2.6'
+gem 'rails', '4.2.8'
 gem 'pg', '0.15.1'
 gem 'rails_12factor', group: :production
 gem 'sass-rails', '~> 5.0'
