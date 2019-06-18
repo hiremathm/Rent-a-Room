@@ -39,9 +39,9 @@ class Room < ActiveRecord::Base
 		# self.longitude = result["results"][0]["geometry"]["location"]["lng"]
 		
 		#Using geocoder Gem 
-		results = Geocoder.search('banglore')
-		self.latitude = results.first.coordinates[0]
-		self.longitude = results.first.coordinates[1]
+		# results = Geocoder.search('banglore')
+		self.latitude = "25.2426006" #results.first.coordinates[0]
+		self.longitude = "55.3064397" #results.first.coordinates[1]
 	end
 
 	def authorize_confirmation
