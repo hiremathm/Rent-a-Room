@@ -4,7 +4,7 @@ class Room < ActiveRecord::Base
 	
 	after_create :change_role
 	before_save :determine_lat_and_long
-	after_update :authorize_confirmation
+	# after_update :authorize_confirmation
 	
 	mount_uploader :images, ImageUploader
 
