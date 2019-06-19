@@ -48,9 +48,6 @@
     if(nameHanle.value == ""){
       nameMsg.innerHTML = "Name con't be blank";
       errors.name = false;
-    }else if(!nameFormat.test(nameHanle.value)){
-      nameMsg.innerHTML = "Should contain only Characters";
-      errors.name = false;
     }else{
       nameMsg.innerHTML = "";
       errors.name = true;

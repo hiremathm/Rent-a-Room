@@ -138,7 +138,7 @@
 
   function validateName(){
     if(nameHandle.value == ""){
-      nameMsgHandle.innerHTML = "can't be blank";
+      nameMsgHandle.innerHTML = "Can't be blank";
       errors.name = false;
     }else if(nameHandle.value.length < 5){
       nameMsgHandle.innerHTML = "Room name should  be more than 5 characters.";
@@ -151,11 +151,8 @@
 
   function validateDescription(){
     if(descriptionHandle.value == ""){
-      descriptionMsgHandle.innerHTML = "can't be blank";
+      descriptionMsgHandle.innerHTML = "Can't be blank";
       errors.description = false;
-    }else if(descriptionHandle.value.length < 150){
-      descriptionMsgHandle.innerHTML = "Description should be more than 150 character";
-       errors.description = false;
     }else{
       descriptionMsgHandle.innerHTML = "";
        errors.description = true;
@@ -164,10 +161,10 @@
 
   function validatePrice(){
     if(priceHandle.value == ""){
-      priceMsgHandle.innerHTML = "can't be blank";
+      priceMsgHandle.innerHTML = "Can't be blank";
       errors.price = false;
     }else if(!priceFormatter.test(priceHandle.value)){
-      priceMsgHandle.innerHTML = " price should contain only number";
+      priceMsgHandle.innerHTML = " Price should contain only number";
       errors.price = false;
     }else{
       priceMsgHandle.innerHTML = "";
@@ -177,7 +174,7 @@
 
   function validateRules(){
     if(rulesHandle.value == ""){
-      rulesMsgHandle.innerHTML = "can't be blank";
+      rulesMsgHandle.innerHTML = "Can't be blank";
       errors.rules = false;
     }else{
       rulesMsgHandle.innerHTML = "";
@@ -187,7 +184,7 @@
 
   function validateAddress(){
     if(addressHandle.value == ""){
-      addressMsgHandle.innerHTML = "can't be blank";
+      addressMsgHandle.innerHTML = "Can't be blank";
       errors.address = false;
     }else{
       addressMsgHandle.innerHTML = "";
@@ -197,7 +194,7 @@
 
   function validateimages(){
     if(imagesHandle.value == ""){
-      imagesMsgHandle.innerHTML = "can't be blank";
+      imagesMsgHandle.innerHTML = "Can't be blank";
       errors.images = false;
     }else{
       imagesMsgHandle.innerHTML ="";
