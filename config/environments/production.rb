@@ -77,4 +77,14 @@ config.action_mailer.default_url_options = {host: 'localhost', port: 3000}
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+  ActionMailer::Base.smtp_settings = { 
+   :address => "smtp.gmail.com",
+   :port => 587,
+   :domain => "gmail.com",
+   :authentication => "plain",
+   :enable_starttls_auto => true,
+   :user_name => "shivasorab@gmail.com",
+   :password => "hiremath@123",
+   :openssl_verify_mode  => 'none'
+}
 end
