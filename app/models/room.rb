@@ -1,12 +1,9 @@
 class Room < ActiveRecord::Base
 	extend FriendlyId
   	friendly_id :name, use: [:slugged, :finders]
-	
+	mount_uploader :images, ImageUploader	
 	after_create :change_role
-	before_save :determine_lat_and_long
-	# after_update :authorize_confirmation
-	
-	mount_uploader :images, ImageUploader
+	before_save :determine_lat_and_long	
 
 	has_many :amenity_rooms
 	has_many :amenities, through: :amenity_rooms
@@ -43,13 +40,4 @@ class Room < ActiveRecord::Base
 		self.latitude = "25.2426006" #results.first.coordinates[0]
 		self.longitude = "55.3064397" #results.first.coordinates[1]
 	end
-
-	def authorize_confirmation
-		if self.is_authorized == true
-			Notification.authorize_confirmation(self).deliver_now!
-		end
-	end
-
-	
-
 end

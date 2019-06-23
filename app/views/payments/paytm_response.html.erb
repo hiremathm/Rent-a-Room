@@ -1,30 +1,59 @@
-<div class="row">
-	<div class="col-md-12">
-		<table class="table">
-			<thead>
-				<tr>
-					<th>ORDERID</th>
-					<th>TXNAMOUNT</th>
-					<th>CURRENCY</th>
-					<th>STATUS</th>
-					<th>RESPCODE</th>
-					<th>RESPMSG</th>
-					<th>MID</th>
-					<th>CHECKSUMHASH</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td><%= @response["ORDERID"]%></td>
-					<td><%= @response["TXNAMOUNT"]%></td>
-					<td><%= @response["CURRENCY"]%></td>
-					<td><%= @response["STATUS"]%></td>
-					<td><%= @response["RESPCODE"]%></td>
-					<td><%= @response["RESPMSG"]%></td>
-					<td><%= @response["MID"]%></td>
-					<td><%= @response["CHECKSUMHASH"]%></td>
-				</tr>
-			</tbody>
-		</table>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Cashfree - PG Response Details</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+	<div class="container"> 
+		<div class="col-md-offset-3 col-md-5">
+				<h3 align="center">PAYTM Response</h3>	
+	
+	<% if @response['STATUS'] ==  'Success' %>
+	  <div class="panel panel-success">
+	  <div class="panel-heading">Transaction completed Successful</div>
+	<% else %>
+	  <div class="panel panel-danger">
+	  <div class="panel-heading">Transaction Failed</div>
+	<% end %>
+	  <div class="panel-body">
+	 		<table class="table table-hover">
+			    <tbody>
+			      <tr>
+			        <td>Order ID</td>
+			        <td><%=  @response["ORDERID"] %></td>
+			      </tr>
+			      <tr>
+			        <td>Order Amount</td>
+			        <td><%= @response["TXNAMOUNT"] %></td>
+			      </tr>
+			      <tr>
+			        <td>Currency</td>
+			        <td><%= @response['CURRENCY'] %></td>
+			      </tr>
+			      <tr>
+			        <td>Transaction Status</td>
+			        <td><%= @response["STATUS"] %></td>
+			      </tr>
+			      <tr>
+			        <td>Message</td>
+			        <td><%=  @response["RESPMSG"] %></td>
+			      </tr>
+			    </tbody>
+			</table>
+	   </div>
 	</div>
-</div>
+<center><%= link_to "OK", root_path, class: "btn btn-primary"%></center>
+
+	</div>
+
+	</div>
+</body>
+</html>
+
+
+

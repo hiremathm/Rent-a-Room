@@ -1,3 +1,95 @@
+<div class="row">
+  <form>
+    <div class="col-md-2">
+      <select name="state_id" class="form-control input-sm chooseselect state">
+        <option value="#">State</option>
+        <%State.all.each do |state|%>
+          <option value="<%= state.id%>"><%= state.name%></option>
+        <%end%> 
+      </select> 
+    </div>
+    <div class="col-md-2" >
+      <select name="city_id" id="city" class="form-control input-sm">
+        <option value="#">City</option>
+      </select>
+    </div>
+    <div class="col-md-2">
+      <select name="type" class="form-control input-sm chooseselect">
+        <option>House Type</option>
+        <option value="single_room">Single Room</option>
+        <option value="1 bhk">1 BHK</option>
+        <option value="2 bhk">2 BHK</option>
+        <option value="3 bhk">3 BHK</option>
+        <option value="4 bhk">4 BHK</option>
+      </select>
+    </div>
+    <div class="col-md-2">
+      <select name="plan" class="form-control input-sm chooseselect">
+        <option>House Plan</option>
+        <option value="rent">Rent </option>
+        <option value="lease">Lease</option>
+        <option value="sale">Sale</option>
+      </select>
+    </div>
+    <div class="col-md-1">
+      <input type="submit" class="btn btn-primary btn-sm" value="Filter"/>
+    </div>
+  </form>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.state').on('change', function(){
+      var state = $('.state').val()
+      $.ajax({
+        url: "/get_all_cities?state=" + state,
+        method: "GET",
+        success: function(data){
+          document.getElementById('city').options.length = 0;
+          data.forEach(function(city){
+            var option = document.createElement('option'); 
+            var optValue = document.createAttribute('value'); 
+            optValue.value = city.id  
+            option.setAttributeNode(optValue); 
+            var txt = document.createTextNode(city.name);  
+            option.appendChild(txt);  
+            document.getElementById("city").appendChild(option)
+          })
+        },
+        error: function(data){
+          console.log(data)
+        }
+      })
+    })
+    // $('.state').on('change', function(e){
+    //   e.preventDefault()
+    //   var state = $('.state').val();
+    //   var city = document.getElementById("city")
+    //   if(state.value !== ""){
+    //     var xhr = new XMLHttpRequest();
+    //     xhr.open('GET', '../get_all_cities?state=' + state);
+    //     xhr.onreadystatechange = function(){
+    //       if (xhr.readyState == 4 && xhr.status == 200){
+    //           var select = document.createElement('select')
+    //           var data = JSON.parse(xhr.responseText)
+    //           data.forEach(function(city){
+    //             var option = document.createElement('option'); 
+    //             var optValue = document.createAttribute('value'); 
+    //             optValue.value = city.id  
+    //             option.setAttributeNode(optValue); 
+    //             var txt = document.createTextNode(city.name);  
+    //             option.appendChild(txt);  
+    //             // select.appendChild(option)
+    //                document.getElementById("city").appendChild(option);
+    //           })
+    //         }
+    //       }
+    //     xhr.send();
+    //   }
+    // })
+  })
+</script>
+<br/>
 <div class="row color">
     <% @rooms.each do |room| %>
       <% if room.is_authorized == true %>
@@ -42,4 +134,4 @@
         </div>
       <% end %>
     <% end %>  
-</div></p>
+</div>

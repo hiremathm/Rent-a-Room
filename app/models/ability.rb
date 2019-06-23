@@ -10,8 +10,8 @@ class Ability
     # :delete - destroy
 
      if user.nil?
-         can :read, [Room, City]
-        can [:read,:find_by_cities,:by_price_asc,:by_price_desc],[Room]
+        can :read, [Room, City]
+        can [:get_all_cities, :read,:find_by_cities,:by_price_asc,:by_price_desc],[Room]
 
      elsif user.role? "admin"
         can [:manage, :authorize], [City, Amenity, Role, Room]
@@ -27,7 +27,7 @@ class Ability
         can [:update, :destroy], Review do |review|
             review.user_id == user.id
         end
-        can [:read,:find_by_cities,:by_price_asc,:by_price_desc],[Room]
+        can [:read,:find_by_cities,:by_price_asc,:by_price_desc, :get_all_cities],[Room]
 
         can [:update, :destroy], [Room] do |room|
           room.user_id == user.id
@@ -67,7 +67,7 @@ class Ability
             booking.user_id == user.id
         end
         
-       can [:read,:find_by_cities,:by_price_asc,:by_price_desc],[Room]
+       can [:read,:find_by_cities,:by_price_asc,:by_price_desc, :get_all_cities],[Room]
       end 
     # # Define abilities for the passed in user here. For example:
     #

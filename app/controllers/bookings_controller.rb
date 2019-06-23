@@ -4,11 +4,9 @@ class BookingsController < ApplicationController
   
   def create
     @book = Booking.new(booking_params)
-    
     if current_user.role.name != "admin"
       @book.user_id = current_user.id
     end
-    
     if @book.save
       pdf = Prawn::Document.new
       pdf.move_cursor_to 700
@@ -43,12 +41,9 @@ class BookingsController < ApplicationController
       filename = "invoice.pdf"
       pdf.render_file filename
 
-      #Booking.bill(@book, filename)
-      #abort @book.inspect
-      session[:booking] = @book
-      # send_data(@book)
-      #redirect_to  bookings_my_bookings_path, notice: "Your room has been booked, Please do the payments"
-      # redirect_to  cashfree_payment_path, notice: "Your room has been booked, Please do the payments"
+      session[:booking] = @book 
+      Notification.delay(:queue => "Booking from Customer",run_at: 4.minutes.from_now).host_confirmation(@book, filename)
+      Notification.delay(:queue => "Booking from Customer",run_at: 5.minutes.from_now).client_confirmation(@book, filename)
       redirect_to choose_payment_path, notice: "Your room has been booked , Please do the payments"
      else
        render action: "new"
@@ -62,15 +57,17 @@ class BookingsController < ApplicationController
   def paytm_payment
     @booking = session[:booking]
   end
-  
-   def edit
-     @booking = Booking.find(params[:id])
-   end  
+
+  def edit
+    @booking = Booking.find(params[:id])
+  end
+
   def update
   	@booking = Booking.find(params[:id])
-    #binding.pry
   	if @booking.update_attributes(booking_params)  
-  	#binding.pry
+      if @booking.is_confirmed == true
+        Notification.delay(:queue => "Booking confirmed",run_at: 5.minutes.from_now).client_confirmed(@booking)
+      end
       redirect_to rooms_path, notice: "Succefully updated booking"
     else
       redirect_to rooms_path, notice: "Unable to update the booking"

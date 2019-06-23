@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   get 'rooms/find_by_cities'
   get 'rooms/by_price_asc'
   get 'rooms/by_price_desc'
-
+  get '/get_all_cities', :to => 'rooms#get_all_cities' 
   resources :rooms do 
     post 'authorize'
     post 'my_rooms'

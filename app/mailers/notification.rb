@@ -7,7 +7,6 @@ class Notification < ApplicationMailer
   #
   def authorize_confirmation(room)
     @room = room
-
     mail to: "#{@room.user.email}", subject: "Room authorized"
   end
 
@@ -16,20 +15,15 @@ class Notification < ApplicationMailer
   	mail to: "#{@host.room.user.email}", subject: "Room confirmation"
   end
 
-  def client_confirmation(client)
-  	@client = client
-  	mail to: "#{@client.user.email}", subject: "Room booked"
+  def client_confirmation(booking, filename)
+    attachments["Rent_Invoice.pdf"] = open(filename).read
+  	@booking = booking
+  	mail to: "#{@booking.user.email}", subject: "Room booking confirmation mail."
   end
 
   def client_confirmed(client)
   	@client = client
   	mail to: "#{@client.user.email}", subject: "Room confirmed"
-  end
-
-  def rent_bill(book, filename)
-    attachments["Rent_Invoice.pdf"] = open(filename).read
-    @book = book
-    mail to: "#{@book.user.email}", subject: "Invoice Bill For Room Rent"
   end
 
   def send_enquiry(enquiry)

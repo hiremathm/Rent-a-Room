@@ -15,7 +15,6 @@ gem 'prawn', '= 1.0.0'
 gem 'zip'
 gem 'docx', '~> 0.2.07', :require => ["docx"]
 gem 'sweetalert2', '~> 4.0', '>= 4.0.11'
-gem 'bootstrap-datepicker-rails', '~> 1.8', '>= 1.8.0.1'
 gem 'twilio-ruby', '~> 5.24.0'
 gem 'rails', '4.2.8'
 gem 'pg', '0.15.1'
@@ -27,6 +26,9 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
+gem 'delayed_job_active_record'
+gem 'daemons'
+gem 'bootstrap-datepicker-rails'
 group :development do
   gem 'web-console', '~> 2.0'
   gem 'spring'

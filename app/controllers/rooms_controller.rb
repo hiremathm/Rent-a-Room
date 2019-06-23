@@ -1,4 +1,5 @@
 class RoomsController < ApplicationController
+  include RoomsHelper
   before_action :authenticate_user!, except: [:index, :show,:find_by_cities,:by_price_asc,:by_price_desc]
   load_and_authorize_resource
   before_action :set_room, only: [:show, :edit, :update, :destroy]
@@ -34,6 +35,12 @@ class RoomsController < ApplicationController
   # GET /rooms/1/edit
   def edit
   end
+
+  def get_all_cities
+    @cities = City.where(state_code: params['state'])
+    render json: @cities
+  end
+
   def find_by_cities
       if params[:city_ids] != ""
        # binding.pry
@@ -66,6 +73,9 @@ class RoomsController < ApplicationController
   def update
     respond_to do |format|
       if @room.update(room_params)
+        if @room.is_authorized == true 
+          Notification.delay(:queue => "Authorize room",run_at: 5.minutes.from_now).authorize_confirmation(@room)
+        end
         format.html { redirect_to @room, notice: 'Room was successfully updated.' }
         format.json { render :show, status: :ok, location: @room }
       else

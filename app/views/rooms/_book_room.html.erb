@@ -1,31 +1,28 @@
 <div class="container">
-	<button type="button" class="btn btn-primary btn-lg btn-sm" id="myBtn2">Book Room</button>
-	<div class="modal fade" id="myModal2" role="dialog">
+	<button type="button" class="btn btn-primary btn-sm" id="myBtn2">Book Room</button>
+	<div class="modal fade-out" id="myModal2" role="dialog">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-						<h4 class="modal-title">Please Register to Book the Room</h4>
+					<h5>Book Room</h5>
 				</div>
 				<div class="modal-body">
 					<%= form_for @booking do |f| %>
-			            <p class = "form-group">
-			              <strong>Start Date:</strong> <%= f.text_field :start_date, class: "form-control"%>
+			            <div class = "form-group col-xs-5">
+			              <input type="text" class="form-control input-sm" value="" name="booking[start_date]" id="booking_start_date"  autocomplete="off" placeholder="Start Date"/>
 			                <span id = "startdateError"></span>
-			            </p>
-			            <p class = "form-group">
-			              <strong>End Date :</strong> <%= f.text_field :end_date,class: "form-control" %>
+			            </div>
+			            <div class = "col-xs-5">
+			               <input type="text" class="form-control input-sm" value="" name="booking[end_date]" id="booking_end_date"  autocomplete="off" placeholder="End Date"/>
 			                <span id = "enddateError"></span>
-			            </p><br/>
+			            </div>
 			            <%= f.hidden_field :room_id, value: @room.id %>   
 			            <% if user_signed_in? && current_user.role.name == "admin" %>
 			              <%= f.collection_select :user_id, User.all, :id, :username %>
 			            <% end %>          
-			            <%= f.submit "BOOK ROOM" , class: "btn btn-primary"%>
+			            <center><%= f.submit "Book Room" , class: "btn btn-primary btn-sm"%></center>	
 		            <% end %>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				</div>
 			</div>
 		</div>
@@ -35,6 +32,16 @@
 $(document).ready(function(){
     $("#myBtn2").click(function(){
         $("#myModal2").modal();
+    });    
+    $('#booking_start_date').datepicker({
+      format: 'yyyy/mm/dd',  
+       autohide: true,
+      todayHightlight: true
+    });
+    $('#booking_end_date').datepicker({
+      format: 'yyyy/mm/dd',  
+       autohide: true,
+      todayHightlight: true
     });
 });
 </script>
