@@ -1,63 +1,51 @@
 # #Roles
-# Role.create(name: "admin")
-# Role.create(name: "host")
-# Role.create(name: "guest")
+Role.create(name: "admin")
+Role.create(name: "host")
+Role.create(name: "guest")
 
 # #Default Users
-# User.create(email: "admin@gmail.com", password: "shivam", mobile: "9731937369", first_name: "admin", last_name: "admin", username: "admin", role_id: Role.find_by(name: "admin").id)
-# User.create(email: "shivasorab@gmail.com", password:"shivam", mobile: "9743904397", first_name: "shiva", 
-# 	last_name: "m", username: "shiva", role_id: Role.find_by(name: "host").id)
-# User.create(email: "yourmail4shiva@gmail.com", password:"shivam", mobile: "9456231245", first_name: "ani", last_name: "m", username: "ani", role_id: Role.find_by(name: "guest").id)
-# User.create(email: "shashisorab@hotmail.com", password:"shivam", mobile: "9731737369", first_name: "shashi", last_name: "m", username: "shashi", role_id: Role.find_by(name: "guest").id)
+User.create(email: "admin@gmail.com", password: "shivam", mobile: "9731937369", first_name: "admin", last_name: "admin", username: "admin", role_id: Role.find_by(name: "admin").id)
+User.create(email: "shivasorab@gmail.com", password:"shivam", mobile: "9743904397", first_name: "shiva", 
+	last_name: "m", username: "shiva", role_id: Role.find_by(name: "host").id)
+User.create(email: "yourmail4shiva@gmail.com", password:"shivam", mobile: "9456231245", first_name: "ani", last_name: "m", username: "ani", role_id: Role.find_by(name: "guest").id)
+User.create(email: "shashisorab@hotmail.com", password:"shivam", mobile: "9731737369", first_name: "shashi", last_name: "m", username: "shashi", role_id: Role.find_by(name: "guest").id)
 
-
-#Aminities 
-# amanities = [" Complimentary morning newspaper", " Complimentary mineral water", "Wi-fi services for high speed
-# internet access", "Remote control television", " Piped music", " Direct
-# dial phones", " Telephone alarm", " Full length mirrors", "Tea-coffee
-# maker ", " Straw slippers", "Air-conditioning with individual
-# temperature control", "Mini bar" , " DVD player", " Welcome basket of fruit and cookies", "Complimentary shoeshine", "Magazines", " Iron & ironing board ", "Electrical adapters", "l Hair dryer ", "Bathtub with overhead and hand
-# shower", "Internet access in the room or in the public area", "Heating facility in the bathroom, hair-dryer, cleansing tissue", "Dressing mirror, place to put the luggage/suitcase", "Additional pillow and additional blanket on demand", "Systematic complaint management system", "Swimming Pool", "Lift", "Gym", 'Dianing Hall', 'Fan', 'Kichen', 'Bed Rooms']
-
-# amanities.each do |a|
-# 	Amenity.create(name: a, slug: a, description: a)
-# end
 #All States
-# State.create(name: 'Andaman & Nicobar',state_code: 'AN')
-# State.create(name: 'Andhra Pradesh',state_code: 'AP')
-# State.create(name: 'Arunachal Pradesh',state_code: 'AR')
-# State.create(name: 'Assam',state_code: 'AS')
-# State.create(name: 'Bihar',state_code: 'BH')
-# State.create(name: 'Chandigarh',state_code: 'CH')
-# State.create(name: 'Chhattisgarh',state_code: 'CG')
-# State.create(name: 'Dadra & Nagar Haveli',state_code: 'DN')
-# State.create(name: 'Daman & Diu',state_code: 'DD')
-# State.create(name: 'Delhi',state_code: 'DL')
-# State.create(name: 'Goa',state_code: 'GO')
-# State.create(name: 'Gujarat',state_code: 'GU')
-# State.create(name: 'Haryana ',state_code: 'HR')
-# State.create(name: 'Himachal Pradesh ',state_code: 'HP')
-# State.create(name: 'Jammu & Kashmir ',state_code: 'JK')
-# State.create(name: 'Jharkhand ',state_code: 'JH')
-# State.create(name: 'Karnataka ',state_code: 'KR')
-# State.create(name: 'Kerala ',state_code: 'KL')
-# State.create(name: 'Lakshadweep ',state_code: 'LD')
-# State.create(name: 'Madhya Pradesh ',state_code: 'MP')
-# State.create(name: 'Maharashtra ',state_code: 'MH')
-# State.create(name: 'Manipur ',state_code: 'MN')
-# State.create(name: 'Meghalaya ',state_code: 'ML')
-# State.create(name: 'Mizoram ',state_code: 'MM')
-# State.create(name: 'Nagaland ',state_code: 'NL')
-# State.create(name: 'Orissa ',state_code: 'OR')
-# State.create(name: 'Pondicherry ',state_code: 'PC')
-# State.create(name: 'Punjab ',state_code: 'PJ')
-# State.create(name: 'Rajasthan ',state_code: 'RJ')
-# State.create(name: 'Sikkim ',state_code: 'SK')
-# State.create(name: 'Tamil Nadu ',state_code: 'TN')
-# State.create(name: 'Tripura ',state_code: 'TR')
-# State.create(name: 'Uttar Pradesh ',state_code: 'UP')
-# State.create(name: 'Uttaranchal ',state_code: 'UT')
-# State.create(name: 'West Bengal ',state_code: 'WB')
+State.create(name: 'Andaman & Nicobar',state_code: 'AN')
+State.create(name: 'Andhra Pradesh',state_code: 'AP')
+State.create(name: 'Arunachal Pradesh',state_code: 'AR')
+State.create(name: 'Assam',state_code: 'AS')
+State.create(name: 'Bihar',state_code: 'BH')
+State.create(name: 'Chandigarh',state_code: 'CH')
+State.create(name: 'Chhattisgarh',state_code: 'CG')
+State.create(name: 'Dadra & Nagar Haveli',state_code: 'DN')
+State.create(name: 'Daman & Diu',state_code: 'DD')
+State.create(name: 'Delhi',state_code: 'DL')
+State.create(name: 'Goa',state_code: 'GO')
+State.create(name: 'Gujarat',state_code: 'GU')
+State.create(name: 'Haryana ',state_code: 'HR')
+State.create(name: 'Himachal Pradesh ',state_code: 'HP')
+State.create(name: 'Jammu & Kashmir ',state_code: 'JK')
+State.create(name: 'Jharkhand ',state_code: 'JH')
+State.create(name: 'Karnataka ',state_code: 'KR')
+State.create(name: 'Kerala ',state_code: 'KL')
+State.create(name: 'Lakshadweep ',state_code: 'LD')
+State.create(name: 'Madhya Pradesh ',state_code: 'MP')
+State.create(name: 'Maharashtra ',state_code: 'MH')
+State.create(name: 'Manipur ',state_code: 'MN')
+State.create(name: 'Meghalaya ',state_code: 'ML')
+State.create(name: 'Mizoram ',state_code: 'MM')
+State.create(name: 'Nagaland ',state_code: 'NL')
+State.create(name: 'Orissa ',state_code: 'OR')
+State.create(name: 'Pondicherry ',state_code: 'PC')
+State.create(name: 'Punjab ',state_code: 'PJ')
+State.create(name: 'Rajasthan ',state_code: 'RJ')
+State.create(name: 'Sikkim ',state_code: 'SK')
+State.create(name: 'Tamil Nadu ',state_code: 'TN')
+State.create(name: 'Tripura ',state_code: 'TR')
+State.create(name: 'Uttar Pradesh ',state_code: 'UP')
+State.create(name: 'Uttaranchal ',state_code: 'UT')
+State.create(name: 'West Bengal ',state_code: 'WB')
 
 cities = [
 	['Alipur', '101','1'],
