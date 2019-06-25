@@ -77,22 +77,14 @@ config.action_mailer.default_url_options = {host: 'localhost', port: 3000}
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
-  config.before_configuration do
-  env_file = File.join(Rails.root, 'config', 'secrets.yml')
-  ENV = {}
-  YAML.load(File.open(env_file)).each do |key, value|
-    ENV[key.to_s] = value
-    end if File.exists?(env_file)
-  end
-
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.default_url_options = { :host => "localhost:3000" }
   config.action_mailer.smtp_settings = {
     :address => "smtp.gmail.com",
     :port => 587,
     :domain => 'localhost:3000',
-    :user_name =>  ENV['development']['GMAIL'],
-    :password =>  ENV['development']['PASSWORD'],
+    :user_name =>  "shivasorab@gmail.com",
+    :password =>  "hiremath@gmail.com",
     :authentication => :plain,
     :enable_starttls_auto => true
   }
