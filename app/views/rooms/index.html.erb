@@ -1,5 +1,5 @@
 <div class="row">
-  <form>
+  <form class="filter">
     <div class="col-md-2">
       <select name="state_id" class="form-control input-sm chooseselect state">
         <option value="#">State</option>
@@ -14,7 +14,7 @@
       </select>
     </div>
     <div class="col-md-2">
-      <select name="type" class="form-control input-sm chooseselect">
+      <select name="type" class="form-control input-sm chooseselect type">
         <option>House Type</option>
         <option value="single_room">Single Room</option>
         <option value="1 bhk">1 BHK</option>
@@ -24,7 +24,7 @@
       </select>
     </div>
     <div class="col-md-2">
-      <select name="plan" class="form-control input-sm chooseselect">
+      <select name="plan" class="form-control input-sm chooseselect plan">
         <option>House Plan</option>
         <option value="rent">Rent </option>
         <option value="lease">Lease</option>
@@ -39,6 +39,24 @@
 
 <script type="text/javascript">
   $(document).ready(function(){
+    // $('.filter').on('submit', function(e){
+    //   e.preventDefault()
+    //   var state_id = $('.state').val();
+    //   var city_id = $('#city').val();
+    //   var type = $('.type').val();
+    //   var plan = $('.plan').val();
+    
+    //   $.ajax({
+    //     url: "/rooms?state_id=" + state_id + "&" + "city_id=" + city_id + "&" + "type=" + type + "&" + "plan=" + plan,
+    //     method: "GET",
+    //     success: function(data){
+    //     },
+    //     error: function(data){
+    //       console.log(data)
+    //     }
+    //   })
+    // })
+
     $('.state').on('change', function(){
       var state = $('.state').val()
       $.ajax({
@@ -61,77 +79,10 @@
         }
       })
     })
-    // $('.state').on('change', function(e){
-    //   e.preventDefault()
-    //   var state = $('.state').val();
-    //   var city = document.getElementById("city")
-    //   if(state.value !== ""){
-    //     var xhr = new XMLHttpRequest();
-    //     xhr.open('GET', '../get_all_cities?state=' + state);
-    //     xhr.onreadystatechange = function(){
-    //       if (xhr.readyState == 4 && xhr.status == 200){
-    //           var select = document.createElement('select')
-    //           var data = JSON.parse(xhr.responseText)
-    //           data.forEach(function(city){
-    //             var option = document.createElement('option'); 
-    //             var optValue = document.createAttribute('value'); 
-    //             optValue.value = city.id  
-    //             option.setAttributeNode(optValue); 
-    //             var txt = document.createTextNode(city.name);  
-    //             option.appendChild(txt);  
-    //             // select.appendChild(option)
-    //                document.getElementById("city").appendChild(option);
-    //           })
-    //         }
-    //       }
-    //     xhr.send();
-    //   }
-    // })
   })
 </script>
 <br/>
-<div class="row color">
-    <% @rooms.each do |room| %>
-      <% if room.is_authorized == true %>
-          <div class="col-md-3" class="well" style="background-color: #ADD8E6">
-          <p class="text-justify" color= "black">
-              
-              <h4><font face="Chancery Cursive"><%= room.name.capitalize%>, <%= room.city.name %></font></br></h4>
-              <%= link_to (image_tag room.images ,:size => '250x150'), room, class: "img-thumbnail" %><br/><br/>
 
-              <label>Price : </label>
-                <i class="fa fa-inr" style="color: #f44e42;">
-                <%# if room.special_prices.present? %>
-                    <!-- <strike><%#= room.price rescue 'nil' %></strike> -->
-                <%# else %>
-                    <%= room.price %>
-                <%# end %>
-                </i>
-                  <%# room.special_prices.each do |special_price|%>
-                        <%# dates = (special_price.start_date..special_price.end_date).to_a%>
-                      <%#today_date = Date.today%>
-                      <%# if dates.include?today_date%>
-                          <!-- - <i class="fa fa-inr"  style="color: #f44e42;"> <%#= special_price.price%></i> -->
-                      <%# end %>
-                  <%# end %>
-              </i>
-              <label style="float : right">Rating : <%total_rating = 0%>
-            <% if !room.reviews.present?%>
-              <% total_rating = "0.0"%>
-            <% end %>
-            <% room.reviews.each do |review| %>
-                  <%rating =  (((review.food_rating + review.cleanliness_rating + review.safety_rating + review.facility_rating + review.locality_rating)/5.0).to_f)/(room.reviews.length) %>
-                <% total_rating += rating.round(1) %>
-              <% end %>
-              <%= total_rating %>
-              </label>
-            <%# end %>
-          <br/>
-          <center>
-          <%= link_to "View Deal", room_path(room.slug), class: "btn btn-warning"%>
-          </center>
-          <hr>                           
-        </div>
-      <% end %>
-    <% end %>  
+<div class="all_rooms">
+  <%= render 'all_rooms'%>
 </div>

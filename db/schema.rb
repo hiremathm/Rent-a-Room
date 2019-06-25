@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190622060316) do
+ActiveRecord::Schema.define(version: 20190625013413) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -131,6 +131,9 @@ ActiveRecord::Schema.define(version: 20190622060316) do
     t.string   "avatar"
     t.boolean  "is_authorized", default: false
     t.string   "slug"
+    t.integer  "state_id"
+    t.string   "house_type"
+    t.string   "house_plan"
   end
 
   create_table "special_prices", force: :cascade do |t|
@@ -140,6 +143,7 @@ ActiveRecord::Schema.define(version: 20190622060316) do
     t.integer  "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "discount"
   end
 
   create_table "states", force: :cascade do |t|

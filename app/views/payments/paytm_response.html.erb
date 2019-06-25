@@ -13,13 +13,13 @@
 		<div class="col-md-offset-3 col-md-5">
 				<h3 align="center">PAYTM Response</h3>	
 	
-	<% if @response['STATUS'] ==  'Success' %>
+	<%# if @response['STATUS'] ==  'Success' %>
 	  <div class="panel panel-success">
 	  <div class="panel-heading">Transaction completed Successful</div>
-	<% else %>
-	  <div class="panel panel-danger">
-	  <div class="panel-heading">Transaction Failed</div>
-	<% end %>
+	<%# else %>
+	  <!-- <div class="panel panel-danger"> -->
+	  <!-- <div class="panel-heading">Transaction Failed</div> -->
+	<%# end %>
 	  <div class="panel-body">
 	 		<table class="table table-hover">
 			    <tbody>
@@ -46,6 +46,7 @@
 			    </tbody>
 			</table>
 	   </div>
+	   <%= @response%>
 	</div>
 <center><%= link_to "OK", root_path, class: "btn btn-primary"%></center>
 

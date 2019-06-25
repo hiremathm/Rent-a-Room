@@ -54,12 +54,7 @@
           <span class="glyphicon glyphicon-asterisk" style="color: red;" data-toggle="tooltip" title="State Con't be blank"></span>
         </div>
         <div class="col-xs-3 ">
-          <select name="state_id" class="form-control input-sm state">
-            <option>State</option>
-            <%State.all.each do |state|%>
-              <option value="<%= state.id%>"><%= state.name%></option>
-            <%end%>
-          </select>
+          <%= f.collection_select :state_id, State.all, :id , :name, {}, class: "form-control input-sm"%>
         </div>
         <div class="col-xs-offset-1 col-xs-1">
           <%= f.label :city %>
@@ -68,13 +63,13 @@
           <span class="glyphicon glyphicon-asterisk" style="color: red;" data-toggle="tooltip" title="City Con't be blank"></span>
         </div>
         <div class="col-xs-3">
-          <div class="form-group">
-            <select name="city_id" id="city" class="form-control input-sm">
+            <%= f.collection_select :city_id, [], :id , :name, {}, class: "form-control input-sm"%>
+            <!-- <select name="city_id" id="city" class="form-control input-sm">
               <option value="#">City</option>
-            </select>
-          </div>          
+            </select> -->
         </div>
       </div>
+      <br/>
       <div class="row">
         <div class="col-xs-1">
           <label>Room Type</label>
@@ -83,14 +78,7 @@
           <span class="glyphicon glyphicon-asterisk" style="color: red;" data-toggle="tooltip" title="Room Type Con't be blank"></span>
         </div>
         <div class="col-xs-3">
-          <select class="form-control input-sm">
-            <option>House Type</option>
-            <option value="single_room">Single Room</option>
-            <option value="1 bhk">1 BHK</option>
-            <option value="2 bhk">2 BHK</option>
-            <option value="3 bhk">3 BHK</option>
-            <option value="4 bhk">4 BHK</option>
-          </select>
+           <%= f.select :house_type, [['House Type', '#'],['Single Room', 'single_room'],['1 BHK','1 bhk'],['2 BHK', '2 bhk'],['3 BHK',"3 bhk"],['4 BHK','4 bhk']], {}, class: "form-control input-sm" %>
         </div>
         <div class="col-xs-offset-1 col-xs-1">
           <label>
@@ -101,12 +89,7 @@
           <span class="glyphicon glyphicon-asterisk" style="color: red;" data-toggle="tooltip" title="House plan Con't be blank"></span>
         </div>
         <div class="col-xs-3">
-          <select class="form-control input-sm">
-            <option>House Plan</option>
-            <option value="rent">Rent </option>
-            <option value="lease">Lease</option>
-            <option value="sale">Sale</option>
-          </select>
+           <%= f.select :house_plan, [['House Plan', '#'],['Rent', 'rent'],['Lease','lease'],['Sale', 'sale']], {}, class: "form-control input-sm" %>
         </div>
       </div>
       <div class="row">
@@ -290,13 +273,13 @@ roomFormHandle.addEventListener('submit',function(e){
 },false);
 
   $(document).ready(function(){
-    $('.state').on('change', function(){
-      var state = $('.state').val()
+    $('#room_state_id').on('change', function(){
+      var state = $('#room_state_id').val()
       $.ajax({
         url: "/get_all_cities?state=" + state,
         method: "GET",
         success: function(data){
-          document.getElementById('city').options.length = 0;
+          document.getElementById('room_city_id').options.length = 0;
           data.forEach(function(city){
             var option = document.createElement('option'); 
             var optValue = document.createAttribute('value'); 
@@ -304,7 +287,7 @@ roomFormHandle.addEventListener('submit',function(e){
             option.setAttributeNode(optValue); 
             var txt = document.createTextNode(city.name);  
             option.appendChild(txt);  
-            document.getElementById("city").appendChild(option)
+            document.getElementById("room_city_id").appendChild(option)
           })
         },
         error: function(data){

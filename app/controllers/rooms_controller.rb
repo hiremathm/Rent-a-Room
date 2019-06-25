@@ -1,6 +1,6 @@
 class RoomsController < ApplicationController
   include RoomsHelper
-  before_action :authenticate_user!, except: [:index, :show,:find_by_cities,:by_price_asc,:by_price_desc]
+  before_action :authenticate_user!, except: [:index, :show,:find_by_cities,:by_price_asc,:by_price_desc, :get_all_cities]
   load_and_authorize_resource
   before_action :set_room, only: [:show, :edit, :update, :destroy]
   
@@ -14,8 +14,26 @@ class RoomsController < ApplicationController
     render json: @rooms
    end
   def index
-    @rooms = Room.all
-    #@rooms = Room.paginate(:page => params[:page], :per_page => 5)
+    if params.present?
+      if params['state_id'].present?
+        @rooms = Room.where(state_id: params['state_id'])
+      end
+      if params['city_id'].present? and params['city_id'] != 'undefined'
+        @rooms = @rooms.where(city_id: params['city_id'])
+      end
+      if params['type'].present?
+        @rooms = @rooms.where(house_type: params['type'])
+      end
+      if params['plan'].present?
+        @rooms = @rooms.where(house_plan: params['plan'])
+      end
+    else 
+      @rooms = Room.all
+    end
+    respond_to do |format|
+      format.html
+      format.js { render :file => "rooms/index.js.erb", :layout => false}
+    end
   end
 
   # GET /rooms/1
@@ -43,9 +61,7 @@ class RoomsController < ApplicationController
 
   def find_by_cities
       if params[:city_ids] != ""
-       # binding.pry
         @rooms = Room.where(city_id: params[:city_ids].split(","))
-    # binding.pry
       else 
          @rooms = Room.all
       end 
@@ -116,6 +132,6 @@ class RoomsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def room_params
       params.require(:room).permit(:name, :description, :price, :rules, 
-        :address, :images, :latitude, :longitude, :city_id, :user_id, :is_authorized, amenity_ids:[])
+        :address, :images, :latitude, :longitude, :city_id, :user_id, :is_authorized, :state_id, :house_type, :house_plan,amenity_ids:[])
     end
 end
