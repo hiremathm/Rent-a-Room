@@ -14,7 +14,7 @@ class Room < ActiveRecord::Base
 	belongs_to :user
 	belongs_to :city
 
-	validates_presence_of :name, :description, :price, :rules, :address, :images, :city_id, :user_id
+	validates_presence_of :name, :description, :price, :rules, :address, :city_id, :user_id
 	validates_uniqueness_of :name
 	validates_numericality_of :price, :city_id, :user_id
 	validates_length_of :description, minimum: 5
