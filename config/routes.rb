@@ -41,5 +41,12 @@ Rails.application.routes.draw do
   match '/paytm_response' => 'payments#paytm_response',via: [:get, :post, :put, :patch, :delete] ,:as => :paytm_response
   match '/paytm_request' => 'payments#paytm_request',via: [:get, :post, :put, :patch, :delete] ,:as => :paytm_request
 
+  # Room API's
+  namespace :api do 
+    namespace :v1 do 
+      resources :rooms
+    end
+  end
+
   root 'rooms#index'
 end

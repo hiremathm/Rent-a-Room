@@ -2,32 +2,53 @@
 <div class="row">
     <% @rooms.each do |room| %>
       <% if room.is_authorized == true %>
-          <div class="col-md-3" class="well" style="background-color: #ADD8E6;margin-left: 3px;margin-right: 3px; width: 370px">
-          <p class="text-justify" color= "black">
-              <h4><font face="Chancery Cursive"><%= room.name.capitalize%>, <%= room.city.name %></font></br></h4>
-              <%= link_to (image_tag room.images ,:size => '330x200'), room, class: "img-thumbnail" %><br/><br/>
-
-              <label>Price : </label>
-                <i class="fa fa-inr" style="color: #f44e42;">
-                    <%= room.price %>
-                </i>
-              <label style="float : right">Rating : <%total_rating = 0%>
-            <% if !room.reviews.present?%>
-              <% total_rating = "0.0"%>
-            <% end %>
-            <% room.reviews.each do |review| %>
-                  <%rating =  (((review.food_rating + review.cleanliness_rating + review.safety_rating + review.facility_rating + review.locality_rating)/5.0).to_f)/(room.reviews.length) %>
-                <% total_rating += rating.round(1) %>
+        <div class="col-md-3" class="well" style="background-color: #ADD8E6;margin-left: 3px;margin-right: 3px; width: 370px">
+          <h4><font face="Chancery Cursive"><%= room.name.capitalize%>, <%= room.city.name %></br></h4>
+          <%= link_to (image_tag room.images ,:size => '330x200'), room, class: "img-thumbnail" %><br/><br/>
+            <% if room.special_prices.present? %>
+              <i class="fa fa-inr">
+                <strike><%= room.price %></strike>
+              </i>
+              <% room.special_prices.each do |special_price|%>
+                <% dates = (special_price.start_date..special_price.end_date).to_a%>
+                <%today_date = Date.today%>
+                <% if dates.include?today_date%>
+                 - <i class="fa fa-inr" style="color: #f44e42;"> <%= special_price.price%></i>
+                 You save : <i class="fa fa-inr" style="color: #f44e42;"> <%= room.price - special_price.price%> ( <%= special_price.discount %> % off)</i>
+                <% end %>
               <% end %>
+            <% else %>
+              <i class="fa fa-inr">
+                <%= room.price %>
+              </i>
+            <% end %>
+            <div style="float : right">Rating : <%total_rating = 0%>
+              <% if !room.reviews.present?%>
+                <% total_rating = "0.0"%>
+              <%else %>
+                <% room.reviews.each do |review| %>
+                  <%rating =  (((review.food_rating + review.cleanliness_rating + review.safety_rating + review.facility_rating + review.locality_rating)/5.0).to_f)/(room.reviews.length) %>
+                  <% total_rating += rating.round(1) %>
+                <% end %>
+              <%end%>
               <%= total_rating %>
-              </label>
-          <br/>
-          <center>
-          <%= link_to "View Deal", room_path(room.slug), class: "btn btn-warning"%>
-          </center>
-          <hr>                           
+            </div>
+            <%= link_to "View Deal", room_path(room.slug), class: "btn btn-warning"%>
+            <hr/>
+            </font>
         </div>
       <% end %>
     <% end %>  
 </div>
 </div>
+
+
+<style type="text/css">
+.btn-warning {
+    color: #fff;
+    background-color: #f0ad4e;
+    border-color: #eea236;
+    text-align: center;
+    margin-left: 128px;
+}
+</style>
