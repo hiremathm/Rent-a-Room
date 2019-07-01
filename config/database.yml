@@ -1,9 +1,0 @@
-development:
-  adapter: postgresql
-  encoding: utf8
-  host: 127.0.0.1
-  pool: 5
-  username: postgres
-  password: welcome
-  database: rent_room_db
-  timeout: 5000  
