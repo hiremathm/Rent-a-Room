@@ -4,7 +4,6 @@ class Room < ActiveRecord::Base
 	mount_uploader :images, ImageUploader	
 	after_create :change_role
 	before_save :determine_lat_and_long	
-
 	has_many :amenity_rooms
 	has_many :amenities, through: :amenity_rooms
 	has_many :bookings
