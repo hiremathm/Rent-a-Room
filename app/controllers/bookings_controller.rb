@@ -42,8 +42,8 @@ class BookingsController < ApplicationController
       pdf.render_file filename
 
       session[:booking] = @book 
-      Notification.delay(:queue => "Booking from Customer",run_at: 4.minutes.from_now).host_confirmation(@book, filename)
-      Notification.delay(:queue => "Booking from Customer",run_at: 5.minutes.from_now).client_confirmation(@book, filename)
+      Mailer.delay(:queue => "Booking from Customer",run_at: 4.minutes.from_now).host_confirmation(@book, filename)
+      Mailer.delay(:queue => "Booking from Customer",run_at: 5.minutes.from_now).client_confirmation(@book, filename)
       redirect_to choose_payment_path, notice: "Your room has been booked , Please do the payments"
      else
        render action: "new"
@@ -66,7 +66,7 @@ class BookingsController < ApplicationController
   	@booking = Booking.find(params[:id])
   	if @booking.update_attributes(booking_params)  
       if @booking.is_confirmed == true
-        Notification.delay(:queue => "Booking confirmed",run_at: 5.minutes.from_now).client_confirmed(@booking)
+        Mailer.delay(:queue => "Booking confirmed",run_at: 5.minutes.from_now).client_confirmed(@booking)
       end
       redirect_to rooms_path, notice: "Succefully updated booking"
     else
