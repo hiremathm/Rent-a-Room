@@ -90,7 +90,8 @@ class RoomsController < ApplicationController
     respond_to do |format|
       if @room.update(room_params)
         if @room.is_authorized == true 
-          Notification.delay(:queue => "Authorize room",run_at: 5.minutes.from_now).authorize_confirmation(@room)
+          Mailer.delay(:queue => "authorize_room").authorize_confirmation(@room)
+          #delay(:queue => "Authorize room",run_at: 5.minutes.from_now).
         end
         format.html { redirect_to @room, notice: 'Room was successfully updated.' }
         format.json { render :show, status: :ok, location: @room }

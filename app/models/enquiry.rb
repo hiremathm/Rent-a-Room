@@ -5,7 +5,7 @@ class Enquiry < ActiveRecord::Base
 	# after_create :send_enquiry_to_admin
 
 	def send_enquiry_to_admin
-		Notification.send_enquiry(self).deliver_now!
+		Mailer.send_enquiry(self).deliver_now!
 	end
 
 end
