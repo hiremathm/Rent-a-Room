@@ -18,7 +18,8 @@ class Room < ActiveRecord::Base
 	validates_numericality_of :price, :city_id, :user_id
 	validates_length_of :description, minimum: 5
 
-	
+	scope :athorized_rooms, -> (bool = true) {where(is_authorized: bool)} 
+
 	private
 
 	def change_role
@@ -28,15 +29,19 @@ class Room < ActiveRecord::Base
 	end
 
 	def determine_lat_and_long
-		# response = HTTParty.get("https://maps.googleapis.com/maps/api/geocode/json?address=#{self.address}
-		# 	&key=AIzaSyB0EPV5bnvPBOR-HhrX2ui_JQWjHc9jSeQ")
-		# result = JSON.parse(response.body)
-		# self.latitude = result["results"][0]["geometry"]["location"]["lat"]
-		# self.longitude = result["results"][0]["geometry"]["location"]["lng"]
-		
+		# AIzaSyCGXQJSvHpGwHh-6BTpDY0WEkunObhKBQo
+		response = HTTParty.get("https://maps.googleapis.com/maps/api/geocode/json?address=#{self.address}
+			&key=AIzaSyAd6eOLMfqEt_PA_pGEOxHIGl5t-Yzsghw")
+		result = JSON.parse(response.body)
+		if result[0].present?
+		self.latitude = result["results"][0]["geometry"]["location"]["lat"]
+		self.longitude = result["results"][0]["geometry"]["location"]["lng"]
+		else
+			determine_lat_and_long
+		end
 		#Using geocoder Gem 
 		# results = Geocoder.search('banglore')
-		self.latitude = "25.2426006" #results.first.coordinates[0]
-		self.longitude = "55.3064397" #results.first.coordinates[1]
+		# self.latitude = "25.2426006" #results.first.coordinates[0]
+		# self.longitude = "55.3064397" #results.first.coordinates[1]
 	end
 end

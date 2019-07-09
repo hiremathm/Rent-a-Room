@@ -1,7 +1,6 @@
 <div class="container">
 <div class="row">
     <% @rooms.each do |room| %>
-      <% if room.is_authorized == true %>
         <div class="col-md-3" class="well" style="background-color: #ADD8E6;margin-left: 3px;margin-right: 3px; width: 370px">
           <h4><font face="Chancery Cursive"><%= room.name.capitalize%>, <%= room.city.name %></br></h4>
           <%= link_to (image_tag room.images ,:size => '330x200'), room, class: "img-thumbnail" %><br/><br/>
@@ -37,7 +36,6 @@
             <hr/>
             </font>
         </div>
-      <% end %>
     <% end %>  
 </div>
 </div>

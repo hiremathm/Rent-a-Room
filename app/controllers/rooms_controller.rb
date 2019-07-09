@@ -28,7 +28,7 @@ class RoomsController < ApplicationController
         @rooms = @rooms.where(house_plan: params['plan'])
       end
     else 
-      @rooms = Room.all
+      @rooms = Room.athorized_rooms
     end
     respond_to do |format|
       format.html
