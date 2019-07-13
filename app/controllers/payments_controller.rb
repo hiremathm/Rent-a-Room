@@ -23,11 +23,14 @@ class PaymentsController < ApplicationController
   end
 
   def cf_Request
-    @order_id = SecureRandom.base64(6).to_s
-    mode = "TEST"
+    config_setup = Config.where(config_id: "5003", title: "cashfree").last
+    config_array = config_setup["info"].map { |k| eval(k)}
+    env = Rails.env
+    cashfree_setup = config_array.map {|p| p if p[:environment] == env}.compact.last 
+    @order_id = "RENT"+ Random.rand(1000).to_s + "ROOM"
     @user_id = params[:user_id] 
     @postData = {
-      "appId" => "15976ce3ac81a31af2c8b6b951",
+      "appId" => cashfree_setup[:appId],
       "orderId" => @order_id,
       "orderAmount" => params[:price],
       "orderCurrency" => "INR",
@@ -35,21 +38,16 @@ class PaymentsController < ApplicationController
       "customerName" => User.find(params[:user_id]).username,
       "customerPhone" => User.find(params[:user_id]).mobile,
       "customerEmail" => User.find(params[:user_id]).email,
-      "returnUrl" => "http://localhost:3000/response/#{@user_id}/#{@order_id}",
-      "notifyUrl" => "http://localhost:3000/cf_Response"
+      "returnUrl" => cashfree_setup[:returnUrl] + "/#{@user_id}/#{@order_id}",
+      "notifyUrl" => cashfree_setup[:notifyUrl] 
     }
     @signatureData =""
-    #@app_id = "15976ce3ac81a31af2c8b6b951"
-    @secretKey = "c5762b4b4579491e041f56e1fddfc3e57964e8c6"
+    @secretKey = cashfree_setup[:secreatKey]
     @postData.sort.map do |key,value|
       @signatureData += key + value
     end
-  if mode == "PROD"
-    @url = "https://www.cashfree.com/checkout/post/submit"
-  else
-    @url = "https://test.cashfree.com/billpay/checkout/post/submit"
-  end
-  @signature = Base64.encode64(OpenSSL::HMAC.digest('sha256', @secretKey, @signatureData)).strip()
+    @url = cashfree_setup[:payment_url]
+    @signature = Base64.encode64(OpenSSL::HMAC.digest('sha256', @secretKey, @signatureData)).strip()
   end
 
   def cf_Response
@@ -80,40 +78,29 @@ class PaymentsController < ApplicationController
     txn_amount = params["price"]
     mobile_no = user.mobile
     email = user.email
-    # ott_res = JSON.parse(params['ott'])
-    # ott_res = ott_res['data']
-    # @param_list = Hash.new
-    # @param_list['MID'] = ott_res["MID"]
-    # @param_list['ORDER_ID'] = ott_res["ORDER_ID"]
-    # @param_list['CUST_ID'] = ott_res["CUST_ID"]
-    # @param_list['INDUSTRY_TYPE_ID'] = ott_res["INDUSTRY_TYPE_ID"]
-    # @param_list['CHANNEL_ID'] = ott_res["CHANNEL_ID"]
-    # @param_list['TXN_AMOUNT'] = ott_res["TXN_AMOUNT"]
-    # @param_list['WEBSITE'] = ott_res["WEBSITE"]
-    # @param_list['MERC_UNQ_REF'] = ott_res["MERC_UNQ_REF"]
-    # @param_list['CALLBACK_URL'] = ott_res["CALLBACK_URL"]
-    # @param_list['CHECKSUMHASH'] = ott_res["CHECKSUMHASH"]
-
-    #4592040001316605
-    #04/22
-    #498
     
+    config_setup = Config.where(config_id: "5001", title: "paytm").last
+    puts "config setup : " + "#{config_setup}"
+    config_array = config_setup["info"].map { |k| eval(k)}
+    env = Rails.env
+    paytm_setup = config_array.map {|p| p if p[:environment] == env}.compact.last 
+     puts "Paytm Setup : #{paytm_setup}"
     #param list
     @param_list = Hash.new
-    @param_list["MID"] = "rxazcv89315285244163"                       
-    @param_list["ORDER_ID"] =  order_id.to_s + Random.rand(1000).to_s 
+    @param_list["MID"] = paytm_setup[:mid]                       
+    @param_list["ORDER_ID"] =  order_id.to_s + "RENT"+ Random.rand(1000).to_s + "ROOM" 
     @param_list["CUST_ID"] = cust_id
-    @param_list["INDUSTRY_TYPE_ID"] = "Retail" 
-    @param_list["CHANNEL_ID"] =  "WEB"          
+    @param_list["INDUSTRY_TYPE_ID"] = paytm_setup[:industry_type_id] 
+    @param_list["CHANNEL_ID"] =  paytm_setup[:channel_id]          
     @param_list["TXN_AMOUNT"] = txn_amount
     @param_list["MOBILE_NO"] = mobile_no
     @param_list["EMAIL"] = email
-    @param_list["WEBSITE"] =  "WEBSTAGING" 
-    @param_list["CALLBACK_URL"] = "http://localhost:3001/paytm_response"
-    @checksum_hash = new_pg_checksum(@param_list,"gKpu7IKaLSbkchFS").gsub("\n",'')
+    @param_list["WEBSITE"] =  paytm_setup[:website] 
+    @param_list["CALLBACK_URL"] = paytm_setup[:callback_url] 
+    @checksum_hash = new_pg_checksum(@param_list,paytm_setup[:merchant_key]).gsub("\n",'')
     puts "Parameter to paytm : #{@param_list}"
     puts "Checksum to paytm : #{@param_list['CHECKSUMHASH']}" 
-    @payment_url = "https://securegw-stage.paytm.in/theia/processTransaction"
+    @payment_url = paytm_setup[:payment_url]
   end
 
   def paytm_response

@@ -1,7 +1,7 @@
 status = ActiveRecord::Base.connection.table_exists? 'config'
 if status
   # puts "Config Table existed"
-  config_setup = Config.where(config_id: "5001", title: "paytm").last
+  config_setup = Config.where(config_id: "5002", title: "mailer").last
   if config_setup.length != 0 && config_setup.length > 0 
     # puts "Configuration existed"
     puts "config setup : " + "#{config_setup}"

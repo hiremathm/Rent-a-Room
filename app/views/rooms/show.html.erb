@@ -126,27 +126,29 @@
         </div>
       </div>
       <div id="menu6" class="tab-pane fade">
-      <div class="col-md-8">
+      <div class="col-md-12">
           <br/>
           <%if @room.reviews.empty? %>
             <h4>No reviews</h4>
           <% else %>
-              <% @room.reviews.each do |review| %>
-                    <%= review.user.username%> : <%= review.review %> </br>
-              <% end %>
+              <ul>
+                <% @room.reviews.each do |review| %>
+                  <li style="list-style-type: disc;"><%= review.review %><br><span style="float: right;">By <%= review.user.username%></span></li>
+                <% end %>
+              </ul>
           <% end %>
         </div>
         <br/>
         <!-- Review Code -->
-        <% if user_signed_in?%>
-          <%current_user.bookings.each do |booking|%>
-            <% if booking.room_id == @room.id %>
-              <div class="col-md-4">
+        <%# if user_signed_in?%>
+          <%#current_user.bookings.each do |booking|%>
+            <%# if booking.room_id == @room.id %>
+              <div class="col-md-8">
                 <%= render 'review'%>
               </div>
-            <% end %>
-          <% end %>
-        <% end %>
+            <%# end %>
+          <%# end %>
+        <%# end %>
       </div>
     </div>
   </div>

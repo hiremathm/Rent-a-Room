@@ -865,9 +865,12 @@ cities.each do |city|
 end
 
 
-# Create all by default configuraion info for payment
-Config.create(title: "paytm", config_id: "5001", info: [{mid:  "rxazcv89315285244163", merchant_key: "K0UoTK4Fh#wd%fqX", payment_url: "https://securegw-stage.paytm.in/theia/processTransaction", industry_type_id: "Retail", callback_url: "http://localhost:3001/paytm_response", website: "WEBSTAGING", channel_id: "WEB", platform: "WEB", environment: "development"}, {mid:  "rxazcv89315285244163", merchant_key: "K0UoTK4Fh#wd%fqX", payment_url: "https://securegw-stage.paytm.in/theia/processTransaction", industry_type_id: "Retail", callback_url: "https://rent-room-at-me.herokuapp.com/paytm_response", website: "WEBSTAGING", channel_id: "WEB", platform: "WEB", environment: "production"}])
+# Create all by default configuration info for payment
+Config.create(title: "paytm", config_id: "5001", info: [{mid:  "rxazcv89315285244163", merchant_key: "gKpu7IKaLSbkchFS", payment_url: "https://securegw-stage.paytm.in/theia/processTransaction", industry_type_id: "Retail", callback_url: "http://localhost:3001/paytm_response", website: "WEBSTAGING", channel_id: "WEB", platform: "WEB", environment: "development"}, {mid:  "rxazcv89315285244163", merchant_key: "gKpu7IKaLSbkchFS", payment_url: "https://securegw-stage.paytm.in/theia/processTransaction", industry_type_id: "Retail", callback_url: "https://rent-room-at-me.herokuapp.com/paytm_response", website: "WEBSTAGING", channel_id: "WEB", platform: "WEB", environment: "production"}])
 
 # Create all by default configuraion info for mailer
 Config.create(title: "mailer", config_id: "5002",info: [{:address => "smtp.gmail.com",:port => 587,:domain => 'localhost:3000',:user_name =>  "shivasorab@gmail.com",:password =>  "hiremath@123",:authentication => "plain",:enable_starttls_auto => true, environment: "development"}, 
 {:address => "smtp.gmail.com",:port => 587,:domain => 'https://rent-room-at-me.herokuapp.com',:user_name =>  "shivasorab@gmail.com",:password =>  "hiremath@123",:authentication => "plain",:enable_starttls_auto => true, environment: "production"}])
+
+#Create all by default configuration info for cashfree
+Config.create(title: "cashfree", config_id: "5003", info: [{appId: "15976ce3ac81a31af2c8b6b951", returnUrl: "http://localhost:3001/response",notifyUrl: "http://localhost:3001/cf_Response", secreatKey: "c5762b4b4579491e041f56e1fddfc3e57964e8c6",payment_url: "https://test.cashfree.com/billpay/checkout/post/submit", environment: "development"}, {appId: "15976ce3ac81a31af2c8b6b951", returnUrl: "http://rent-room-at-me/response",notifyUrl: "http://rent-room-at-me/cf_Response", secreatKey: "c5762b4b4579491e041f56e1fddfc3e57964e8c6",payment_url: "https://www.cashfree.com/checkout/post/submit", environment: "production"}])
