@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   has_many :bookings
   has_many :reviews
   
-  validates_presence_of :first_name, :last_name, :username, :mobile
+  validates_presence_of :username, :mobile
   validates_numericality_of :mobile
   validates_length_of :mobile, is: 10
   validates_uniqueness_of :username
