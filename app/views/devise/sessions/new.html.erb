@@ -120,11 +120,8 @@
 
 <div class="login-wrap">
     <div class="login-html">
-<!--         <div>
-          <a href="/users/auth/google_oauth2"><img alt="No-Image" src="/assets/google1.png" width="25px" height="25px">Login With Google</a><br>         
-        </div>
-        <br/><br/>
- -->        <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Sign In</label>
+
+        <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Sign In</label>
         <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Sign Up</label>
         <div class="login-form">
           <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
@@ -147,22 +144,31 @@
                 <div class="group">
                     <%= f.submit "Sign in", class: "button" %>
                 </div>
-                <div class="hr"></div>
+                <hr/>
                 <div class="foot-lnk">
-                      <%= render "devise/shared/links" %>
+                  <%= render "devise/shared/links" %>
                 </div>
+                <!-- <hr/>
+                <div class="foot-lnk">
+                  <h4><b>Sign In / Sign Up Using</b></h4>
+                  <a href="/users/auth/google_oauth2">Google</a>
+                  <a href="/users/auth/facebook">Facebook</a>
+                  <a href="/users/auth/github">GitHub</a>
+                </div> -->
             </div>
           <% end %>
             <div class="sign-up-htm">
                 <%= render "devise/registrations/new"%>
-            </div>
-          
+            </div>          
         </div>
     </div>
 </div>
 
 
 <style type="text/css">
+  .foot-lnk {
+   color: #2874A6;
+  }
   body{
     margin:0;
     color:#6a6f8c;

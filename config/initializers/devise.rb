@@ -13,14 +13,14 @@ Devise.setup do |config|
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
 
-
+  require 'devise/orm/active_record'
   config.mailer_sender = 'please-change-me-at-config-initializers-devise@example.com'
 
-  status = ActiveRecord::Base.connection.table_exists? 'config'
-  if status
+  # status = ActiveRecord::Base.connection.table_exists? 'config'
+  # if status
     puts "Config Table existed"
-    config_setup = Config.where(config_id: "5002", title: "mailer").last
-    if config_setup.length != 0 && config_setup.length > 0 
+    config_setup = Config.where(config_id: "5004", title: "authentication").last
+    # if config_setup.length != 0 && config_setup.length > 0 
   
       config_setup = Config.where(config_id: "5004", title: "authentication").last
       puts "Config setup INSIDE Devise: " + "#{config_setup}"
@@ -38,8 +38,8 @@ Devise.setup do |config|
       config.omniauth :GoogleOauth2, google_oauth[:appId], google_oauth[:secreatKey], callback_url: google_oauth[:callback_url]
 
       config.omniauth :GitHub, github_oauth[:appId], github_oauth[:secreatKey], callback_url: github_oauth[:callback_url]
-    end
-  end
+    # end
+  # end
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
 
@@ -50,7 +50,6 @@ Devise.setup do |config|
   # Load and configure the ORM. Supports :active_record (default) and
   # :mongoid (bson_ext recommended) by default. Other ORMs may be
   # available as additional gems.
-  require 'devise/orm/active_record'
 
   # ==> Configuration for any authentication mechanism
   # Configure which keys are used when authenticating a user. The default is
