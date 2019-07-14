@@ -180,6 +180,10 @@ ActiveRecord::Schema.define(version: 20190702002834) do
     t.string   "mobile"
     t.string   "role_id"
     t.string   "avatar"
+    t.string   "provider"
+    t.string   "uid"
+    t.string   "name"
+    t.text     "image"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

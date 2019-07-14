@@ -120,15 +120,18 @@
 
 <div class="login-wrap">
     <div class="login-html">
-        <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Sign In</label>
+<!--         <div>
+          <a href="/users/auth/google_oauth2"><img alt="No-Image" src="/assets/google1.png" width="25px" height="25px">Login With Google</a><br>         
+        </div>
+        <br/><br/>
+ -->        <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Sign In</label>
         <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Sign Up</label>
         <div class="login-form">
           <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
             <div class="sign-in-htm">
                 <div class="group">
-
-                    <label for="user" class="label">Username</label>
-                    <%= f.text_field :username, id: "user", autocomplete: "off", class: "input fa fa-user" %>
+                    <label for="user" class="label">Email</label>
+                    <%= f.text_field :email, id: "user", autocomplete: "off", class: "input fa fa-user" %>
                     <span id="username"></span>
                 </div>
                 <div class="group">

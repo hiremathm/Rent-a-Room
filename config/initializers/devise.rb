@@ -12,7 +12,23 @@ Devise.setup do |config|
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
+  config_setup = Config.where(config_id: "5004", title: "authentication").last
+  puts "Config setup INSIDE Devise: " + "#{config_setup}"
+  config_array = config_setup["info"].map { |k| eval(k)}
+  env = Rails.env
+  oauth_setup = config_array.map {|p| p if p[:environment] == env}.compact  
+  facebook_oauth = oauth_setup.map {|p| p if p[:provider] == "Facebook"}.compact.last 
+  github_oauth = oauth_setup.map {|p| p if p[:provider] == "GitHub"}.compact.last
+  google_oauth = oauth_setup.map {|p| p if p[:provider] == "GoogleOauth2"}.compact.last
+
   config.mailer_sender = 'please-change-me-at-config-initializers-devise@example.com'
+
+  config.omniauth :facebook, facebook_oauth[:appId], facebook_oauth[:secreatKey], callback_url: facebook_oauth[:callback_url]
+
+  require "omniauth-google-oauth2"
+  config.omniauth :GoogleOauth2, google_oauth[:appId], google_oauth[:secreatKey], callback_url: google_oauth[:callback_url]
+
+  config.omniauth :GitHub, github_oauth[:appId], github_oauth[:secreatKey], callback_url: github_oauth[:callback_url]
 
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
@@ -34,7 +50,7 @@ Devise.setup do |config|
   # session. If you need permissions, you should implement that in a before filter.
   # You can also supply a hash where the value is a boolean determining whether
   # or not authentication should be aborted when the value is not present.
-  config.authentication_keys = [:username]
+  config.authentication_keys = [:email]
 
   # Configure parameters from the request object used for authentication. Each entry
   # given should be a request method and it will automatically be passed to the

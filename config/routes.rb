@@ -1,7 +1,23 @@
 Rails.application.routes.draw do
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
   resources :enquiries
   resources :reviews
   resources :pets
+  resources :amenity_rooms
+  resources :amenities
+  resources :cities
+  resources :roles
+  resources :special_prices
+  resources :reviews
+
+  # Room API's
+  namespace :api do 
+    namespace :v1 do 
+      resources :rooms
+    end
+  end
+
+  
   get 'rooms/search_room'
   get 'rooms/find_by_cities'
   get 'rooms/authorize'
@@ -14,13 +30,6 @@ Rails.application.routes.draw do
     post 'authorize'
     post 'my_rooms'
   end
-  resources :amenity_rooms
-  resources :amenities
-  resources :cities
-  resources :roles
-  devise_for :users
-  resources :special_prices
-  resources :reviews
   
   get 'bookings/confirmation'
   get 'bookings/my_bookings'
@@ -40,13 +49,6 @@ Rails.application.routes.draw do
   match '/redirect_payment_page' => 'payments#redirect_payment_page',via: [:get, :post, :put, :patch, :delete] ,:as => :redirect_payment_page
   match '/paytm_response' => 'payments#paytm_response',via: [:get, :post, :put, :patch, :delete] ,:as => :paytm_response
   match '/paytm_request' => 'payments#paytm_request',via: [:get, :post, :put, :patch, :delete] ,:as => :paytm_request
-
-  # Room API's
-  namespace :api do 
-    namespace :v1 do 
-      resources :rooms
-    end
-  end
 
   root 'rooms#index'
 end
