@@ -877,9 +877,9 @@ Config.create(title: "cashfree", config_id: "5003", info: [{appId: "15976ce3ac81
 
 Config.create(title: "authentication", config_id: "5004", info: [
 	{provider: "Facebook", appId: "287444858569270",secreatKey: "fa945b57c92cdf049bd0c116121a6b63",callback_url: "http://localhost:3001/users/auth/facebook/callback", environment: "development"},
-	{provider: "Facebook", appId: "287444858569270",secreatKey: "fa945b57c92cdf049bd0c116121a6b63", callback_url: "http://rent-room-at-me.herokuapp.com/users/auth/facebook/callback", environment: "production"},
+	{provider: "Facebook", appId: "287444858569270",secreatKey: "fa945b57c92cdf049bd0c116121a6b63", callback_url: "https://rent-room-at-me.herokuapp.com/users/auth/facebook/callback", environment: "production"},
 	{provider: "GitHub", appId: "2735ebc456b12c8e45ad", secreatKey: "bc2313befedf3d309f6785427c9ea828660fbc5b", callback_url: "http://localhost:3001/users/auth/github/callback", environment: "development"},
-  	{provider: "GitHub", appId: "2735ebc456b12c8e45ad", secreatKey: "bc2313befedf3d309f6785427c9ea828660fbc5b", callback_url: "http://rent-room-at-me.herokuapp.com/users/auth/github/callback", environment: "production"},
+  	{provider: "GitHub", appId: "2735ebc456b12c8e45ad", secreatKey: "bc2313befedf3d309f6785427c9ea828660fbc5b", callback_url: "https://rent-room-at-me.herokuapp.com/users/auth/github/callback", environment: "production"},
 
   	{provider: "GoogleOauth2", appId: "552943472988-c3ml106qmbpjduv0vqe1pvett52hkskj.apps.googleusercontent.com", secreatKey: "PQHIqgBEuo0LvcVWexIzO5oK", callback_url: "https://localhost:3001/users/auth/google_auth2/callback", environment: "development"},
   	{provider: "GoogleOauth2", appId: "552943472988-c3ml106qmbpjduv0vqe1pvett52hkskj.apps.googleusercontent.com", secreatKey: "PQHIqgBEuo0LvcVWexIzO5oK", callback_url: "https://rent-room-at-me.herokuapp.com/users/auth/google_auth2/callback", environment: "production"},

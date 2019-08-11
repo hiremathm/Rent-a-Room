@@ -30,18 +30,18 @@ class Room < ActiveRecord::Base
 
 	def determine_lat_and_long
 		# AIzaSyCGXQJSvHpGwHh-6BTpDY0WEkunObhKBQo
-		response = HTTParty.get("https://maps.googleapis.com/maps/api/geocode/json?address=#{self.address}
-			&key=AIzaSyAd6eOLMfqEt_PA_pGEOxHIGl5t-Yzsghw")
-		result = JSON.parse(response.body)
-		if result[0].present?
-		self.latitude = result["results"][0]["geometry"]["location"]["lat"]
-		self.longitude = result["results"][0]["geometry"]["location"]["lng"]
-		else
-			determine_lat_and_long
-		end
+		# response = HTTParty.get("https://maps.googleapis.com/maps/api/geocode/json?address=#{self.address}
+			# &key=AIzaSyAd6eOLMfqEt_PA_pGEOxHIGl5t-Yzsghw")
+		# result = JSON.parse(response.body)
+		# if result[0].present?
+		# self.latitude = result["results"][0]["geometry"]["location"]["lat"]
+		# self.longitude = result["results"][0]["geometry"]["location"]["lng"]
+		# else
+			# determine_lat_and_long
+		# end
 		#Using geocoder Gem 
 		# results = Geocoder.search('banglore')
-		# self.latitude = "25.2426006" #results.first.coordinates[0]
-		# self.longitude = "55.3064397" #results.first.coordinates[1]
+		self.latitude = "25.2426006" #results.first.coordinates[0]
+		self.longitude = "55.3064397" #results.first.coordinates[1]
 	end
 end

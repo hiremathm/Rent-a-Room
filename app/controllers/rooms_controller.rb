@@ -14,7 +14,8 @@ class RoomsController < ApplicationController
     render json: @rooms
    end
   def index
-    if params.present?
+    puts "params #{params}"
+    if params['state_id'].present? && params['city_id']
       if params['state_id'].present?
         @rooms = Room.where(state_id: params['state_id'])
       end
@@ -120,9 +121,7 @@ class RoomsController < ApplicationController
   end
 
   def my_rooms
-
     @r = current_user.rooms
-  
   end
   private
     # Use callbacks to share common setup or constraints between actions.

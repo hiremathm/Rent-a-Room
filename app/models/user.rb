@@ -16,6 +16,10 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :omniauth_providers => [:facebook, :github, :google_oauth2]
 
+  def generate_token(app)
+    Doorkeeper::AccessToken.find_or_create_for(app, id, 'user read and write preference', nil, true)
+  end
+
   def role?(role)
     self.role.name == role
   end

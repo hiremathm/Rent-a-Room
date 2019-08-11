@@ -1,5 +1,5 @@
 module RoomsHelper
 	def get_all_rooms
-		Room.all
+		Room.authorized_rooms
 	end
 end

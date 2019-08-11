@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source 'http://rubygems.org'
 
 ruby '2.4.1'
 
@@ -33,6 +33,9 @@ gem 'activerecord-import'
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-github'
+gem 'doorkeeper'
+gem 'whenever', :require => false
+
 group :development do
   gem 'web-console', '~> 2.0'
   gem 'spring'
@@ -40,11 +43,3 @@ end
 group :production do
   gem 'pg', '0.15.1'
 end
-gem 'whenever', :require => false
-# bundle exec rake doc:rails generates the API under doc/api.
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
-# Use Unicorn as the app server
-# gem 'unicorn'
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
