@@ -50,11 +50,7 @@
     margin-left: 128px;
 }
 </style> -->
-<style type="text/css">
-  .form-a {
-    padding-top: 150px;
-  }
-</style>
+
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
 <div class="container">
@@ -112,6 +108,7 @@
 <section class="property-grid grid">
   <div class="container">
     <div class="row">
+      <%if @rooms.count != 0%>
       <% @rooms.each do |room|%>
       <div class="col-md-4">
         <div class="card-box-a card-shadow">
@@ -129,9 +126,9 @@
               </div>
               <div class="card-body-a">
                 <div class="price-box d-flex">
-                  <span class="price-a">  <%= room.house_type %> | <%= room.house_plan%> | Rs <%= room.price%> | Rating : 5*</span>
+                  <span class="price-a">  <%= room.house_type %> | <%= room.house_plan%> | Rating : <%= Random.rand(1..5)%> <b style="font-size: 15px; color: red;">*</b></span>
                 </div><br/>
-                  <center><a href="/rooms/<%= room.id%>" class="link-a price-a">View Deal</a></center>
+                <a href="/rooms/<%= room.id%>" class="link-a price-a">View Deal</a>
               </div>
               <div class="card-footer-a">
                 <ul class="card-info d-flex justify-content-around">
@@ -167,6 +164,11 @@
           </div>
         </div>
       </div>
+      <%end%>
+      <%else%>
+        <div class="items-not-found">
+          <center><h1>No Rooms Found</h1></center>
+        </div>
       <%end%>
     </div>
   </div>

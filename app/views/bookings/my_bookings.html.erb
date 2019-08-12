@@ -1,8 +1,9 @@
 <div class = "container">
 <div class = "col-md-8">
-<h2>Your Bookings</h2>
 	<% if @bookings.empty? %>
-		<p>You have not done any booking yet,,,,</p>
+	<div class="items">
+        <h1>You have not done any bookings.</h1>
+    </div>
 	<% else %>
 		<table class = "table">
 		<tr>

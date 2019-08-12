@@ -16,7 +16,8 @@ Rails.application.routes.draw do
 
   #Custom Pages Routes
   get '/home' => 'custom_pages#home', :as => 'home'
-
+  get '/about' => 'custom_pages#about', :as => 'about'
+  get '/contact' => 'custom_pages#contact', :as => 'contact'
   #Room Routes
   get 'rooms/search_room'
   get 'rooms/find_by_cities'

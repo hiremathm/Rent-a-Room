@@ -8,12 +8,23 @@
 /*======================================
 //--//-->   STYLES GENERALES
 ======================================*/
-.property-grid {
+/*.property-grid {
   padding-top: 20px;
 }
-
-.choose_payment {
+*/
+/*.choose_payment {
   padding-top: 140px;
+}*/
+
+.items-not-found {
+   padding-top: 90px;
+   padding-right: 150px;
+   padding-left: 370px;
+   padding-bottom: 160px;
+  
+}
+.jumbotron {
+   background-color: blue;
 }
 .small {
   font-size: 18px;
@@ -243,7 +254,7 @@ a:hover {
 /*------/ Space Padding /------*/
 
 .section-t8 {
-  padding-top: 8rem;
+  /*padding-top: 8rem;*/
 }
 
 .section-t4 {
@@ -963,7 +974,7 @@ a:hover {
 /*------/ Intro Single /------*/
 
 .intro-single {
-  padding: 8rem 0 3rem;
+  /*padding: 8rem 0 3rem;*/
 }
 
 .intro-single .title-single-box {

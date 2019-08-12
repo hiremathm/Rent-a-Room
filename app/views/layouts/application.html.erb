@@ -132,13 +132,16 @@
 
   <!--/ Nav Star /-->
   <nav class="navbar navbar-default navbar-trans navbar-expand-lg fixed-top">
+    <%= image_tag('/myhomemainpage.jpg', :size => "100x60") %>
     <div class="container">
+      
       <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarDefault"
         aria-controls="navbarDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span></span>
         <span></span>
         <span></span>
       </button>
+
       <a class="navbar-brand text-brand" href="/custom_pages">Estate<span class="color-b">Agency</span></a>
       <button type="button" class="btn btn-link nav-search navbar-toggle-box-collapse d-md-none" data-toggle="collapse"
         data-target="#navbarTogglerDemo01" aria-expanded="false">
@@ -146,59 +149,63 @@
       </button>
       <div class="navbar-collapse collapse justify-content-center" id="navbarDefault">
         <ul class="navbar-nav">
-          <li class="nav-item active">
+          <li class="nav-item ">
             <a class="nav-link" href="/rooms">Properties</a>
           </li>
           <li class="nav-item">
             <%= link_to "Home", home_path, class: "nav-link"%>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Blog</a>
+            <%= link_to "About", about_path, class: "nav-link"%>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Contact</a>
+            <%= link_to "Contact", contact_path, class: "nav-link"%>
           </li>
         </ul>
       </div>
     </div>
+    <% if user_signed_in? %> 
+      <div class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown"><b><%= current_user.email.upcase%></b></a>
+        <ul class="dropdown-menu">
+          <li>
+            <% if user_signed_in? && (can? :create, Room.new)%>
+              <center><%= link_to "Rent your Room", new_room_path%></center>        
+            <% end %>
+          </li>    
+          <li>
+            <% if user_signed_in? && (can? :create, City.new) %>
+              <center><%= link_to 'Add City', new_city_path%></center>          
+            <% end %>
+          </li>
+          <li><center><%= link_to "Your Bookings", bookings_my_bookings_path %></center></li>
+          <li><center><%= link_to "Your Rooms", rooms_my_rooms_path %></center></li>
+          <li>
+            <% if user_signed_in? && current_user.role.name == "host"%> 
+              <center><%= link_to "Confirm Bookings", bookings_confirmation_path %></center>
+            <% end %>
+          </li>
+          <li>
+            <% if user_signed_in? && current_user.role.name == "admin" %>
+                <center><li><%= link_to "Authorize Rooms ", rooms_authorize_path %></center></li>
+                <center><li><%= link_to "Confirm Bookings", bookings_confirmation_path %></center></li>
+                <center><li><%= link_to "Amenities", amenities_path %></center></li>
+            <% end %>
+          </li>
+          <li><center><%= link_to "Profile", edit_user_registration_path %></li>
+          <li><center><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
+        </ul>
+      </div>
+    <% else %>
+      <a href="/users/sign_in">Sign In</a>
+
+    <% end %>
   </nav>  
 
+<div style="padding-top: 150px; min-height: 500px">
   <%= yield %>
+</div>
   <!--/ footer Star /-->
-  <section class="section-footer">
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-12 col-md-4">
-          <div class="widget-a">
-            <div class="w-header-a">
-              <h3 class="w-title-a text-brand">EstateAgency</h3>
-            </div>
-            <div class="w-body-a">
-              <p class="w-text-a color-text-a">
-                Enim minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip exea commodo consequat duis
-                sed aute irure.
-              </p>
-            </div>
-            <div class="w-footer-a">
-              <ul class="list-unstyled">
-                <li class="color-a">
-                  <span class="color-text-a">Phone : </span> mail4hiremath@gmail.com</li>
-                <li class="color-a">
-                  <span class="color-text-a">Email : </span> +91 9731937369</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <!-- <div class="col-sm-12 col-md-2 section-md-t3"></div> -->
-        <div class="col-sm-12 col-md-8">
-          <div class="widget-a">
-            <center><h3 class="w-title-a text-brand">Contact Us</h3></center>
-            <center><%= render 'enquiries/en_form'%></center>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <br/><br/><br/>
   <footer>
     <div class="container">
       <div class="row">
