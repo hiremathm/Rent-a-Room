@@ -18,17 +18,17 @@
 //= require_tree .
 
 
-$(document).ready(function(){
-    $('#special_price_start_date').datepicker({
-      format: 'yyyy/mm/dd',  
-       autohide: true,
-      todayHightlight: true
-    });
-});
-$(document).ready(function(){
-    $('#special_price_end_date').datepicker({
-      format: 'yyyy/mm/dd',  
-       autohide: true,
-      todayHightlight: true
-    });
-});
+// $(document).ready(function(){
+//     $('#special_price_start_date').datepicker({
+//       format: 'yyyy/mm/dd',  
+//        autohide: true,
+//       todayHightlight: true
+//     });
+// });
+// $(document).ready(function(){
+//     $('#special_price_end_date').datepicker({
+//       format: 'yyyy/mm/dd',  
+//        autohide: true,
+//       todayHightlight: true
+//     });
+// });

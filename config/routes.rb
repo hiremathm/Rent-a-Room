@@ -14,6 +14,8 @@ Rails.application.routes.draw do
   resources :special_prices
   resources :reviews
 
+  #Custom Pages Routes
+  get '/home' => 'custom_pages#home', :as => 'home'
 
   #Room Routes
   get 'rooms/search_room'

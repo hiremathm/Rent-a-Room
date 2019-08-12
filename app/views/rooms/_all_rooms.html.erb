@@ -1,42 +1,42 @@
-<div class="container">
+<!-- <div class="container">
 <div class="row">
-    <% @rooms.each do |room| %>
+    <%# @rooms.each do |room| %>
         <div class="col-md-3" class="well" style="background-color: #ADD8E6;margin-left: 3px;margin-right: 3px; width: 370px">
-          <h4><font face="Chancery Cursive"><%= room.name.capitalize%>, <%= room.city.name %></br></h4>
-          <%= link_to (image_tag room.images ,:size => '330x200'), room, class: "img-thumbnail" %><br/><br/>
-            <% if room.special_prices.present? %>
+          <h4><font face="Chancery Cursive"><%#= room.name.capitalize%>, <%#= room.city.name %></br></h4>
+          <%#= link_to (image_tag room.images ,:size => '330x200'), room, class: "img-thumbnail" %><br/><br/>
+            <%# if room.special_prices.present? %>
               <i class="fa fa-inr">
-                <strike><%= room.price %></strike>
+                <strike><%#= room.price %></strike>
               </i>
-              <% room.special_prices.each do |special_price|%>
-                <% dates = (special_price.start_date..special_price.end_date).to_a%>
-                <%today_date = Date.today%>
-                <% if dates.include?today_date%>
-                 - <i class="fa fa-inr" style="color: #f44e42;"> <%= special_price.price%></i>
-                 You save : <i class="fa fa-inr" style="color: #f44e42;"> <%= room.price - special_price.price%> ( <%= special_price.discount %> % off)</i>
-                <% end %>
-              <% end %>
-            <% else %>
+              <%# room.special_prices.each do |special_price|%>
+                <%# dates = (special_price.start_date..special_price.end_date).to_a%>
+                <%#today_date = Date.today%>
+                <%# if dates.include?today_date%>
+                 - <i class="fa fa-inr" style="color: #f44e42;"> <%#= special_price.price%></i>
+                 You save : <i class="fa fa-inr" style="color: #f44e42;"> <%#= room.price - special_price.price%> ( <%#= special_price.discount %> % off)</i>
+                <%# end %>
+              <%# end %>
+            <%# else %>
               <i class="fa fa-inr">
-                <%= room.price %>
+                <%#= room.price %>
               </i>
-            <% end %>
-            <div style="float : right">Rating : <%total_rating = 0%>
-              <% if !room.reviews.present?%>
-                <% total_rating = "0.0"%>
-              <%else %>
-                <% room.reviews.each do |review| %>
-                  <%rating =  (((review.food_rating + review.cleanliness_rating + review.safety_rating + review.facility_rating + review.locality_rating)/5.0).to_f)/(room.reviews.length) %>
-                  <% total_rating += rating.round(1) %>
-                <% end %>
-              <%end%>
-              <%= total_rating %>
+            <%# end %>
+            <div style="float : right">Rating : <%#total_rating = 0%>
+              <%# if !room.reviews.present?%>
+                <%# total_rating = "0.0"%>
+              <%#else %>
+                <%# room.reviews.each do |review| %>
+                  <%#rating =  (((review.food_rating + review.cleanliness_rating + review.safety_rating + review.facility_rating + review.locality_rating)/5.0).to_f)/(room.reviews.length) %>
+                  <%# total_rating += rating.round(1) %>
+                <%# end %>
+              <%#end%>
+              <%#= total_rating %>
             </div>
-            <%= link_to "View Deal", room_path(room.slug), class: "btn btn-warning"%>
+            <%#= link_to "View Deal", room_path(room.slug), class: "btn btn-warning"%>
             <hr/>
             </font>
         </div>
-    <% end %>  
+    <%# end %>  
 </div>
 </div>
 
@@ -49,4 +49,152 @@
     text-align: center;
     margin-left: 128px;
 }
+</style> -->
+<style type="text/css">
+  .form-a {
+    padding-top: 150px;
+  }
 </style>
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+<div class="container">
+  <form class="form-a filter" method="get" remote="true" >
+  <div class="row">
+    <div class="col-md-2 mb-2">
+      <div class="form-group">
+        <select name="state_id" class="form-control input-sm chooseselect state">
+        <option value="#">State</option>
+        <%State.all.each do |state|%>
+          <option value="<%= state.id%>"><%= state.name%></option>
+        <%end%> 
+      </select> 
+      </div>
+    </div>
+    <div class="col-md-2 mb-2">
+      <div class="form-group">
+        <select name="city_id" id="city" class="form-control input-sm">
+          <option value="#">City</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-2 mb-2">
+      <div class="form-group">
+        <select name="type" class="form-control input-sm chooseselect type">
+          <option>House Type</option>
+          <option value="single_room">Single Room</option>
+          <option value="1 bhk">1 BHK</option>
+          <option value="2 bhk">2 BHK</option>
+          <option value="3 bhk">3 BHK</option>
+          <option value="4 bhk">4 BHK</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-2 mb-2">
+      <div class="form-group">
+        <select name="plan" class="form-control input-sm chooseselect plan">
+          <option>House Plan</option>
+          <option value="rent">Rent </option>
+          <option value="lease">Lease</option>
+          <option value="sale">Sale</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-2 md-2">
+      <input type="submit" class="btn btn-success btn-md" value="Filter" />
+    </div>
+    <div class="col-md-2 md-2">
+      Total Properties : <%= @rooms.count%>
+    </div>
+  </div>
+</form>
+</div>
+
+<section class="property-grid grid">
+  <div class="container">
+    <div class="row">
+      <% @rooms.each do |room|%>
+      <div class="col-md-4">
+        <div class="card-box-a card-shadow">
+          <div class="img-box-a">
+            <%#= image_tag room.images ,:size => '500x450', class: "img-thumbnail img-a img-fluid" %>
+            <img src="assets/property-1.jpg" alt="" class="img-a img-fluid">
+          </div>
+          <div class="card-overlay">
+            <div class="card-overlay-a-content">
+              <div class="card-header-a">
+                <h2 class="card-title-a">
+                  <a href="#"><%= room.name%></a>
+                    <br /> <a class="small"><%= City.find(room.city_id).name%></a>
+                </h2>
+              </div>
+              <div class="card-body-a">
+                <div class="price-box d-flex">
+                  <span class="price-a">  <%= room.house_type %> | <%= room.house_plan%> | Rs <%= room.price%> | Rating : 5*</span>
+                </div><br/>
+                  <center><a href="/rooms/<%= room.id%>" class="link-a price-a">View Deal</a></center>
+              </div>
+              <div class="card-footer-a">
+                <ul class="card-info d-flex justify-content-around">
+                  <% if room.special_prices.present? %>
+                    <li>
+                      <h4 class="card-info-title" style="color: #f44e42; font-size: 13px;">Actual MRP</h4>
+                      <span >
+                        <center><strike class="fa fa-rupee"> <%= room.price%></strike></center>
+                      </span>
+                    </li>
+                    <% room.special_prices.each do |special_price|%>
+                      <% dates = (special_price.start_date..special_price.end_date).to_a%>
+                      <%today_date = Date.today%>
+                      <% if dates.include?today_date%>
+                        <li>
+                          <h4 class="card-info-title" style="color: #f44e42;font-size: 13px;">Discount</h4>
+                          <center><span class="fa fa-rupee"> <%= special_price.discount %> % off</span></center>
+                        </li>
+                        <li>
+                          <h4 class="card-info-title" style="color: #f44e42;font-size: 13px;">You Save</h4>
+                          <center><span class="fa fa-rupee"> <%= room.price - special_price.price%></span></center>
+                        </li>
+                        <li>
+                          <h4 class="card-info-title titles" style="color: #f44e42;font-size: 13px;">Current MRP</h4>
+                          <center><span class="fa fa-rupee"> <%= special_price.price%></span></center>
+                        </li>
+                      <%end%>
+                    <%end%>
+                  <%end%>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <%end%>
+    </div>
+  </div>
+</section>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.state').on('change', function(){
+        var state = $('.state').val()
+        $.ajax({
+          url: "/get_all_cities?state=" + state,
+          method: "GET",
+          success: function(data){
+            document.getElementById('city').options.length = 0;
+            data.forEach(function(city){
+              var option = document.createElement('option'); 
+              var optValue = document.createAttribute('value'); 
+              optValue.value = city.id  
+              option.setAttributeNode(optValue); 
+              var txt = document.createTextNode(city.name);  
+              option.appendChild(txt);  
+              document.getElementById("city").appendChild(option)
+            })
+          },
+          error: function(data){
+            console.log(data)
+          }
+        })
+      })
+  })
+</script>

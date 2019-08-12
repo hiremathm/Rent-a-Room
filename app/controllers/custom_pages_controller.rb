@@ -1,6 +1,6 @@
 class CustomPagesController < ApplicationController
 
-	def index
+	def home
 		
 	end
 

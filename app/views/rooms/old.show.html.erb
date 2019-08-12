@@ -1,0 +1,332 @@
+<% room = 0 %>
+<font face="Chancery Cursive">
+<div style="background-color: white; border-radius: 40px;" class="well">
+      <% @room.reviews.each do |review| %>
+        <%room = room + (((review.food_rating + review.cleanliness_rating + review.safety_rating + review.facility_rating + review.locality_rating)/5.0).to_f)/(@room.reviews.length) %>
+      <% end %> 
+    <button class="btn btn-basic">Rating :</button><i style="color: #f4a142">
+    <% if room.round != 0%>
+      <%= room.round(1)%>
+    <%else%>
+      <%= "No Rating" %>
+    <% end %>
+      </i>
+      <span style="float: right" ><button class="btn btn-basic"> Price :</button> 
+      <% if @room.special_prices.present? %>
+        <i class="fa fa-inr">
+          <strike><%= @room.price %></strike>
+        </i>
+        <% @room.special_prices.each do |special_price|%>
+          <% dates = (special_price.start_date..special_price.end_date).to_a%>
+          <%today_date = Date.today%>
+          <% if dates.include?today_date%>
+           - <i class="fa fa-inr" style="color: #f44e42;"> <%= special_price.price%></i>
+           You save : <i class="fa fa-inr" style="color: #f44e42;"> <%= @room.price - special_price.price%> ( <%= special_price.discount %> % off)</i>
+          <% end %>
+        <% end %>
+      <% else %>
+        <i class="fa fa-inr">
+          <%= @room.price %>
+        </i>
+      <% end %>
+</span>
+    <center><%if user_signed_in? %>
+    <%if (can? :update, @room) %>
+      <%= link_to "Edit", edit_room_path(@room), class: "btn btn-primary btn-sm"%>
+    <%end %>
+    
+    <% if can? :destroy, @room %>
+      <%= link_to "Delete", @room, method: :delete, data: { confirm: 'Are you sure?'}, class: "btn btn-danger  btn-sm"%>
+    <% end %>   
+  <% end %>
+  </center>
+<br/>
+<div class="row">
+  <div class = "col-md-5"> 
+   <b style="color: #0b41e2; font-size: 18px;"><%= @room.name%> </b>
+   
+
+  <hr>
+	  <img src="<%= @room.images%>", height="200", width="450", class="img-thumbnail">
+      </div>
+  <div class = "col-md-7">  
+    <ul class="nav nav-tabs">
+      <li><a data-toggle="tab" href="#home">Book</a></li>
+      <li><a data-toggle="tab" href="#menu1">Special Prices</a></li>
+      <li class="active"><a data-toggle="tab" href="#menu2">Overview</a></li>
+      <li><a data-toggle="tab" href="#menu3">Amenities</a></li>
+      <li><a data-toggle="tab" href="#menu4">Rules</a></li>
+      <li><a data-toggle="tab" href="#menu5">Address</a></li>
+      <li><a data-toggle="tab" href="#menu6">Reviews</a></li>
+    </ul>
+    <div class="tab-content">  
+      <!-- Book Room Code -->
+      <div id="home" class="tab-pane fade"><br/>
+        <div class="row">
+          <div class="col-md-6"> 
+            <%= render 'book_room'%>
+          </div>
+          <div class="col-md-6"> 
+            <% if user_signed_in?  %>
+              <% if current_user.id == @room.user.id %>
+              <!--  Add Special Price-->
+                <%= render 'price_for_room' %>
+              <% end %>
+            <% end %>
+            </div>
+          <div>
+          </div> 
+        </div>
+      </div>
+      <div id="menu1" class="tab-pane fade"><br/>
+        <% if @room.special_prices.empty? %>
+          <p>No Specal prices for this room</p>
+        <% else %>
+          <table class = "table">
+            <tr>
+              <th>Start-Date</th>
+              <th>End-Date</th>
+              <th>New Price</th>
+              <th>Old price</th>
+            </tr>
+            <% @room.special_prices.each do |f| %>
+              <tr>
+                <td><%= f.start_date %></td>
+                <td><%= f.end_date%></td>
+                <td><%= f.price %></td>
+                <td><%= @room.price%></td>
+              </tr>
+            <% end %>
+          </table>
+        <% end %>
+        
+      </div>
+      <div id="menu2" class="tab-pane fade  in active"><br/>
+          <%= @room.description %>      
+      </div>
+      <div id="menu3" class="tab-pane fade"><br/>
+        <ol>
+          <% @room.amenities.each do |amenity| %>
+            <li><b><%= amenity.name %> : </b>   <%= amenity.description%></li><br>
+          <% end %>
+        </ol>
+      </div>  
+      <div id="menu4" class="tab-pane fade"><br/>
+        <%= @room.rules%>        
+      </div>
+      <div id="menu5" class="tab-pane fade"><br/>
+        <div class="col-md-4">
+          <b>Owner : </b><%= @room.user.username.capitalize%><br/><br/>
+          <b>Contact : </b><%= @room.user.mobile %><br/></br>
+          <b>Area : </b> <%= @room.address%></br></br>
+          <b>City : </b><%= @room.city.name %><br/>
+        </div>
+        <div class="col-md-8 img-thumbnail"><br/>
+           <iframe width="400" height="300" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBipgxMczyujD8knh17CWPulk7h2shwOF8&q=<%= @room.latitude %>,<%= @room.longitude %>"></iframe>
+        </div>
+      </div>
+      <div id="menu6" class="tab-pane fade">
+      <div class="col-md-12">
+          <br/>
+          <%if @room.reviews.empty? %>
+            <h4>No reviews</h4>
+          <% else %>
+              <ul>
+                <% @room.reviews.each do |review| %>
+                  <li style="list-style-type: disc;"><%= review.review %><br><span style="float: right;">By <%= review.user.username%></span></li>
+                <% end %>
+              </ul>
+          <% end %>
+        </div>
+        <br/>
+        <!-- Review Code -->
+        <%# if user_signed_in?%>
+          <%#current_user.bookings.each do |booking|%>
+            <%# if booking.room_id == @room.id %>
+              <div class="col-md-8">
+                <%= render 'review'%>
+              </div>
+            <%# end %>
+          <%# end %>
+        <%# end %>
+      </div>
+    </div>
+  </div>
+</div>
+<br/>
+</font>
+<script>
+
+//<!-- Script for Review -->
+
+// errors = {
+//   review: false,
+//   food_rating: false,
+//   clean: false,
+//   safety: false,
+//   facility: false,
+//   locality: false
+// }
+
+//   var reviewHandle = document.getElementById('review_review');
+//   var foodHandle = document.getElementById('food');
+//   var cleanHandle = document.getElementById('clean');
+//   var safetyHandle = document.getElementById('safety');
+//   var facilityHandle = document.getElementById('facility');
+//   var localityHandle = document.getElementById('locality');
+
+//   var submitHandle = document.getElementById('value')
+
+//   var formHandle = document.getElementById('new_review') 
+
+//   var foodInput = foodHandle.getElementsByTagName('input')  
+//   var cleanInput = cleanHandle.getElementsByTagName('input');
+//   var facilityInput = facilityHandle.getElementsByTagName('input');
+//   var localityInput = localityHandle.getElementsByTagName('input');
+//   var safetyInput = safetyHandle.getElementsByTagName('input');
+  
+//   var reviewMsgHandle = document.getElementById('reviewError');
+//   var cleanMsgHandle = document.getElementById('cleanError');
+//   var safetyMsgHandle = document.getElementById('safetyError');
+//   var facilityMsgHandle = document.getElementById('facilityError');
+//   var foodMsgHandle = document.getElementById('foodError');
+//   var localityMsgHandle = document.getElementById('localityError');
+
+//   reviewHandle.addEventListener('keyup',function(){
+//     if(reviewHandle.value.length < 15 ){
+//       console.log(reviewHandle.value.length);
+//       submitHandle.disabled = true;    
+//       }
+//  },false) 
+
+// function validatereview(){
+//       if(reviewHandle.value == ""){
+//         reviewMsgHandle.innerHTML = "Can't Be blank";
+//         errors.review = false;     
+//       }else if(reviewHandle.value.length < 15) {
+//         reviewMsgHandle.innerHTML = "Review should contain minimum 15 Characters";
+//         errors.review = false;
+//       }else{
+//         reviewMsgHandle.innerHTML = "";
+//         errors.review  = true;
+//       }
+// }
+
+// function validatefood(){   
+//   var selected = 0;
+//     for(var i = 0;i < foodInput.length;i++){
+//       if(foodInput[i].checked){
+//         selected = foodInput[i].value;
+//       }
+//     }
+//     if(selected == 0){
+//       foodMsgHandle.innerHTML = "cont be blank";
+//       errors.food_rating = false
+//     }else{
+//       foodMsgHandle.innerHTML = "";
+//       errors.food_rating = true;
+//     }
+
+// }
+
+// function validateclean(){   
+//   var selected = 0;
+//     for(var i = 0;i < cleanInput.length;i++){
+//       if(cleanInput[i].checked){
+//         selected = cleanInput[i].value;
+//       }
+//     }
+//     if(selected == 0){
+//       cleanMsgHandle.innerHTML = "cont be blank";
+//        errors.clean = false
+//     }else{
+//     cleanMsgHandle.innerHTML = "";
+//        errors.clean = true;
+//     }
+// }
+
+// function validatelocality(){   
+//   var selected = 0;
+//     for(var i = 0;i < localityInput.length;i++){
+//       if(localityInput[i].checked){
+//         selected = localityInput[i].value;
+//       }
+//     }
+//     if(selected == 0){
+//       localityMsgHandle.innerHTML = "cont be blank";
+//        errors.locality = false
+//     }else{
+//       localityMsgHandle.innerHTML = "";
+//        errors.locality = true;
+//     }
+// }
+
+
+// function validatefacility(){   
+//   var selected = 0;
+//     for(var i = 0;i < facilityInput.length;i++){
+//       if(facilityInput[i].checked){
+//         selected = facilityInput[i].value;
+//       }
+//     }
+//     if(selected == 0){
+//       facilityMsgHandle.innerHTML = "cont be blank";
+//        errors.facility = false
+//     }else{
+//     facilityMsgHandle.innerHTML = "";
+//        errors.facility = true;
+//     }
+// }
+
+
+// function validatesafety(){   
+//   var selected = 0;
+//     for(var i = 0;i < safetyInput.length;i++){
+//       if(safetyInput[i].checked){
+//         selected = safetyInput[i].value;
+//       }
+//     }
+//     if(selected == 0){
+//       safetyMsgHandle.innerHTML = "cont be blank";
+//        errors.safety = false
+//     }else{
+//       safetyMsgHandle.innerHTML = "";
+//        errors.safety = true;
+//     }
+// }
+
+// formHandle.addEventListener('submit',function(e){
+//   validatefood();
+//   validatereview();
+//   validatelocality();
+//   validatefacility();
+//   validatesafety();
+//   validateclean();
+
+//    if(Object.values(errors).includes(false)){
+//     e.preventDefault();
+//   }
+// },false)
+
+// $(document).ready(function(){
+//   $('#sweetalert').click(function(){
+//     swal({
+//       position: 'top-end',
+//       type: 'success',
+//       title: 'Hi! You booked room successfully for the Below dates',
+//       showConfirmButton: true,
+//       // showCancelButton: true
+//       // timer: 1500
+//     })
+//   })
+// })
+
+</script>
+
+<style type="text/css">
+body {
+    height: 100px;
+    margin-bottom: 30px;
+    width: 100%;
+}
+</style>

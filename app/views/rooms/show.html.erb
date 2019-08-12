@@ -1,332 +1,169 @@
-<% room = 0 %>
-<font face="Chancery Cursive">
-<div style="background-color: white; border-radius: 40px;" class="well">
-      <% @room.reviews.each do |review| %>
-        <%room = room + (((review.food_rating + review.cleanliness_rating + review.safety_rating + review.facility_rating + review.locality_rating)/5.0).to_f)/(@room.reviews.length) %>
-      <% end %> 
-    <button class="btn btn-basic">Rating :</button><i style="color: #f4a142">
-    <% if room.round != 0%>
-      <%= room.round(1)%>
-    <%else%>
-      <%= "No Rating" %>
-    <% end %>
-      </i>
-      <span style="float: right" ><button class="btn btn-basic"> Price :</button> 
-      <% if @room.special_prices.present? %>
-        <i class="fa fa-inr">
-          <strike><%= @room.price %></strike>
-        </i>
-        <% @room.special_prices.each do |special_price|%>
-          <% dates = (special_price.start_date..special_price.end_date).to_a%>
-          <%today_date = Date.today%>
-          <% if dates.include?today_date%>
-           - <i class="fa fa-inr" style="color: #f44e42;"> <%= special_price.price%></i>
-           You save : <i class="fa fa-inr" style="color: #f44e42;"> <%= @room.price - special_price.price%> ( <%= special_price.discount %> % off)</i>
-          <% end %>
-        <% end %>
-      <% else %>
-        <i class="fa fa-inr">
-          <%= @room.price %>
-        </i>
-      <% end %>
-</span>
-    <center><%if user_signed_in? %>
-    <%if (can? :update, @room) %>
-      <%= link_to "Edit", edit_room_path(@room), class: "btn btn-primary btn-sm"%>
-    <%end %>
-    
-    <% if can? :destroy, @room %>
-      <%= link_to "Delete", @room, method: :delete, data: { confirm: 'Are you sure?'}, class: "btn btn-danger  btn-sm"%>
-    <% end %>   
-  <% end %>
-  </center>
-<br/>
-<div class="row">
-  <div class = "col-md-5"> 
-   <b style="color: #0b41e2; font-size: 18px;"><%= @room.name%> </b>
-   
-
-  <hr>
-	  <img src="<%= @room.images%>", height="200", width="450", class="img-thumbnail">
-      </div>
-  <div class = "col-md-7">  
-    <ul class="nav nav-tabs">
-      <li><a data-toggle="tab" href="#home">Book</a></li>
-      <li><a data-toggle="tab" href="#menu1">Special Prices</a></li>
-      <li class="active"><a data-toggle="tab" href="#menu2">Overview</a></li>
-      <li><a data-toggle="tab" href="#menu3">Amenities</a></li>
-      <li><a data-toggle="tab" href="#menu4">Rules</a></li>
-      <li><a data-toggle="tab" href="#menu5">Address</a></li>
-      <li><a data-toggle="tab" href="#menu6">Reviews</a></li>
-    </ul>
-    <div class="tab-content">  
-      <!-- Book Room Code -->
-      <div id="home" class="tab-pane fade"><br/>
-        <div class="row">
-          <div class="col-md-6"> 
-            <%= render 'book_room'%>
-          </div>
-          <div class="col-md-6"> 
-            <% if user_signed_in?  %>
-              <% if current_user.id == @room.user.id %>
-              <!--  Add Special Price-->
-                <%= render 'price_for_room' %>
-              <% end %>
-            <% end %>
-            </div>
-          <div>
-          </div> 
+<!--/ Intro Single star /-->
+<section class="intro-single">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 ">
+        <div class="title-single-box">
+          <h1 class="title-single"><%= @room.name%></h1>
+          <span class="color-text-a"><%= City.find(@room.city_id).name%>, <%= State.find(@room.state_id).name%></span>
         </div>
-      </div>
-      <div id="menu1" class="tab-pane fade"><br/>
-        <% if @room.special_prices.empty? %>
-          <p>No Specal prices for this room</p>
-        <% else %>
-          <table class = "table">
-            <tr>
-              <th>Start-Date</th>
-              <th>End-Date</th>
-              <th>New Price</th>
-              <th>Old price</th>
-            </tr>
-            <% @room.special_prices.each do |f| %>
-              <tr>
-                <td><%= f.start_date %></td>
-                <td><%= f.end_date%></td>
-                <td><%= f.price %></td>
-                <td><%= @room.price%></td>
-              </tr>
-            <% end %>
-          </table>
-        <% end %>
-        
-      </div>
-      <div id="menu2" class="tab-pane fade  in active"><br/>
-          <%= @room.description %>      
-      </div>
-      <div id="menu3" class="tab-pane fade"><br/>
-        <ol>
-          <% @room.amenities.each do |amenity| %>
-            <li><b><%= amenity.name %> : </b>   <%= amenity.description%></li><br>
-          <% end %>
-        </ol>
-      </div>  
-      <div id="menu4" class="tab-pane fade"><br/>
-        <%= @room.rules%>        
-      </div>
-      <div id="menu5" class="tab-pane fade"><br/>
-        <div class="col-md-4">
-          <b>Owner : </b><%= @room.user.username.capitalize%><br/><br/>
-          <b>Contact : </b><%= @room.user.mobile %><br/></br>
-          <b>Area : </b> <%= @room.address%></br></br>
-          <b>City : </b><%= @room.city.name %><br/>
-        </div>
-        <div class="col-md-8 img-thumbnail"><br/>
-           <iframe width="400" height="300" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBipgxMczyujD8knh17CWPulk7h2shwOF8&q=<%= @room.latitude %>,<%= @room.longitude %>"></iframe>
-        </div>
-      </div>
-      <div id="menu6" class="tab-pane fade">
-      <div class="col-md-12">
-          <br/>
-          <%if @room.reviews.empty? %>
-            <h4>No reviews</h4>
-          <% else %>
-              <ul>
-                <% @room.reviews.each do |review| %>
-                  <li style="list-style-type: disc;"><%= review.review %><br><span style="float: right;">By <%= review.user.username%></span></li>
-                <% end %>
-              </ul>
-          <% end %>
-        </div>
-        <br/>
-        <!-- Review Code -->
-        <%# if user_signed_in?%>
-          <%#current_user.bookings.each do |booking|%>
-            <%# if booking.room_id == @room.id %>
-              <div class="col-md-8">
-                <%= render 'review'%>
-              </div>
-            <%# end %>
-          <%# end %>
-        <%# end %>
       </div>
     </div>
   </div>
+</section>
+<!--/ Intro Single End /-->
+
+<!-- Book Room  -->
+<div class="container">
+  <%= form_for @booking do |f| %>
+  <div class="row">
+    <div class = "col-md-3">
+      <input type="date" class="form-control input-sm" value="" name="booking[start_date]" id="booking_start_date"  autocomplete="off" placeholder="Start Date"/>
+      <span id = "startdateError"></span>
+    </div>
+    <div class = "  col-md-3">
+      <input type="date" class="form-control input-sm" value="" name="booking[end_date]" id="booking_end_date"  autocomplete="off" placeholder="End Date"/>
+      <span id = "enddateError"></span>
+    </div>
+    <%= f.hidden_field :room_id, value: @room.id %>   
+    <% if user_signed_in? && current_user.role.name == "admin" %>
+      <%= f.collection_select :user_id, User.all, :id, :username %>
+    <% end %>          
+    <div class = "  col-md-4"> 
+      <%= f.submit "Book Room" , class: "btn btn-success btn-mdd"%></center> 
+    </div>
+  </div>
+  <% end %>
 </div>
+
 <br/>
-</font>
-<script>
-
-//<!-- Script for Review -->
-
-// errors = {
-//   review: false,
-//   food_rating: false,
-//   clean: false,
-//   safety: false,
-//   facility: false,
-//   locality: false
-// }
-
-//   var reviewHandle = document.getElementById('review_review');
-//   var foodHandle = document.getElementById('food');
-//   var cleanHandle = document.getElementById('clean');
-//   var safetyHandle = document.getElementById('safety');
-//   var facilityHandle = document.getElementById('facility');
-//   var localityHandle = document.getElementById('locality');
-
-//   var submitHandle = document.getElementById('value')
-
-//   var formHandle = document.getElementById('new_review') 
-
-//   var foodInput = foodHandle.getElementsByTagName('input')  
-//   var cleanInput = cleanHandle.getElementsByTagName('input');
-//   var facilityInput = facilityHandle.getElementsByTagName('input');
-//   var localityInput = localityHandle.getElementsByTagName('input');
-//   var safetyInput = safetyHandle.getElementsByTagName('input');
-  
-//   var reviewMsgHandle = document.getElementById('reviewError');
-//   var cleanMsgHandle = document.getElementById('cleanError');
-//   var safetyMsgHandle = document.getElementById('safetyError');
-//   var facilityMsgHandle = document.getElementById('facilityError');
-//   var foodMsgHandle = document.getElementById('foodError');
-//   var localityMsgHandle = document.getElementById('localityError');
-
-//   reviewHandle.addEventListener('keyup',function(){
-//     if(reviewHandle.value.length < 15 ){
-//       console.log(reviewHandle.value.length);
-//       submitHandle.disabled = true;    
-//       }
-//  },false) 
-
-// function validatereview(){
-//       if(reviewHandle.value == ""){
-//         reviewMsgHandle.innerHTML = "Can't Be blank";
-//         errors.review = false;     
-//       }else if(reviewHandle.value.length < 15) {
-//         reviewMsgHandle.innerHTML = "Review should contain minimum 15 Characters";
-//         errors.review = false;
-//       }else{
-//         reviewMsgHandle.innerHTML = "";
-//         errors.review  = true;
-//       }
-// }
-
-// function validatefood(){   
-//   var selected = 0;
-//     for(var i = 0;i < foodInput.length;i++){
-//       if(foodInput[i].checked){
-//         selected = foodInput[i].value;
-//       }
-//     }
-//     if(selected == 0){
-//       foodMsgHandle.innerHTML = "cont be blank";
-//       errors.food_rating = false
-//     }else{
-//       foodMsgHandle.innerHTML = "";
-//       errors.food_rating = true;
-//     }
-
-// }
-
-// function validateclean(){   
-//   var selected = 0;
-//     for(var i = 0;i < cleanInput.length;i++){
-//       if(cleanInput[i].checked){
-//         selected = cleanInput[i].value;
-//       }
-//     }
-//     if(selected == 0){
-//       cleanMsgHandle.innerHTML = "cont be blank";
-//        errors.clean = false
-//     }else{
-//     cleanMsgHandle.innerHTML = "";
-//        errors.clean = true;
-//     }
-// }
-
-// function validatelocality(){   
-//   var selected = 0;
-//     for(var i = 0;i < localityInput.length;i++){
-//       if(localityInput[i].checked){
-//         selected = localityInput[i].value;
-//       }
-//     }
-//     if(selected == 0){
-//       localityMsgHandle.innerHTML = "cont be blank";
-//        errors.locality = false
-//     }else{
-//       localityMsgHandle.innerHTML = "";
-//        errors.locality = true;
-//     }
-// }
-
-
-// function validatefacility(){   
-//   var selected = 0;
-//     for(var i = 0;i < facilityInput.length;i++){
-//       if(facilityInput[i].checked){
-//         selected = facilityInput[i].value;
-//       }
-//     }
-//     if(selected == 0){
-//       facilityMsgHandle.innerHTML = "cont be blank";
-//        errors.facility = false
-//     }else{
-//     facilityMsgHandle.innerHTML = "";
-//        errors.facility = true;
-//     }
-// }
-
-
-// function validatesafety(){   
-//   var selected = 0;
-//     for(var i = 0;i < safetyInput.length;i++){
-//       if(safetyInput[i].checked){
-//         selected = safetyInput[i].value;
-//       }
-//     }
-//     if(selected == 0){
-//       safetyMsgHandle.innerHTML = "cont be blank";
-//        errors.safety = false
-//     }else{
-//       safetyMsgHandle.innerHTML = "";
-//        errors.safety = true;
-//     }
-// }
-
-// formHandle.addEventListener('submit',function(e){
-//   validatefood();
-//   validatereview();
-//   validatelocality();
-//   validatefacility();
-//   validatesafety();
-//   validateclean();
-
-//    if(Object.values(errors).includes(false)){
-//     e.preventDefault();
-//   }
-// },false)
-
-// $(document).ready(function(){
-//   $('#sweetalert').click(function(){
-//     swal({
-//       position: 'top-end',
-//       type: 'success',
-//       title: 'Hi! You booked room successfully for the Below dates',
-//       showConfirmButton: true,
-//       // showCancelButton: true
-//       // timer: 1500
-//     })
-//   })
-// })
-
-</script>
-
-<style type="text/css">
-body {
-    height: 100px;
-    margin-bottom: 30px;
-    width: 100%;
-}
-</style>
+<section class="property-single nav-arrow-b">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        <div id="demo" class="carousel slide" data-ride="carousel">
+          <ul class="carousel-indicators">
+            <li data-target="#demo" data-slide-to="0" class="active"></li>
+            <li data-target="#demo" data-slide-to="1"></li>
+            <li data-target="#demo" data-slide-to="2"></li>
+          </ul>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img src="/slide-1.jpg" alt="Los Angeles" width="1100" height="500">
+              <div class="carousel-caption">
+                <h3>Los Angeles</h3>
+                <p>We had such a great time in LA!</p>
+              </div>   
+            </div>
+            <div class="carousel-item">
+              <img src="/slide-2.jpg" alt="Chicago" width="1100" height="500">
+              <div class="carousel-caption">
+                <h3>Chicago</h3>
+                <p>Thank you, Chicago!</p>
+              </div>   
+            </div>
+            <div class="carousel-item">
+              <img src="/slide-3.jpg" alt="New York" width="1100" height="500">
+              <div class="carousel-caption">
+                <h3>New York</h3>
+                <p>We love the Big Apple!</p>
+              </div>   
+            </div>
+          </div>
+          <a class="carousel-control-prev" href="#demo" data-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+          </a>
+          <a class="carousel-control-next" href="#demo" data-slide="next">
+            <span class="carousel-control-next-icon"></span>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-7">
+        <div class="title-box-d">
+          <br/><h3 class="title-d">Description</h3>
+        </div>
+        <div class="property-description">
+          <p class="description color-text-a">
+            Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit
+            neque, auctor sit amet
+            aliquam vel, ullamcorper sit amet ligula. Cras ultricies ligula sed magna dictum porta.
+            Curabitur aliquet quam id dui posuere blandit. Mauris blandit aliquet elit, eget tincidunt
+            nibh pulvinar quam id dui posuere blandit.
+          </p>
+          <p class="description color-text-a no-margin">
+            Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Donec rutrum congue leo eget
+            malesuada. Quisque velit nisi,
+            pretium ut lacinia in, elementum id enim. Donec sollicitudin molestie malesuada.
+          </p>
+        </div>
+      </div>
+      <div class="col-md-5">
+        <div class="property-summary">    
+          <div class="title-box-d">
+            <br/><h3 class="title-d">Quick Summary</h3>
+          </div>
+          <div class="summary-list">
+            <ul class="list">
+              <li class="d-flex justify-content-between">
+                <strong>Property ID:</strong>
+                <span>1134</span>
+              </li>
+              <li class="d-flex justify-content-between">
+                <strong>Location:</strong>
+                <span>Chicago, IL 606543</span>
+              </li>
+              <li class="d-flex justify-content-between">
+                <strong>Property Type:</strong>
+                <span>House</span>
+              </li>
+              <li class="d-flex justify-content-between">
+                <strong>Status:</strong>
+                <span>Sale</span>
+              </li>
+              <li class="d-flex justify-content-between">
+                <strong>Area:</strong>
+                <span>340m
+                  <sup>2</sup>
+                </span>
+              </li>
+              <li class="d-flex justify-content-between">
+                <strong>Beds:</strong>
+                <span>4</span>
+              </li>
+              <li class="d-flex justify-content-between">
+                <strong>Baths:</strong>
+                <span>2</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>      
+    <div class="row">
+      <div class="col-md-12">
+        <div class="row section-t3">
+          <div class="col-sm-12">
+            <div class="title-box-d">
+              <h3 class="title-d">Amenities</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="amenities-list color-text-a">
+        <ul class="list-a no-margin">
+          <li>Balcony</li>
+          <li>Outdoor Kitchen</li>
+          <li>Cable Tv</li>
+          <li>Deck</li>
+          <li>Tennis Courts</li>
+          <li>Internet</li>
+          <li>Parking</li>
+          <li>Sun Room</li>
+          <li>Concrete Flooring</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

@@ -7,18 +7,40 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
   <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
 
 <!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> -->
 
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.css">
+<!-- <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"> -->
+ <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.css"> -->
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.js"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js"></script> -->
+<!-- <link href="img/favicon.png" rel="icon"> -->
+<!-- <link href="img/apple-touch-icon.png" rel="apple-touch-icon"> -->
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+
+  <link href="assets/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/font-awesome.min.css" rel="stylesheet">
+  <link href="assets/animate.min.css" rel="stylesheet">
+  <link href="assets/ionicons.min.css" rel="stylesheet">
+  <link href="assets/owl.carousel.min.css" rel="stylesheet">
+  <link href="assets/style.css" rel="stylesheet">
+
+  <!-- JS files -->
+  <script src="assets/jquery.min.js"></script>
+  <script src="assets/jquery-migrate.min.js"></script>
+  <script src="assets/popper.min.js"></script>
+  <script src="assets/bootstrap.min.js"></script>
+  <script src="assets/easing.min.js"></script>
+  <script src="assets/owl.carousel.min.js"></script>
+  <script src="assets/scrollreveal.min.js"></script>
+  <script src="assets/main.js"></script>
 </head> 
- <style type="text/css">
+<!--  <style type="text/css">
     ul.nav li:hover > ul.dropdown-menu{display: block}
    .fixed-bottom {
     position: fixed;
@@ -34,130 +56,162 @@
       margin-bottom: 240px;
 
     }
-  </style>
-
+  </style> -->
 <body>
-<!-- <div class = "container"> -->
-  <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="background-color: #f4a142; border: 30px; "> 
-  <!-- style="background-color: #f4a142; color: #000000"> -->
+  <!-- <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="background-color: #f4a142; border: 30px; "> 
     <div class="container-fluid">
       <div class="navbar-brand">
-        <a href= "/rooms"> <%= image_tag('/myhomemainpage.jpg', :size => "70x30") %></a>
+        <a href= "/rooms"> <%#= image_tag('/myhomemainpage.jpg', :size => "70x30") %></a>
       </div>
-      <!-- <ul class="nav navbar-nav"> -->
-        <!-- <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown">Select City<span class="caret"></span></a> -->
-          <!-- <ul class="dropdown-menu"> -->
-            <%# City.all.each do |city| %>
-              <!-- <li><%#= link_to city.name,city%></li> -->
-            <%#end%>
-          <!-- </ul> -->
-        <!-- </li> -->
-      <!-- </ul> -->
       <ul class="nav navbar-nav navbar-right">
-        <li><a><i class = "glyphicon glyphicon-earphone"></i> <%= User.find_by(username: "admin").mobile %></a></li>
-        <% if user_signed_in? %> 
-          <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown"><%= current_user.email%></a>
+        <li><a><i class = "glyphicon glyphicon-earphone"></i> <%#= User.find_by(username: "admin").mobile %></a></li>
+        <%# if user_signed_in? %> 
+          <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown"><%#= current_user.email%></a>
             <ul class="dropdown-menu">
               <li>
-                  <% if user_signed_in? && (can? :create, Room.new)%>
-                    <%= link_to "Rent your Room", new_room_path%>
-                  <% end %>
+                  <%# if user_signed_in? && (can? :create, Room.new)%>
+                    <%#= link_to "Rent your Room", new_room_path%>
+                  <%# end %>
               </li>
               <li>
-                  <% if user_signed_in? && (can? :create, City.new) %>
-                    <%= link_to 'Add City', new_city_path%>
-                  <% end %>
+                  <%# if user_signed_in? && (can? :create, City.new) %>
+                    <%#= link_to 'Add City', new_city_path%>
+                  <%# end %>
               </li>
-              <li><%= link_to "Your Bookings", bookings_my_bookings_path %></li>
-              <li><%= link_to "Your Rooms", rooms_my_rooms_path %></li>
+              <li><%#= link_to "Your Bookings", bookings_my_bookings_path %></li>
+              <li><%#= link_to "Your Rooms", rooms_my_rooms_path %></li>
               <li>
-                <% if user_signed_in? && current_user.role.name == "host"%> 
-                  <%= link_to "Confirm Bookings", bookings_confirmation_path %>
-                <% end %>
+                <%# if user_signed_in? && current_user.role.name == "host"%> 
+                  <%#= link_to "Confirm Bookings", bookings_confirmation_path %>
+                <%# end %>
               </li>
               <li>
-                <% if user_signed_in? && current_user.role.name == "admin" %>
-                    <li><%= link_to "Authorize Rooms ", rooms_authorize_path %></li>
-                    <li><%= link_to "Confirm Bookings", bookings_confirmation_path %></li>
-                    <li><%= link_to "Amenities", amenities_path %></li>
-                <% end %>
+                <%# if user_signed_in? && current_user.role.name == "admin" %>
+                    <li><%#= link_to "Authorize Rooms ", rooms_authorize_path %></li>
+                    <li><%#= link_to "Confirm Bookings", bookings_confirmation_path %></li>
+                    <li><%#= link_to "Amenities", amenities_path %></li>
+                <%# end %>
               </li>
-              <li><%= link_to "Profile", edit_user_registration_path %></li>
-              <li><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
+              <li><%#= link_to "Profile", edit_user_registration_path %></li>
+              <li><%#= link_to "Logout", destroy_user_session_path, method: :delete %></li>
             </ul>
           </li>
-        <% else %>
+        <%# else %>
           <li ><a href="/users/sign_in"><span class="glyphicon glyphicon-log-in"></span> Sign In</a></li>
-          <!-- <li><a href="/users/sign_up"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li> -->
-        <% end %>
+        <%# end %>
       </ul>
     </div>
 </nav><br/><br/><br/>
-
-<div class="container">
-  <% if notice %>
-    <script>
+ -->
+<!-- <div class="container"> -->
+  <%# if notice %>
+<!--     <script>
         swal({
             position: 'top-end',
             type: 'success',
-            title: '<%= notice%>',
+            title: '<%#= notice%>',
              //showConfirmButton: true,
              // showCancelButton: true
              timer: 3000
           })
     </script>  
-   <%end%>
-  <% if alert %>
+   <%#end%>
+  <%# if alert %>
     <script>
         swal({
              position: 'top-end',
              type: 'success',
-             title: '<%= alert %>',
+             title: '<%#= alert %>',
              showConfirmButton: true,
              // showCancelButton: true
              timer: 3000
           })
-    </script>
-  <% end %>
-  <%= yield %>
-</div>
-<!-- <div class="container">
-<%#if notice%>
-  <div style="width: 100%; margin-top: -10px;" class="col-md-4 alert alert-success alert-dismissible">
-    <button type="button" class="close" data-dismiss="alert">&times;</button>
-    <strong><%#= notice %></strong>
-  </div>
-<%#end%>
-<%#if alert%>
-  <div style="width: 100%; margin-top: -10px;" class="col-md-4 alert alert-warning alert-dismissible">
-    <button type="button" class="close" data-dismiss="alert">&times;</button>
-    <strong><%#= alert %></strong>
-  </div>
-<%#end%>
- --> 
+    </script> -->
+  <%# end %>
+<!-- </div> -->
 
-<!-- <footer class="container-fluid text-center fixed-bottom" style="background-color:#808080; face: Serif ; color: #000000; ">
-<br/>
-<div class="container-fluid bg-grey">
-  <div class="row">
-    <div class="col-sm-5">
-      <p style="font-size: 20px">Contact us and we'll get back to you within 24 hours.</p><br/><br/>
-      <p><span class="glyphicon glyphicon-map-marker"></span> Jayanagar, Banglore, Karnataka</p>
-      <p><span class="glyphicon glyphicon-phone"></span>+91 <%#= User.find_by(role_id: 1).mobile%></p>
-      <p><span class="glyphicon glyphicon-envelope"></span> <%#= User.find_by(role_id: 1).email%></p>
-    </div>
-    <div class="col-sm-7">
-        <p style="font-size: 20px">Send Enquiry</p>
-      <div class="row">
-        <%#= render '/enquiries/en_form' %>    
+  <!--/ Nav Star /-->
+  <nav class="navbar navbar-default navbar-trans navbar-expand-lg fixed-top">
+    <div class="container">
+      <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarDefault"
+        aria-controls="navbarDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <a class="navbar-brand text-brand" href="/custom_pages">Estate<span class="color-b">Agency</span></a>
+      <button type="button" class="btn btn-link nav-search navbar-toggle-box-collapse d-md-none" data-toggle="collapse"
+        data-target="#navbarTogglerDemo01" aria-expanded="false">
+        <span class="fa fa-search" aria-hidden="true"></span>
+      </button>
+      <div class="navbar-collapse collapse justify-content-center" id="navbarDefault">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="/rooms">Properties</a>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Home", home_path, class: "nav-link"%>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Blog</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Contact</a>
+          </li>
+        </ul>
       </div>
     </div>
-  </div>
-</div> -->
-</body>
-</html>
+  </nav>  
 
-<hr>
-</footer>
+  <%= yield %>
+  <!--/ footer Star /-->
+  <section class="section-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12 col-md-4">
+          <div class="widget-a">
+            <div class="w-header-a">
+              <h3 class="w-title-a text-brand">EstateAgency</h3>
+            </div>
+            <div class="w-body-a">
+              <p class="w-text-a color-text-a">
+                Enim minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip exea commodo consequat duis
+                sed aute irure.
+              </p>
+            </div>
+            <div class="w-footer-a">
+              <ul class="list-unstyled">
+                <li class="color-a">
+                  <span class="color-text-a">Phone : </span> mail4hiremath@gmail.com</li>
+                <li class="color-a">
+                  <span class="color-text-a">Email : </span> +91 9731937369</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="col-sm-12 col-md-2 section-md-t3"></div> -->
+        <div class="col-sm-12 col-md-8">
+          <div class="widget-a">
+            <center><h3 class="w-title-a text-brand">Contact Us</h3></center>
+            <center><%= render 'enquiries/en_form'%></center>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="copyright-footer">
+            <p class="copyright color-text-a">
+              &copy; Copyright
+              <span class="color-a">EstateAgency</span> All Rights Reserved.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>

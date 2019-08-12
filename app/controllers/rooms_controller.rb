@@ -18,15 +18,19 @@ class RoomsController < ApplicationController
     if params['state_id'].present? && params['city_id']
       if params['state_id'].present?
         @rooms = Room.where(state_id: params['state_id'])
+
       end
       if params['city_id'].present? and params['city_id'] != 'undefined'
         @rooms = @rooms.where(city_id: params['city_id'])
+
       end
       if params['type'].present?
         @rooms = @rooms.where(house_type: params['type'])
+
       end
       if params['plan'].present?
         @rooms = @rooms.where(house_plan: params['plan'])
+
       end
     else 
       @rooms = Room.athorized_rooms

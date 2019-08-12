@@ -1,12 +1,12 @@
 <%= form_tag('/enquiries') do %>
-  <div class="col-sm-6 form-group">
+  <div class="col-sm-8 form-group">
     <input class="form-control" id="subject" name="subject" placeholder="Subject" type="text" required>
   </div>
-  <div class="col-sm-6 form-group">
+  <div class="col-sm-8 form-group">
     <input class="form-control" id="email" name="email" placeholder="Email" type="email" required>
   </div>
-  <div>
+  <div class="col-sm-8">
     <textarea class="form-control" id="description" name="description" placeholder="Description" rows="3"></textarea><br/>
-    <input class="btn btn-default" type="submit">
+    <center><input class="btn btn-success" type="submit"></center>
   </div>
 <% end %>
