@@ -113,8 +113,9 @@ a:hover {
 
 .text-brand {
   color: #000000;
-  font-size: 4rem;
+  font-size: 2rem;
   font-weight: 600;
+  padding-left: .0rem;
 }
 
 .color-a {
@@ -586,7 +587,7 @@ a:hover {
 
 .navbar-default.navbar-trans .nav-link,
 .navbar-default.navbar-reduce .nav-link {
-  font-size: 1.5rem;
+  font-size: 1.0rem;
   color: #000000;
   font-weight: 600;
   letter-spacing: 0.030em;
@@ -684,6 +685,9 @@ a:hover {
   color: #000000;
 }
 
+.dropdown {
+  font-size: 1rem;
+}
 .navbar-default .dropdown .dropdown-menu {
   border-top: 0;
   border-left: 4px solid #2eca6a;
@@ -699,7 +703,6 @@ a:hover {
   border-radius: 0;
   padding: 12px 0;
 }
-
 .navbar-default .dropdown .dropdown-menu .dropdown-item {
   padding: 12px 18px;
   transition: all 500ms ease;
@@ -1115,7 +1118,7 @@ a:hover {
 
 .card-info {
   list-style: none;
-  margin-bottom: 0;
+  margin-bottom: 1rem;
   padding: 0rem 0;
 }
 

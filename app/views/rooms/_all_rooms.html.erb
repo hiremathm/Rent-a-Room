@@ -58,7 +58,7 @@
   <div class="row">
     <div class="col-md-2 mb-2">
       <div class="form-group">
-        <select name="state_id" class="form-control input-sm chooseselect state">
+        <select name="state_id" class="form-control input-sm">
         <option value="#">State</option>
         <%State.all.each do |state|%>
           <option value="<%= state.id%>"><%= state.name%></option>
@@ -75,7 +75,7 @@
     </div>
     <div class="col-md-2 mb-2">
       <div class="form-group">
-        <select name="type" class="form-control input-sm chooseselect type">
+        <select name="type" class="form-control input-sm">
           <option>House Type</option>
           <option value="single_room">Single Room</option>
           <option value="1 bhk">1 BHK</option>
@@ -87,7 +87,7 @@
     </div>
     <div class="col-md-2 mb-2">
       <div class="form-group">
-        <select name="plan" class="form-control input-sm chooseselect plan">
+        <select name="plan" class="form-control input-sm ">
           <option>House Plan</option>
           <option value="rent">Rent </option>
           <option value="lease">Lease</option>
@@ -126,9 +126,9 @@
               </div>
               <div class="card-body-a">
                 <div class="price-box d-flex">
-                  <span class="price-a"><b style="font-size: 1.2rem;"><%= room.house_type %> | <%= room.house_plan%> | Rating : <%= Random.rand(1..5)%> *</b></span>
+                  <span class="price-a" style="font-size: 1.0rem;"><%= room.house_type %> | <%= room.house_plan%> | Rating : <%= Random.rand(1..5)%> *</span>
                 </div>
-                <a href="/rooms/<%= room.id%>" class="link-a price-b" style="font-size: 1.4rem;">VIEW DEAL</a>
+                <a href="/rooms/<%= room.id%>" class="link-a price-b" style="font-size: .9rem;">VIEW DEAL</a>
               </div>
               <div class="card-footer-a">
                 <ul class="card-info d-flex justify-content-around">
