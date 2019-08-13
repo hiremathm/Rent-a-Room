@@ -113,8 +113,8 @@
       <div class="col-md-4">
         <div class="card-box-a card-shadow">
           <div class="img-box-a">
-            <%#= image_tag room.images ,:size => '500x450', class: "img-thumbnail img-a img-fluid" %>
-            <img src="assets/property-1.jpg" alt="" class="img-a img-fluid">
+            <%#= image_tag room.images ,:size => '100x100', class: "img-thumbnail" %>
+            <img src="<%= room.images%>" alt="" class="img-a img-fluid image-size">
           </div>
           <div class="card-overlay">
             <div class="card-overlay-a-content">
@@ -126,18 +126,18 @@
               </div>
               <div class="card-body-a">
                 <div class="price-box d-flex">
-                  <span class="price-a">  <%= room.house_type %> | <%= room.house_plan%> | Rating : <%= Random.rand(1..5)%> <b style="font-size: 15px; color: red;">*</b></span>
-                </div><br/>
-                <a href="/rooms/<%= room.id%>" class="link-a price-a">View Deal</a>
+                  <span class="price-a"><b style="font-size: 1.2rem;"><%= room.house_type %> | <%= room.house_plan%> | Rating : <%= Random.rand(1..5)%> *</b></span>
+                </div>
+                <a href="/rooms/<%= room.id%>" class="link-a price-b" style="font-size: 1.4rem;">VIEW DEAL</a>
               </div>
               <div class="card-footer-a">
                 <ul class="card-info d-flex justify-content-around">
                   <% if room.special_prices.present? %>
                     <li>
                       <h4 class="card-info-title" style="color: #f44e42; font-size: 13px;">Actual MRP</h4>
-                      <span >
-                        <center><strike class="fa fa-rupee"> <%= room.price%></strike></center>
-                      </span>
+                      <center>
+                        <span class="fa fa-rupee" style=" font-size: 15px;"> <%= room.price%></span>
+                      </center>
                     </li>
                     <% room.special_prices.each do |special_price|%>
                       <% dates = (special_price.start_date..special_price.end_date).to_a%>
@@ -145,15 +145,15 @@
                       <% if dates.include?today_date%>
                         <li>
                           <h4 class="card-info-title" style="color: #f44e42;font-size: 13px;">Discount</h4>
-                          <center><span class="fa fa-rupee"> <%= special_price.discount %> % off</span></center>
+                          <center><span class="fa fa-rupee" style=" font-size: 15px;"> <%= special_price.discount %> % off</span></center>
                         </li>
                         <li>
                           <h4 class="card-info-title" style="color: #f44e42;font-size: 13px;">You Save</h4>
-                          <center><span class="fa fa-rupee"> <%= room.price - special_price.price%></span></center>
+                          <center><span class="fa fa-rupee" style=" font-size: 15px;"> <%= room.price - special_price.price%></span></center>
                         </li>
                         <li>
                           <h4 class="card-info-title titles" style="color: #f44e42;font-size: 13px;">Current MRP</h4>
-                          <center><span class="fa fa-rupee"> <%= special_price.price%></span></center>
+                          <center><span class="fa fa-rupee" style=" font-size: 15px;"> <%= special_price.price%></span></center>
                         </li>
                       <%end%>
                     <%end%>

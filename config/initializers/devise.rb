@@ -23,7 +23,7 @@ Devise.setup do |config|
     # if config_setup.length != 0 && config_setup.length > 0 
   
       config_setup = Config.where(config_id: "5004", title: "authentication").last
-      puts "Config setup INSIDE Devise: " + "#{config_setup}"
+      # puts "Config setup INSIDE Devise: " + "#{config_setup}"
       config_array = config_setup["info"].map { |k| eval(k)}
       env = Rails.env
       oauth_setup = config_array.map {|p| p if p[:environment] == env}.compact  

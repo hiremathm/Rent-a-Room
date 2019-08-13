@@ -7,13 +7,13 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
   <!-- Latest compiled and minified CSS -->
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
 <!-- Latest compiled and minified JavaScript -->
-<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-<!-- <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"> -->
- <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.css"> -->
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.css">
 
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.js"></script> -->
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js"></script> -->
@@ -23,21 +23,21 @@
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
 
-  <link href="assets/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/font-awesome.min.css" rel="stylesheet">
-  <link href="assets/animate.min.css" rel="stylesheet">
-  <link href="assets/ionicons.min.css" rel="stylesheet">
-  <link href="assets/owl.carousel.min.css" rel="stylesheet">
+  <!-- <link href="assets/bootstrap.min.css" rel="stylesheet"> -->
+  <!-- <link href="assets/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <link href="assets/animate.min.css" rel="stylesheet"> -->
+  <!-- <link href="assets/ionicons.min.css" rel="stylesheet"> -->
+  <!-- <link href="assets/owl.carousel.min.css" rel="stylesheet"> -->
   <link href="assets/style.css" rel="stylesheet">
 
   <!-- JS files -->
-  <script src="assets/jquery.min.js"></script>
-  <script src="assets/jquery-migrate.min.js"></script>
-  <script src="assets/popper.min.js"></script>
-  <script src="assets/bootstrap.min.js"></script>
-  <script src="assets/easing.min.js"></script>
-  <script src="assets/owl.carousel.min.js"></script>
-  <script src="assets/scrollreveal.min.js"></script>
+  <!-- <script src="assets/jquery.min.js"></script> -->
+  <!-- <script src="assets/jquery-migrate.min.js"></script> -->
+  <!-- <script src="assets/popper.min.js"></script> -->
+  <!-- <script src="assets/bootstrap.min.js"></script> -->
+  <!-- <script src="assets/easing.min.js"></script> -->
+  <!-- <script src="assets/owl.carousel.min.js"></script> -->
+  <!-- <script src="assets/scrollreveal.min.js"></script> -->
   <script src="assets/main.js"></script>
 </head> 
 <!--  <style type="text/css">
@@ -134,20 +134,9 @@
   <nav class="navbar navbar-default navbar-trans navbar-expand-lg fixed-top">
     <%= image_tag('/myhomemainpage.jpg', :size => "100x60") %>
     <div class="container">
-      
-      <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarDefault"
-        aria-controls="navbarDefault" aria-expanded="false" aria-label="Toggle navigation">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-
-      <a class="navbar-brand text-brand" href="/rooms">Estate<span class="color-b">Agency</span></a>
-      <button type="button" class="btn btn-link nav-search navbar-toggle-box-collapse d-md-none" data-toggle="collapse"
-        data-target="#navbarTogglerDemo01" aria-expanded="false">
-        <span class="fa fa-search" aria-hidden="true"></span>
-      </button>
       <div class="navbar-collapse collapse justify-content-center" id="navbarDefault">
+       <a class="navbar-brand text-brand" href="/rooms">Estate<span class="color-b">Agency</span></a>
+    
         <ul class="navbar-nav">
           <li class="nav-item ">
             <a class="nav-link" href="/rooms">Properties</a>
@@ -196,12 +185,11 @@
         </ul>
       </div>
     <% else %>
-      <a href="/users/sign_in">Sign In</a>
-
+      <a href="/users/sign_in" class="sign_in">Sign In</a>
     <% end %>
   </nav>  
 
-<div style="padding-top: 150px; min-height: 500px">
+<div style=" min-height: 500px">
   <%= yield %>
 </div>
   <!--/ footer Star /-->

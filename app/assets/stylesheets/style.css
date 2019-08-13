@@ -15,7 +15,10 @@
 /*.choose_payment {
   padding-top: 140px;
 }*/
-
+.image-size {
+  width: 350px;
+  height: 400px;
+}
 .items-not-found {
    padding-top: 90px;
    padding-right: 150px;
@@ -103,10 +106,14 @@ a:hover {
   vertical-align: middle;
   margin-left: 5px;
 }
+.sign_in {
+  padding-right: 5rem;
+  font-size: 1.5rem;
+}
 
 .text-brand {
   color: #000000;
-  font-size: 2rem;
+  font-size: 4rem;
   font-weight: 600;
 }
 
@@ -136,6 +143,7 @@ a:hover {
   color: #000000;
   position: relative;
   font-weight: 600;
+  /*font-size: 30px;*/
 }
 
 .nav-pills-a.nav-pills .nav-link.active {
@@ -152,7 +160,6 @@ a:hover {
   background-color: #2eca6a;
   z-index: 2;
 }
-
 /*------/ Bg Image /------*/
 
 .bg-image {
@@ -546,9 +553,12 @@ a:hover {
   background-color: #ffffff;
   padding-top: 28px;
   padding-bottom: 28px;
+  padding-left: 110px;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   box-shadow: 1px 2px 15px rgba(100, 100, 100, 0.3);
+  font-size: 1.5rem;
+
 }
 
 .navbar-default .nav-search {
@@ -576,7 +586,7 @@ a:hover {
 
 .navbar-default.navbar-trans .nav-link,
 .navbar-default.navbar-reduce .nav-link {
-  font-size: 1.1rem;
+  font-size: 1.5rem;
   color: #000000;
   font-weight: 600;
   letter-spacing: 0.030em;
@@ -1083,13 +1093,19 @@ a:hover {
 
 .price-a {
   color: #ffffff;
-  padding: .6rem .8rem;
+  padding-left: 1.4rem;
+  padding-right: 1.5rem;
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
   border: 2px solid #2eca6a;
   border-radius: 50px;
   text-transform: uppercase;
   letter-spacing: 0.030em;
 }
 
+.price-b {
+  padding-left: 5.0rem;
+}
 .card-footer-a {
   width: 100%;
   position: absolute;
@@ -1100,7 +1116,7 @@ a:hover {
 .card-info {
   list-style: none;
   margin-bottom: 0;
-  padding: .5rem 0;
+  padding: 0rem 0;
 }
 
 .card-info .card-info-title {
@@ -1110,7 +1126,7 @@ a:hover {
 
 .card-info li span {
   color: #ffffff;
-  font-size: .9rem;
+  font-size: 1.9rem;
 }
 
 /*------/ Property Grid /-----*/
@@ -1118,6 +1134,10 @@ a:hover {
 .property-grid .grid-option {
   text-align: right;
   margin-bottom: 2rem;
+}
+
+.property-grid {
+  font-size: 20px;
 }
 
 .property-grid .grid-option .custom-select {
@@ -1781,7 +1801,7 @@ footer .credits {
 
   .card-box-a .price-a,
   .card-box-b .price-a {
-    font-size: .9rem;
+    font-size: 3.9rem;
   }
 
   .card-box-a:hover .card-overlay-a-content {
