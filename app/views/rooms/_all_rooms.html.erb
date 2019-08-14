@@ -113,7 +113,8 @@
       <div class="col-md-4">
         <div class="card-box-a card-shadow">
           <div class="img-box-a">
-            <img src="<%= room.images %>" alt="" class="image-size">
+            <%n = Random.rand(1..10)%>
+            <img src="/property-<%= n%>.jpg" alt="" class="image-size">
           </div>
           <div class="card-overlay">
             <div class="card-overlay-a-content">
