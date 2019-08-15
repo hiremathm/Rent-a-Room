@@ -15,8 +15,7 @@ class Booking < ActiveRecord::Base
 			previous_booking_date = (booking.start_date..booking.end_date).to_a
 			current_booking.each do |booking|
 				if previous_booking_date.include?(booking)	
-					self.errors.add(:base, "This room is already booked for the below dates ")
-					
+					self.errors.add(:base, "This room is already booked for the below dates ")		
 					break
 				end
 			end

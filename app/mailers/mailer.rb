@@ -11,7 +11,7 @@ class Mailer < ApplicationMailer
   end
 
   def host_confirmation(host)
-  	@host = host
+    @host = host
   	mail to: "#{@host.room.user.email}", subject: "Room confirmation"
   end
 

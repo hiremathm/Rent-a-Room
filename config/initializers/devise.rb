@@ -16,30 +16,25 @@ Devise.setup do |config|
   require 'devise/orm/active_record'
   config.mailer_sender = 'please-change-me-at-config-initializers-devise@example.com'
 
-  # status = ActiveRecord::Base.connection.table_exists? 'config'
-  # if status
-    # puts "Config Table existed"
-    # config_setup = Config.where(config_id: "5004", title: "authentication").last
-    # if config_setup.length != 0 && config_setup.length > 0 
-  
-      # config_setup = Config.where(config_id: "5004", title: "authentication").last
-      # puts "Config setup INSIDE Devise: " + "#{config_setup}"
-      # config_array = config_setup["info"].map { |k| eval(k)}
-      # env = Rails.env
-      # oauth_setup = config_array.map {|p| p if p[:environment] == env}.compact  
-  
-      # facebook_oauth = oauth_setup.map {|p| p if p[:provider] == "Facebook"}.compact.last 
-      # github_oauth = oauth_setup.map {|p| p if p[:provider] == "GitHub"}.compact.last
-      # google_oauth = oauth_setup.map {|p| p if p[:provider] == "GoogleOauth2"}.compact.last
+  facebook_app_id = Rails.application.secrets[:facebook_appid]
+  google_app_id = Rails.application.secrets[:google_appid]
+  github_app_id = Rails.application.secrets[:github_appid]
 
-      # config.omniauth :facebook, facebook_oauth[:appId], facebook_oauth[:secreatKey], callback_url: facebook_oauth[:callback_url]
+  facebook_secret_key = Rails.application.secrets[:facebook_secret_key]
+  google_secret_key = Rails.application.secrets[:google_secret_key]
+  github_secret_key = Rails.application.secrets[:github_secret_key]
 
-      # require "omniauth-google-oauth2"
-      # config.omniauth :GoogleOauth2, google_oauth[:appId], google_oauth[:secreatKey], callback_url: google_oauth[:callback_url]
+  facebook_callback = Rails.application.secrets[:facebook_callback]
+  google_callback = Rails.application.secrets[:google_callback]
+  github_callback = Rails.application.secrets[:github_callback]
 
-      # config.omniauth :GitHub, github_oauth[:appId], github_oauth[:secreatKey], callback_url: github_oauth[:callback_url]
-    # end
-  # end
+  config.omniauth :facebook, facebook_app_id, facebook_secret_key, callback_url: facebook_callback
+
+  require "omniauth-google-oauth2"
+  config.omniauth :GoogleOauth2, google_app_id, google_secret_key, callback_url: google_callback
+
+  config.omniauth :GitHub, github_app_id, github_secret_key, callback_url: github_callback
+
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
 

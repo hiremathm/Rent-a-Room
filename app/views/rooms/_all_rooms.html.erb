@@ -58,7 +58,7 @@
   <div class="row">
     <div class="col-md-2 mb-2">
       <div class="form-group">
-        <select name="state_id" class="form-control input-sm">
+        <select name="state_id" class="form-control state">
         <option value="#">State</option>
         <%State.all.each do |state|%>
           <option value="<%= state.id%>"><%= state.name%></option>
@@ -154,6 +154,19 @@
                         <li>
                           <h4 class="card-info-title titles" style="color: #f44e42;font-size: 13px;">Current MRP</h4>
                           <center><span class="fa fa-rupee" style=" font-size: 15px;"> <%= special_price.price%></span></center>
+                        </li>
+                      <%else%>
+                        <li>
+                          <h4 class="card-info-title" style="color: #f44e42;font-size: 13px;">Discount</h4>
+                          <center><span class="fa fa-rupee" style=" font-size: 15px;"> <%= 0 %> % off</span></center>
+                        </li>
+                        <li>
+                          <h4 class="card-info-title" style="color: #f44e42;font-size: 13px;">You Save</h4>
+                          <center><span class="fa fa-rupee" style=" font-size: 15px;"> <%= room.price%></span></center>
+                        </li>
+                        <li>
+                          <h4 class="card-info-title titles" style="color: #f44e42;font-size: 13px;">Current MRP</h4>
+                          <center><span class="fa fa-rupee" style=" font-size: 15px;"> <%= room.price%></span></center>
                         </li>
                       <%end%>
                     <%end%>

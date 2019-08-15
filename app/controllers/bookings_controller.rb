@@ -42,10 +42,10 @@ class BookingsController < ApplicationController
       pdf.render_file filename
 
       session[:booking] = @book 
-      Mailer.delay(:queue => "Booking from Customer").host_confirmation(@book, filename)
-      Mailer.delay(:queue => "Booking from Customer").client_confirmation(@book, filename)
+      Mailer.host_confirmation(@book).deliver_later
+      Mailer.client_confirmation(@book, filename).deliver_later
       redirect_to choose_payment_path, notice: "Your room has been booked , Please do the payments"
-     else
+    else
        render action: "new"
     end
   end

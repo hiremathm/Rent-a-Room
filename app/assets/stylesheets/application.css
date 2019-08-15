@@ -20,9 +20,9 @@ body {
   color: #555555;
 }
 
-.card-info-title {
+/*.card-info-title {
   color: #f44e42;
-}
+}*/
 
 h1,
 h2,
@@ -90,8 +90,8 @@ a:hover {
   margin-left: 5px;
 }
 .sign_in {
-  padding-right: 5rem;
-  font-size: 1.5rem;
+  font-size: 1rem;
+  width: 100px;
 }
 
 .text-brand {
@@ -595,6 +595,7 @@ a:hover {
 .card-info .card-info-title {
   font-size: 1rem;
   color: #313131;
+  padding-top: .5rem;
 }
 
 .card-info li span {
@@ -769,13 +770,16 @@ a:hover {
 /*======================================
 //--//-->   ABOUT
 ======================================*/
+.aboutpage {
+    padding-top: 3rem;
+}
 
 .section-about .title-vertical {
   position: absolute;
   letter-spacing: 0;
   -webkit-transform: rotate(-90deg);
   transform: rotate(-90deg);
-  top: 50px;
+  top: 70px;
   text-align: left;
   font-size: 1.8rem;
   width: 300px;
@@ -1092,9 +1096,9 @@ footer .credits {
     font-size: 1.3rem;
   }
 
-  .card-info .card-info-title {
+  /*.card-info .card-info-title {
     font-size: .9rem;
-  }
+  }*/
 
   .card-info li span {
     font-size: .8rem;
@@ -1207,9 +1211,9 @@ footer .credits {
     font-size: 2rem;
   }
 
-  .card-info .card-info-title {
+  /*.card-info .card-info-title {
     font-size: 1rem;
-  }
+  }*/
 
   .card-info li span {
     font-size: 1rem;
@@ -1291,7 +1295,7 @@ footer .credits {
   }
 
   .section-md-t3 {
-    padding-top: 3rem;
+    padding-top: 5rem;
   }
 
   .section-tb85 {
@@ -1323,15 +1327,5 @@ footer .credits {
 
   .card-body-c {
     padding: 0;
-  }
-}
-
-@media (max-width: 575px) {
-  .box-collapse .title-box-d {
-    left: 35px;
-  }
-
-  .box-collapse .title-box-d .title-d {
-    font-size: 1.3rem;
   }
 }
