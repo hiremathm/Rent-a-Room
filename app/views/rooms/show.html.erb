@@ -34,7 +34,7 @@
     </div>
   </div>
   <% end %>
-
+<br/>
   <%if user_signed_in? %>
     <%if (can? :update, @room) %>
       <%= link_to "Edit", edit_room_path(@room), class: "btn btn-primary btn-sm"%>
@@ -95,16 +95,7 @@
         </div>
         <div class="property-description">
           <p class="description color-text-a">
-            Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit
-            neque, auctor sit amet
-            aliquam vel, ullamcorper sit amet ligula. Cras ultricies ligula sed magna dictum porta.
-            Curabitur aliquet quam id dui posuere blandit. Mauris blandit aliquet elit, eget tincidunt
-            nibh pulvinar quam id dui posuere blandit.
-          </p>
-          <p class="description color-text-a no-margin">
-            Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Donec rutrum congue leo eget
-            malesuada. Quisque velit nisi,
-            pretium ut lacinia in, elementum id enim. Donec sollicitudin molestie malesuada.
+            <%= @room.description%>
           </p>
         </div>
       </div>
@@ -117,19 +108,19 @@
             <ul class="list">
               <li class="d-flex justify-content-between">
                 <strong>Property ID:</strong>
-                <span>1134</span>
+                <span><%=@room.id%></span>
               </li>
               <li class="d-flex justify-content-between">
                 <strong>Location:</strong>
-                <span>Chicago, IL 606543</span>
+                <span><%= @room.address %></span>
               </li>
               <li class="d-flex justify-content-between">
                 <strong>Property Type:</strong>
-                <span>House</span>
+                <span><%= @room.house_type.upcase%></span>
               </li>
               <li class="d-flex justify-content-between">
                 <strong>Status:</strong>
-                <span>Sale</span>
+                <span><%= @room.house_plan.capitalize%></span>
               </li>
               <li class="d-flex justify-content-between">
                 <strong>Area:</strong>
@@ -160,19 +151,24 @@
           </div>
         </div>
       </div>
-      <div class="amenities-list color-text-a">
-        <ul class="list-a no-margin">
-          <li>Balcony</li>
-          <li>Outdoor Kitchen</li>
-          <li>Cable Tv</li>
-          <li>Deck</li>
-          <li>Tennis Courts</li>
-          <li>Internet</li>
-          <li>Parking</li>
-          <li>Sun Room</li>
-          <li>Concrete Flooring</li>
-        </ul>
-      </div>
+    </div>
+
+    <div class="row" id="listResults">
+      <% Amenity.all.each do |a|%>
+        <div class="col-md-3">
+          <%if @room.amenities.map(&:id).include?(a.id)%>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="<%= a.id%>" name="example1" checked>
+              <label class="custom-control-label" for="<%= a.id%>"><%= a.name%></label>
+            </div>
+          <%else%>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="<%= a.id%>" name="example1"  disabled="true">
+              <label class="custom-control-label" for="<%= a.id%>"><%= a.name%></label>
+            </div>
+          <%end%>
+        </div>
+      <% end %>
     </div>
   </div>
 </section>
