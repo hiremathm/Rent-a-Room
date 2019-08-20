@@ -13,56 +13,54 @@
       <% end %>
 
       <div class="row">
-        <div class="col-xs-2">
-          <%= link_to 'Back', rooms_path, class: "btn btn-primary btn-sm" %>
-        </div>
-      </div>
-      <br>
-      <div class="row">
-        <div class="col-xs-1">
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
           <%= f.label :name %>
         </div>
-        <div class="col-xs-1">
+        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
           <span class="glyphicon glyphicon-asterisk" style="color: red;" data-toggle="tooltip" title="Name Con't be blank"></span>
         </div>
-        <div class="col-xs-3">
+        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
           <div class="form-group">
             <%= f.text_field :name, class: "form-control input-sm" , placeholder: "Enter Name" %>
             <span id="nameMsg"></span>
           </div>
         </div>
-      
-        <div class="col-xs-offset-1 col-xs-1">
+      </div>  
+      <div class="row">
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
           <%= f.label :price %>
         </div>
-        <div class="col-xs-1">
+        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
           <span class="glyphicon glyphicon-asterisk" style="color: red;" data-toggle="tooltip" title="Price Con't be blank"></span>
         </div>
-        <div class="col-xs-3">
+        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
           <%= f.text_field :price, class: "form-control input-sm" , placeholder: "Enter Price"%>
           <span id="priceMsg"></span>          
         </div>
       </div>
-      
+      <br/>
       <div class="row">
-        <div class="col-xs-1">
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
           <label>
             State 
           </label>  
         </div>
-        <div class="col-xs-1">
+        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
           <span class="glyphicon glyphicon-asterisk" style="color: red;" data-toggle="tooltip" title="State Con't be blank"></span>
         </div>
-        <div class="col-xs-3 ">
+        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
           <%= f.collection_select :state_id, State.all, :id , :name, {}, class: "form-control input-sm"%>
         </div>
-        <div class="col-xs-offset-1 col-xs-1">
+      </div>
+      <br/>
+      <div class="row">
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
           <%= f.label :city %>
         </div>
-        <div class="col-xs-1">
+        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
           <span class="glyphicon glyphicon-asterisk" style="color: red;" data-toggle="tooltip" title="City Con't be blank"></span>
         </div>
-        <div class="col-xs-3">
+        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
             <%= f.collection_select :city_id, [], :id , :name, {}, class: "form-control input-sm"%>
             <!-- <select name="city_id" id="city" class="form-control input-sm">
               <option value="#">City</option>
@@ -71,79 +69,93 @@
       </div>
       <br/>
       <div class="row">
-        <div class="col-xs-1">
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
           <label>Room Type</label>
         </div>
-        <div class="col-xs-1">
+        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
           <span class="glyphicon glyphicon-asterisk" style="color: red;" data-toggle="tooltip" title="Room Type Con't be blank"></span>
         </div>
-        <div class="col-xs-3">
-           <%= f.select :house_type, [['House Type', '#'],['Single Room', 'single_room'],['1 BHK','1 bhk'],['2 BHK', '2 bhk'],['3 BHK',"3 bhk"],['4 BHK','4 bhk']], {}, class: "form-control input-sm" %>
+        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+           <%= f.select :house_type, [['House Type', '#'],['Single Room', 'single_room'],['1 BHK','1 bhk'],['1 BHK', '1 bhk'],['3 BHK',"3 bhk"],['4 BHK','4 bhk']], {}, class: "form-control input-sm" %>
         </div>
-        <div class="col-xs-offset-1 col-xs-1">
+      </div>
+      <br/>
+      <div class="row">
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
           <label>
             House Plan
           </label>
         </div>
-        <div class="col-xs-1">
+        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
           <span class="glyphicon glyphicon-asterisk" style="color: red;" data-toggle="tooltip" title="House plan Con't be blank"></span>
         </div>
-        <div class="col-xs-3">
+        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
            <%= f.select :house_plan, [['House Plan', '#'],['Rent', 'rent'],['Lease','lease'],['Sale', 'sale']], {}, class: "form-control input-sm" %>
         </div>
       </div>
+      <br/>
       <div class="row">
-        <div class="col-xs-1">
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
           <%= f.label :description %>
         </div>
-        <div class="col-xs-1">
+        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
           <span class="glyphicon glyphicon-asterisk" style="color: red;" data-toggle="tooltip" title="Description Con't be blank"></span>
         </div>
-        <div class="col-xs-3">
+        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
           <%= f.text_area :description, class: "form-control input-sm" , placeholder: "Enter Description"%>
           <span id="priceMsg"></span>          
         </div>
-        <div class="col-xs-offset-1 col-xs-1">
+      </div>
+      <br/>
+      <div class="row">
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
           <%= f.label :rules %>
         </div>
-        <div class="col-xs-1">
+        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
           <span class="glyphicon glyphicon-asterisk" style="color: red;" data-toggle="tooltip" title="Rules Con't be blank"></span>
         </div>
-        <div class="col-xs-3">
+        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
           <%= f.text_area :rules, class: "form-control input-sm" , placeholder: "Enter Rules"%>
           <span id="rulesMsg"></span>
         </div>
       </div>
       <br/>
       <div class="row">
-        <div class="col-xs-1">
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
           <%= f.label :images %><br>
         </div>
-        <div class="col-xs-1">
+        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
           <span class="glyphicon glyphicon-asterisk" style="color: red;" data-toggle="tooltip" title="Image Con't be blank" ></span>
         </div>
-        <div class="col-xs-3">
+        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
           <%= f.file_field :images , class: "form-control input-sm"%>
         </div>
-        <div class="col-xs-offset-1 col-xs-1">
+      </div>
+      <br/>
+      <div class="row">
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
           <%= f.label :address %><br>
         </div>
-        <div class="col-xs-1">
+        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
           <span class="glyphicon glyphicon-asterisk" style="color: red;" data-toggle="tooltip" title="Address Con't be blank"></span>
         </div>
-        <div class="col-xs-3">
+        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
           <%= f.text_area :address, class: "form-control input-sm", placeholder: "Enter Address" %>
           <span id="addressMsg"></span>          
         </div>
       </div>
+      <br/>
       <div class="row">
-        <div class="col-xs-1">
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
           <%= f.label :amenities%>
         </div>
-        <div class="col-xs-1">
+        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
           <span class="glyphicon glyphicon-asterisk" style="color: red;" data-toggle="tooltip" title="Aminities Con't be blank"></span>
         </div>
-        <div class="col-xs-8">
+      </div>
+      <div class="row">
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>
+        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
           <div class="checkbox">
             <%= f.collection_check_boxes :amenity_ids, Amenity.all, :id, :name do |course|%>
             <label>
@@ -153,8 +165,17 @@
             <%end%>
           </div>          
         </div>
+
+<!--         <%# Amenity.all.each do |a|%>
+        <div class="col-md-1"></div>
+        <div class="col-md-2">
+          <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="<%#= a.id%>" name="example1">
+            <label class="custom-control-label" for="<%#= a.id%>"><%#= a.name%></label>
+          </div>
+        </div>
+        <%# end %> -->
       </div>
-      <br>
       <div class="actions">
         <div class="row">
           <div class="col-xs-offset-5">
@@ -306,7 +327,7 @@ select.input-sm, textarea.input-sm, input[type=file] , input[type=text]{
 }
 
 .input-sm {
-    height: 26px;
+    height: 30px;
     padding: 5px 10px;
     font-size: 12px;
     line-height: -8.5;
@@ -317,25 +338,11 @@ label {
     display: inline-block;
     max-width: 100%;
     margin-bottom: 5px;
-    font-weight: 700
+    font-weight: 800
   }
 
 .glyphicon-asterisk:before {
     content: "\002a";
     margin-left: -10px;
-}
-
-body {
-    height: 500px;
-    margin-bottom: 50px;
-}
-
-.col-xs-8 {
-    width: 64.333333%;
-    margin-left: -61px;
-    margin-top: -6px;
-}
-.col-xs-offset-1 {
-    margin-left: -3%;
 }
 </style>
