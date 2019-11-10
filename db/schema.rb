@@ -31,12 +31,6 @@ ActiveRecord::Schema.define(version: 20190807153203) do
     t.integer  "amenity_id"
   end
 
-  create_table "ar_internal_metadata", primary_key: "key", force: :cascade do |t|
-    t.string   "value"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "bookings", force: :cascade do |t|
     t.integer  "price"
     t.integer  "user_id"
@@ -144,14 +138,6 @@ ActiveRecord::Schema.define(version: 20190807153203) do
 
   add_index "oauth_applications", ["uid"], name: "index_oauth_applications_on_uid", unique: true, using: :btree
 
-  create_table "pets", force: :cascade do |t|
-    t.string   "name"
-    t.text     "description"
-    t.string   "image"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
   create_table "reviews", force: :cascade do |t|
     t.text     "review"
     t.integer  "food_rating"
@@ -227,7 +213,6 @@ ActiveRecord::Schema.define(version: 20190807153203) do
     t.string   "username"
     t.string   "mobile"
     t.string   "role_id"
-    t.string   "avatar"
     t.string   "provider"
     t.string   "uid"
     t.string   "name"
