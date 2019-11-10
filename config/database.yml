@@ -5,5 +5,5 @@ development:
   pool: 5
   username:  postgres
   password:  postgres123
-  database:  rent_room_db
+  database:  rent_room
   timeout:   5000  
