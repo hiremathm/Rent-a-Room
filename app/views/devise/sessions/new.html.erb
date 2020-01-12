@@ -118,81 +118,54 @@
 -->
 
 
-<!-- <div class="login-wrap">
+<div class="login-wrap">
     <div class="login-html">
 
         <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Sign In</label>
         <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Sign Up</label>
         <div class="login-form">
-          <%#= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+          <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
             <div class="sign-in-htm">
                 <div class="group">
                     <label for="user" class="label">Email</label>
-                    <%#= f.text_field :email, id: "user", autocomplete: "off", class: "input fa fa-user" %>
+                    <%= f.text_field :email, id: "user", autocomplete: "off", class: "input fa fa-user" %>
                     <span id="username"></span>
                 </div>
                 <div class="group">
                     <label for="pass" class="label">Password</label>
-                     (<a href="#" id="show">Show</a>)<br /> -->
-                    <!-- <%#= f.password_field :password, autocomplete: "off", class: "input", id: "show" %> -->
-                    <!-- <span id="password"></span> -->
-                <!-- </div> -->
-                <!-- <div class="group"> -->
-                    <!-- <input id="check" name="remember_me" type="checkbox" class="check" checked> -->
-                    <!-- <label for="check"><span class="icon"></span> Keep me Signed in</label> -->
-                <!-- </div> -->
-                <!-- <div class="group"> -->
-                    <%#= f.submit "Sign in", class: "button" %>
-                <!-- </div> -->
-                <!-- <hr/> -->
-                <!-- <div class="foot-lnk"> -->
-                  <%#= render "devise/shared/links" %>
-                <!-- </div> -->
-                <!-- <hr/> -->
-                <!-- <div class="foot-lnk-signin"> -->
-                  <!-- <p>Sign In / Sign Up Using</p> -->
-                  <!-- <a href="/users/auth/google_oauth2">Google</a> -->
+                     (<a href="" id="show">Show</a>)<br />
+                     <%= f.password_field :password, autocomplete: "off", class: "input", id: "show" %> 
+                     <span id="password"></span> 
+                 </div> 
+                 <div class="group"> 
+                     <input id="check" name="remember_me" type="checkbox" class="check" checked> 
+                     <label for="check"><span class="icon"></span> Keep me Signed in</label> 
+                 </div> 
+                 <div class="group"> 
+                    <%= f.submit "Sign in", class: "button" %>
+                 </div> 
+                 <hr/> 
+                 <div class="foot-lnk"> 
+                  <%= render "devise/shared/links" %>
+                 </div> 
+                 <hr/> 
+                 <div class="foot-lnk-signin"> 
+                   <p>Sign In / Sign Up Using</p> 
+                   <a href="/users/auth/google_oauth2">Google</a> 
           
-                  <!-- <a href="/users/auth/facebook">Facebook</a> -->
-                  <!-- <a href="/users/auth/github">GitHub</a> -->
-                <!-- </div> -->
-            <!-- </div> -->
-          <%# end %>
-            <!-- <div class="sign-up-htm"> -->
-                <%#= render "devise/registrations/new"%>
-            <!-- </div>  -->
-        <!-- </div> -->
-    <!-- </div> -->
-<!-- </div> -->
- <!-- --> 
+                   <a href="/users/auth/facebook">Facebook</a> 
+                   <a href="/users/auth/github">GitHub</a> 
+                 </div> 
+             </div> 
+          <% end %>
+             <div class="sign-up-htm"> 
+                <%= render "devise/registrations/new"%>
+            </div> 
+        </div>
+    </div>
+</div>
+ 
 
-
-<!-- <center><div id="LoginWithAmazon">Login With Amazon</div></center>
-<center><div id="Logout">Logout</div></center>
-<div id="amazon-root"></div>
-
-<script type="text/javascript">
-  window.onAmazonLoginReady = function() {
-    amazon.Login.setClientId('amzn1.application-oa2-client.aeb5fea5f6424ab996e16a868c6c3623');
-  };
-  (function(d) {
-    var a = d.createElement('script'); a.type = 'text/javascript';
-    a.async = true; a.id = 'amazon-login-sdk';
-    a.src ='https://assets.loginwithamazon.com/sdk/na/login1.js'; 
-    d.getElementById('amazon-root').appendChild(a);})(document);
-</script>
-<script type="text/javascript">
-  var params = "shiva";
-  document.getElementById('LoginWithAmazon').onclick = function() {
-      options = {scope:'payments::conduct_silentpay',
-      response_type:'code',
-      state : params,
-      popup : false
-    };
-    amazon.Login.authorize(options,'https://estateagency-in.herokuapp.com/users/sign_in');
-    return false;
-  };
-</script>
 
 <script type="text/javascript">
 document.getElementById('Logout').onclick = function() {
@@ -201,56 +174,9 @@ amazon.Login.logout();
 </script> -->
 
 
-
-<a href id="LoginWithAmazon">
-  <img border="0" alt="Login with Amazon"
-        src="https://images-na.ssl-images-amazon.com/images/G/01/lwa/btnLWA_gold_156x32.png"
-        width="156" height="32" />
-</a>
-
-<div id="Logout">Logout</div>
- <div id="amazon-root"></div>
- <script type="text/javascript">
-
-    window.onAmazonLoginReady = function() {
-      amazon.Login.setClientId('amzn1.application-oa2-client.aeb5fea5f6424ab996e16a868c6c3623');
-    };
-    (function(d) {
-      var a = d.createElement('script'); 
-      a.type = 'text/javascript';
-      a.async = true; a.id = 'amazon-login-sdk';
-      a.src = 'https://assets.loginwithamazon.com/sdk/na/login1.js';
-      d.getElementById('amazon-root').appendChild(a);
-    })(document);
-
-</script>
-
-
-<script type="text/javascript">
-    document.getElementById('LoginWithAmazon').onclick = function() {
-        options = {}
-        options.scope = 'profile';
-        options.scope_data = {
-            'profile' : {'essential': false} 
-        };
-        options.popup = 'true';
-        options.response_type = 'code';
-        options.state = "testing";
-
-        amazon.Login.authorize(options,
-            'https://estagency.herokuapp.com/users/sign_in');
-        return false;
-    };
-</script>
-
-<script type="text/javascript">
-document.getElementById('Logout').onclick = function() {
-amazon.Login.logout();
-};
-</script>
 <style type="text/css">
   .foot-lnk {
-   color: #2874A6;
+   color: 2874A6;
   }
   body{
     margin:0;
