@@ -31,7 +31,7 @@ Devise.setup do |config|
   config.omniauth :facebook, facebook_app_id, facebook_secret_key, callback_url: facebook_callback
 
   require "omniauth-google-oauth2"
-  config.omniauth :GoogleOauth2, "287908567518-s9cjda77q2u87iedcjb97mh3jut7e1rj.apps.googleusercontent.com", "glpLGY16kA6ye1hic-lc_fIV", callback_url: "https://estagency.herokuapp.com/users/auth/google_auth2/callback"
+  config.omniauth :GoogleOauth2, google_app_id, google_secret_key, callback_url: google_callback
 
   config.omniauth :GitHub, github_app_id, github_secret_key, callback_url: github_callback
 
