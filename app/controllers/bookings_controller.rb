@@ -16,7 +16,7 @@ class BookingsController < ApplicationController
       end
       image = @book.room.images
 
-      pdf.image "app/assets/images/myhomemainpage.jpg", :at => [250,680]
+      #pdf.image "app/assets/images/myhomemainpage.jpg", :at => [250,680]
       
       pdf.move_cursor_to 625
       time = Time.now
@@ -38,7 +38,7 @@ class BookingsController < ApplicationController
           ])
       end
       
-      filename = "invoice.pdf"
+      filename = "#{Rails.root}/public/" + "#{@book.id}_invoice.pdf"
       pdf.render_file filename
 
       session[:booking] = @book 
