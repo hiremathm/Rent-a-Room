@@ -1,4 +1,4 @@
-require Rails.root.join("lib/paytm_helper.rb")
+#require Rails.root.join("lib/paytm_helper.rb")
 class PaymentsController < ApplicationController
   require 'openssl'
   require 'base64'
