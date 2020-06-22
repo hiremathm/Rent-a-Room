@@ -24,7 +24,7 @@ Devise.setup do |config|
   google_secret_key = Rails.application.secrets[:google_secret_key]
   github_secret_key = Rails.application.secrets[:github_secret_key]
 
-  facebook_callback = Rails.application.secrets[:facebook_callback]
+  facebook_callback = "https://omniauth-app.herokuapp.com/" #Rails.application.secrets[:facebook_callback]
   google_callback = Rails.application.secrets[:google_callback]
   github_callback = Rails.application.secrets[:github_callback]
 

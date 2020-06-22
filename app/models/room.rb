@@ -18,6 +18,7 @@ class Room < ActiveRecord::Base
 	validates_numericality_of :price, :city_id, :user_id
 	validates_length_of :description, minimum: 5
 
+
 	scope :athorized_rooms, -> (bool = true) {where(is_authorized: bool)} 
 
 	private

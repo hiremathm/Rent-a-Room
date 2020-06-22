@@ -1,0 +1,20 @@
+<div id="submit">Submit</div>
+
+<script type="text/javascript">
+$('#submit').click(function(e) {
+    e.preventDefault();
+    headers = { 'isSandbox': true , 'merchantId': 'AZ4WQCLDT2DF0','timestamp':'<%= @epoch_time%>','cache-control': 'no-cache', 'Access-Control-Allow-Origin':"*", 'Content-Type': 'application/x-www-form-urlencoded',"Access-Control-Allow-Methods":"GET"}
+    console.log("url : ",'<%= @url%>')
+    console.log("headers", headers)
+    $.ajax({
+        type: "GET",
+        url: '<%= @url%>',
+        data: "",
+        headers: headers,
+        success: function (response) { 
+            console.log("response: ", response)        
+        }
+    });
+    return false;
+});
+</script>

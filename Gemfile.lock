@@ -152,6 +152,7 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
     rack (1.6.11)
+    rack-cors (1.0.3)
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.2.8)
@@ -188,6 +189,8 @@ GEM
     rb-inotify (0.10.0)
       ffi (~> 1.0)
     rdoc (4.3.0)
+    recaptcha (5.5.0)
+      json
     responders (2.4.1)
       actionpack (>= 4.2.0, < 6.0)
       railties (>= 4.2.0, < 6.0)
@@ -269,8 +272,10 @@ DEPENDENCIES
   pg (= 0.15.1)
   prawn (= 1.0.0)
   pry
+  rack-cors
   rails (= 4.2.8)
   rails_12factor
+  recaptcha
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   spring
@@ -282,9 +287,3 @@ DEPENDENCIES
   whenever
   will_paginate (~> 3.1.0)
   zip
-
-RUBY VERSION
-   ruby 2.4.1p111
-
-BUNDLED WITH
-   1.17.1

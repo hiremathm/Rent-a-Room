@@ -79,7 +79,7 @@ class RoomsController < ApplicationController
     @room = Room.new(room_params)
     @room.user_id = current_user.id
     respond_to do |format|
-      if @room.save
+      if verify_recaptcha(model: @room) && @room.save
         format.html { redirect_to rooms_path, notice: 'Room was successfully created.' }
         format.json { render :show, status: :created, location: @room }
       else

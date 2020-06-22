@@ -1,68 +1,70 @@
+<script src="https://www.google.com/recaptcha/api.js"></script>
+
 <div class="container">
     <%= form_for(@room) do |f| %>
-      <% if @room.errors.any? %>
-        <div id="error_explanation">
-          <h2><%= pluralize(@room.errors.count, "error") %> prohibited this room from being saved:</h2>
+      <%# if @room.errors.any? %>
+        <!-- <div id="error_explanation"> -->
+          <!-- <h2><%#= pluralize(@room.errors.count, "error") %> prohibited this room from being saved:</h2> -->
 
-          <ul>
-          <% @room.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-          </ul>
-        </div>
-      <% end %>
+          <!-- <ul> -->
+          <%# @room.errors.full_messages.each do |message| %>
+            <!-- <li><%#= message %></li> -->
+          <%# end %>
+          <!-- </ul> -->
+        <!-- </div> -->
+      <%# end %>
 
       <div class="row">
-        <div class="col-xs-2">
+        <div class="ol-lg-2 col-md-2 col-sm-2 col-xs-2">
           <%= link_to 'Back', rooms_path, class: "btn btn-primary btn-sm" %>
         </div>
       </div>
       <br>
       <div class="row">
-        <div class="col-xs-1">
+        <div class=" col-lg-1 col-md-1 col-sm-1 col-xs-1 ">
           <%= f.label :name %>
         </div>
-        <div class="col-xs-1">
+        <div class=" col-lg-1 col-md-1 col-sm-1 col-xs-1 ">
           <span class="glyphicon glyphicon-asterisk" style="color: red;" data-toggle="tooltip" title="Name Con't be blank"></span>
         </div>
-        <div class="col-xs-3">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
           <div class="form-group">
             <%= f.text_field :name, class: "form-control input-sm" , placeholder: "Enter Name" %>
             <span id="nameMsg"></span>
           </div>
         </div>
       
-        <div class="col-xs-offset-1 col-xs-1">
+        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 ">
           <%= f.label :price %>
         </div>
-        <div class="col-xs-1">
+        <div class=" col-lg-1 col-md-1 col-sm-1 col-xs-1 ">
           <span class="glyphicon glyphicon-asterisk" style="color: red;" data-toggle="tooltip" title="Price Con't be blank"></span>
         </div>
-        <div class="col-xs-3">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
           <%= f.text_field :price, class: "form-control input-sm" , placeholder: "Enter Price"%>
           <span id="priceMsg"></span>          
         </div>
       </div>
       
       <div class="row">
-        <div class="col-xs-1">
+        <div class=" col-lg-1 col-md-1 col-sm-1 col-xs-1 ">
           <label>
             State 
           </label>  
         </div>
-        <div class="col-xs-1">
+        <div class=" col-lg-1 col-md-1 col-sm-1 col-xs-1 ">
           <span class="glyphicon glyphicon-asterisk" style="color: red;" data-toggle="tooltip" title="State Con't be blank"></span>
         </div>
-        <div class="col-xs-3 ">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 ">
           <%= f.collection_select :state_id, State.all, :id , :name, {}, class: "form-control input-sm"%>
         </div>
-        <div class="col-xs-offset-1 col-xs-1">
+        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 ">
           <%= f.label :city %>
         </div>
-        <div class="col-xs-1">
+        <div class=" col-lg-1 col-md-1 col-sm-1 col-xs-1 ">
           <span class="glyphicon glyphicon-asterisk" style="color: red;" data-toggle="tooltip" title="City Con't be blank"></span>
         </div>
-        <div class="col-xs-3">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
             <%= f.collection_select :city_id, [], :id , :name, {}, class: "form-control input-sm"%>
             <!-- <select name="city_id" id="city" class="form-control input-sm">
               <option value="#">City</option>
@@ -71,79 +73,85 @@
       </div>
       <br/>
       <div class="row">
-        <div class="col-xs-1">
+        <div class=" col-lg-1 col-md-1 col-sm-1 col-xs-1 ">
           <label>Room Type</label>
         </div>
-        <div class="col-xs-1">
+        <div class=" col-lg-1 col-md-1 col-sm-1 col-xs-1 ">
           <span class="glyphicon glyphicon-asterisk" style="color: red;" data-toggle="tooltip" title="Room Type Con't be blank"></span>
         </div>
-        <div class="col-xs-3">
-           <%= f.select :house_type, [['House Type', '#'],['Single Room', 'single_room'],['1 BHK','1 bhk'],['2 BHK', '2 bhk'],['3 BHK',"3 bhk"],['4 BHK','4 bhk']], {}, class: "form-control input-sm" %>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+           <%= f.select :house_type, [['House Type', '#'],['Single Room', 'single_room'],['1 BHK','1 bhk'],['2 BHK', '2 bhk'],['4 BHK',"4 bhk"],['4 BHK','4 bhk']], {}, class: "form-control input-sm" %>
         </div>
-        <div class="col-xs-offset-1 col-xs-1">
+        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 ">
           <label>
             House Plan
           </label>
         </div>
-        <div class="col-xs-1">
+        <div class=" col-lg-1 col-md-1 col-sm-1 col-xs-1 ">
           <span class="glyphicon glyphicon-asterisk" style="color: red;" data-toggle="tooltip" title="House plan Con't be blank"></span>
         </div>
-        <div class="col-xs-3">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
            <%= f.select :house_plan, [['House Plan', '#'],['Rent', 'rent'],['Lease','lease'],['Sale', 'sale']], {}, class: "form-control input-sm" %>
         </div>
       </div>
       <div class="row">
-        <div class="col-xs-1">
+        <div class=" col-lg-1 col-md-1 col-sm-1 col-xs-1 ">
+          <%= f.label :images %>
+        </div>
+        <div class=" col-lg-1 col-md-1 col-sm-1 col-xs-1 ">
+          <span class="glyphicon glyphicon-asterisk" style="color: red;" data-toggle="tooltip" title="Image Con't be blank" ></span>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+          <%= f.file_field :images , class: "form-control input-sm"%>
+          <span id="imagesMsg"></span>
+        </div>
+      </div>
+      <div class="row">
+        <div class=" col-lg-1 col-md-1 col-sm-1 col-xs-1 ">
           <%= f.label :description %>
         </div>
-        <div class="col-xs-1">
+        <div class=" col-lg-1 col-md-1 col-sm-1 col-xs-1 ">
           <span class="glyphicon glyphicon-asterisk" style="color: red;" data-toggle="tooltip" title="Description Con't be blank"></span>
         </div>
-        <div class="col-xs-3">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
           <%= f.text_area :description, class: "form-control input-sm" , placeholder: "Enter Description"%>
-          <span id="priceMsg"></span>          
+          <span id="descriptionMsg"></span>          
         </div>
-        <div class="col-xs-offset-1 col-xs-1">
+      </div>
+      <div class="row">
+        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 ">
           <%= f.label :rules %>
         </div>
-        <div class="col-xs-1">
+        <div class=" col-lg-1 col-md-1 col-sm-1 col-xs-1 ">
           <span class="glyphicon glyphicon-asterisk" style="color: red;" data-toggle="tooltip" title="Rules Con't be blank"></span>
         </div>
-        <div class="col-xs-3">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
           <%= f.text_area :rules, class: "form-control input-sm" , placeholder: "Enter Rules"%>
           <span id="rulesMsg"></span>
         </div>
       </div>
-      <br/>
+
       <div class="row">
-        <div class="col-xs-1">
-          <%= f.label :images %><br>
+        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 ">
+          <%= f.label :address %>
         </div>
-        <div class="col-xs-1">
-          <span class="glyphicon glyphicon-asterisk" style="color: red;" data-toggle="tooltip" title="Image Con't be blank" ></span>
-        </div>
-        <div class="col-xs-3">
-          <%= f.file_field :images , class: "form-control input-sm"%>
-        </div>
-        <div class="col-xs-offset-1 col-xs-1">
-          <%= f.label :address %><br>
-        </div>
-        <div class="col-xs-1">
+        <div class=" col-lg-1 col-md-1 col-sm-1 col-xs-1 ">
           <span class="glyphicon glyphicon-asterisk" style="color: red;" data-toggle="tooltip" title="Address Con't be blank"></span>
         </div>
-        <div class="col-xs-3">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
           <%= f.text_area :address, class: "form-control input-sm", placeholder: "Enter Address" %>
           <span id="addressMsg"></span>          
         </div>
       </div>
+
       <div class="row">
-        <div class="col-xs-1">
+        <div class=" col-lg-1 col-md-1 col-sm-1 col-xs-1 ">
           <%= f.label :amenities%>
         </div>
-        <div class="col-xs-1">
+        <div class=" col-lg-1 col-md-1 col-sm-1 col-xs-1 ">
           <span class="glyphicon glyphicon-asterisk" style="color: red;" data-toggle="tooltip" title="Aminities Con't be blank"></span>
         </div>
-        <div class="col-xs-8">
+        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 offset-md-1">
           <div class="checkbox">
             <%= f.collection_check_boxes :amenity_ids, Amenity.all, :id, :name do |course|%>
             <label>
@@ -154,16 +162,20 @@
           </div>          
         </div>
       </div>
-      <br>
+
       <div class="actions">
         <div class="row">
-          <div class="col-xs-offset-5">
-            <%= f.submit "Add Room", class: "btn btn-primary btn-sm" %>
+          <div class="col-lg-6 col-sm-6 col-xs-6 col-md-6 offset-md-4 g-recaptcha" data-sitekey="6LdGoqcZAAAAAKlQxcQj4Cc0xNhKA1sGcCK3nI_n"></div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 offset-md-5">
+            <%= f.submit "Add Room", class: "btn btn-primary btn-sm add_room" %>
           </div>
         </div>
       </div>
     <% end %>
 </div>
+
 <script>
   var nameHandle = document.getElementById('room_name');
   var descriptionHandle = document.getElementById('room_description');
@@ -257,8 +269,9 @@
     }
   }
 
-<%if action_name != "edit" %>
+<%#if action_name != "edit" %>
 roomFormHandle.addEventListener('submit',function(e){
+  // e.preventDefault()
   validateName();
   validateDescription();
   validatePrice();
@@ -272,7 +285,7 @@ roomFormHandle.addEventListener('submit',function(e){
   }
 
 },false);
-<%end%>
+<%#end%>
   $(document).ready(function(){
     $('#room_state_id').on('change', function(){
       var state = $('#room_state_id').val()
@@ -301,10 +314,23 @@ roomFormHandle.addEventListener('submit',function(e){
 
 
 <style type="text/css">
+.actions {
+  padding: 10px;
+}
+
 select.input-sm, textarea.input-sm, input[type=file] , input[type=text]{
   border: 1px solid #555;
 }
 
+textarea.input-sm {
+  width: 620px;
+  height: 80px;
+  margin: 20px;
+}
+
+.add_room {
+  margin: 20px;
+}
 .input-sm {
     height: 26px;
     padding: 5px 10px;
@@ -330,12 +356,4 @@ body {
     margin-bottom: 50px;
 }
 
-.col-xs-8 {
-    width: 64.333333%;
-    margin-left: -61px;
-    margin-top: -6px;
-}
-.col-xs-offset-1 {
-    margin-left: -3%;
-}
 </style>

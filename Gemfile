@@ -1,6 +1,7 @@
 source 'http://rubygems.org'
 
 ruby '2.4.1'
+gem 'rack-cors', :require => 'rack/cors'
 
 gem 'geocoder', '~> 1.3', '>= 1.3.7'
 gem 'faker'
@@ -35,6 +36,7 @@ gem 'omniauth-google-oauth2'
 gem 'omniauth-github'
 gem 'doorkeeper'
 gem 'whenever', :require => false
+gem 'recaptcha'
 
 group :development do
   gem 'web-console', '~> 2.0'

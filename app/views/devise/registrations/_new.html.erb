@@ -23,6 +23,11 @@
     <label for="pass" class="label">Repeat Password</label>
     <input id="pass" type="password" class="input" data-type="password">
   </div>
+   <div class="group">
+    <%#= flash[:recaptcha_error] %>
+
+                    <%#= recaptcha_tags %>
+                </div>
   <div class="group">
     <input type="submit" class="button" value="Sign Up">
   </div>

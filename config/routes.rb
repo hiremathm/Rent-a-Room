@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   
   use_doorkeeper
   
-  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks", :registrations => "users/registrations" }
   
   resources :enquiries
   resources :reviews
@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   get '/home' => 'custom_pages#home', :as => 'home'
   get '/about' => 'custom_pages#about', :as => 'about'
   get '/contact' => 'custom_pages#contact', :as => 'contact'
+  get '/amazon' => 'custom_pages#amazon', :as => 'amazon'
   #Room Routes
   get 'rooms/search_room'
   get 'rooms/find_by_cities'
