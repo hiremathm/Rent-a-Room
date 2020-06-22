@@ -280,6 +280,13 @@ a:hover {
   border-radius: 0;
   padding: 12px 0;
 }
+.navbar-default .dropdown {
+  padding-right: 40px;
+}
+.navbar-default .dropdown .dropdown-menu a {
+  text-decoration: none;
+}
+
 .navbar-default .dropdown .dropdown-menu .dropdown-item {
   padding: 12px 18px;
   transition: all 500ms ease;
