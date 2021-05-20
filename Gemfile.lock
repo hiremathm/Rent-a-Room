@@ -87,7 +87,7 @@ GEM
     ffi (1.11.1)
     friendly_id (5.1.0)
       activerecord (>= 4.0.0)
-    geocoder (1.5.1)
+    geocoder (1.6.1)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     hashie (3.6.0)
@@ -262,7 +262,7 @@ DEPENDENCIES
   doorkeeper
   faker
   friendly_id (~> 5.1.0)
-  geocoder (~> 1.3, >= 1.3.7)
+  geocoder (~> 1.6)
   httparty
   jbuilder (~> 2.0)
   jquery-rails

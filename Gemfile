@@ -3,7 +3,7 @@ source 'http://rubygems.org'
 ruby '2.4.1'
 gem 'rack-cors', :require => 'rack/cors'
 
-gem 'geocoder', '~> 1.3', '>= 1.3.7'
+gem 'geocoder', '~> 1.6'
 gem 'faker'
 gem 'devise'
 gem 'cancancan'
